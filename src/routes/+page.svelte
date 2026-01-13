@@ -363,15 +363,17 @@
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
 				<div class="space-y-4">
 					<h2 class="text-xl font-semibold text-primary-light dark:text-primary-dark">Contact</h2>
-					<a
-						href="mailto:feedback@radicle.xyz"
-						target="_blank"
-						rel="noreferrer"
-						class="text-secondary-light dark:text-secondary-dark link-highlight"
-					>
-						<span>feedback@radicle.xyz</span>
-					</a>
 					<ul class="space-y-2 text-secondary-light dark:text-secondary-dark">
+						<li>
+							<a
+								href="mailto:feedback@radicle.xyz"
+								target="_blank"
+								rel="noreferrer"
+								class="link-highlight"
+							>
+								<span>feedback@radicle.xyz</span>
+							</a>
+						</li>
 						<li>
 							<a
 								href="https://radicle.zulipchat.com/"
