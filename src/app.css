@@ -115,6 +115,10 @@
 		background-color: #FFFFFF;
 	}
 
+	.dark .btn-invert-hover-dark::after {
+		background-color: #000000;
+	}
+
 	.link-highlight {
 		position: relative;
 		display: inline-block;

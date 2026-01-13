@@ -186,7 +186,7 @@
 				</p>
 				<a
 					href="/auth/signup"
-					class="inline-block px-10 py-5 rounded-sm text-xl font-semibold transition bg-black text-white dark:bg-white dark:text-black btn-invert-hover btn-invert-hover-white hover:text-black"
+					class="inline-block px-10 py-5 rounded-sm text-xl font-semibold transition bg-black text-white dark:bg-white dark:text-black btn-invert-hover btn-invert-hover-white btn-invert-hover-dark hover:text-black dark:hover:text-white"
 				>
 					<span>Get one for $10/month</span>
 				</a>
