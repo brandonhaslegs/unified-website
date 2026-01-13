@@ -386,7 +386,7 @@
 						</li>
 						<li class="text-primary-light dark:text-primary-dark">
 							Garden
-							<span class="ml-2 inline-flex items-center gap-0.5 rounded-sm bg-brand/20 dark:bg-brand/30 px-1 py-1 text-xs font-semibold text-primary-light dark:text-primary-dark">
+							<span class="ml-2 inline-flex items-center gap-0.5 rounded-sm bg-brand/20 dark:bg-brand/30 pl-1 pr-2 py-1 text-xs font-semibold text-primary-light dark:text-primary-dark">
 								<Icon name="PinFilled" size={12} className="icon-current" />
 								<span>You are here</span>
 							</span>
