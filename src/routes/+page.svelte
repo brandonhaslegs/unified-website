@@ -266,7 +266,7 @@
 				<h2 class="text-4xl md:text-5xl font-semibold text-primary-light dark:text-primary-dark">Updates</h2>
 				<ul class="space-y-3 text-lg text-secondary-light dark:text-secondary-dark min-w-0 overflow-hidden">
 					<li class="flex items-baseline gap-2 overflow-hidden whitespace-nowrap min-w-0">
-						<span class="font-mono font-semibold text-brand shrink-0 text-xs">30.09.2025</span>
+						<span class="font-mono font-semibold text-brand-text shrink-0 text-xs">30.09.2025</span>
 						<a
 							href="https://radicle.xyz/2025/09/30/radicle-1.5.0.html"
 							target="_blank"
@@ -277,7 +277,7 @@
 						</a>
 					</li>
 					<li class="flex items-baseline gap-2 overflow-hidden whitespace-nowrap min-w-0">
-						<span class="font-mono font-semibold text-brand shrink-0 text-xs">04.09.2025</span>
+						<span class="font-mono font-semibold text-brand-text shrink-0 text-xs">04.09.2025</span>
 						<a
 							href="https://radicle.xyz/2025/09/04/radicle-1.4.0.html"
 							target="_blank"
@@ -288,7 +288,7 @@
 						</a>
 					</li>
 					<li class="flex items-baseline gap-2 overflow-hidden whitespace-nowrap min-w-0">
-						<span class="font-mono font-semibold text-brand shrink-0 text-xs">12.08.2025</span>
+						<span class="font-mono font-semibold text-brand-text shrink-0 text-xs">12.08.2025</span>
 						<a
 							href="https://radicle.xyz/2025/08/12/radicle-1.3.0.html"
 							target="_blank"
@@ -299,7 +299,7 @@
 						</a>
 					</li>
 					<li class="flex items-baseline gap-2 overflow-hidden whitespace-nowrap min-w-0">
-						<span class="font-mono font-semibold text-brand shrink-0 text-xs">17.07.2025</span>
+						<span class="font-mono font-semibold text-brand-text shrink-0 text-xs">17.07.2025</span>
 						<a
 							href="https://radicle.xyz/2025/07/17/radicle-1.2.1.html"
 							target="_blank"
@@ -310,7 +310,7 @@
 						</a>
 					</li>
 					<li class="flex items-baseline gap-2 overflow-hidden whitespace-nowrap min-w-0">
-						<span class="font-mono font-semibold text-brand shrink-0 text-xs">13.06.2025</span>
+						<span class="font-mono font-semibold text-brand-text shrink-0 text-xs">13.06.2025</span>
 						<a
 							href="https://radicle.xyz/2025/06/13/radicle-desktop.html"
 							target="_blank"
@@ -321,7 +321,7 @@
 						</a>
 					</li>
 					<li class="flex items-baseline gap-2 overflow-hidden whitespace-nowrap min-w-0">
-						<span class="font-mono font-semibold text-brand shrink-0 text-xs">02.06.2025</span>
+						<span class="font-mono font-semibold text-brand-text shrink-0 text-xs">02.06.2025</span>
 						<a
 							href="https://radicle.xyz/2025/06/02/radicle-1.2.0.html"
 							target="_blank"
@@ -332,7 +332,7 @@
 						</a>
 					</li>
 					<li class="flex items-baseline gap-2 overflow-hidden whitespace-nowrap min-w-0">
-						<span class="font-mono font-semibold text-brand shrink-0 text-xs">05.12.2024</span>
+						<span class="font-mono font-semibold text-brand-text shrink-0 text-xs">05.12.2024</span>
 						<a
 							href="https://radicle.xyz/2024/12/05/radicle-1.1.0.html"
 							target="_blank"
@@ -343,7 +343,7 @@
 						</a>
 					</li>
 					<li class="flex items-baseline gap-2 overflow-hidden whitespace-nowrap min-w-0">
-						<span class="font-mono font-semibold text-brand shrink-0 text-xs">10.09.2024</span>
+						<span class="font-mono font-semibold text-brand-text shrink-0 text-xs">10.09.2024</span>
 						<a
 							href="https://radicle.xyz/2024/09/10/radicle-1.0.0.html"
 							target="_blank"
@@ -398,45 +398,45 @@
 					<h2 class="text-xl font-semibold text-primary-light dark:text-primary-dark">Blog</h2>
 					<ul class="space-y-2 text-secondary-light dark:text-secondary-dark">
 						<li class="flex items-baseline gap-2 overflow-hidden whitespace-nowrap">
-							<span class="font-mono font-semibold text-brand shrink-0 text-xs">14.08.2025</span>
+							<span class="font-mono font-semibold text-brand-text shrink-0 text-xs">14.08.2025</span>
 							<a
 								href="https://radicle.xyz/2025/08/14/jujutsu-with-radicle.html"
 								target="_blank"
 								rel="noreferrer"
-								class="truncate link-highlight min-w-0 flex-1"
+								class="truncate link-highlight inline-block max-w-full"
 							>
 								<span>Jujutsu + Radicle = ❤️</span>
 							</a>
 						</li>
 						<li class="flex items-baseline gap-2 overflow-hidden whitespace-nowrap">
-							<span class="font-mono font-semibold text-brand shrink-0 text-xs">12.08.2025</span>
+							<span class="font-mono font-semibold text-brand-text shrink-0 text-xs">12.08.2025</span>
 							<a
 								href="https://radicle.xyz/2025/08/12/canonical-references.html"
 								target="_blank"
 								rel="noreferrer"
-								class="truncate link-highlight min-w-0 flex-1"
+								class="truncate link-highlight inline-block max-w-full"
 							>
 								<span>Canonical References</span>
 							</a>
 						</li>
 						<li class="flex items-baseline gap-2 overflow-hidden whitespace-nowrap">
-							<span class="font-mono font-semibold text-brand shrink-0 text-xs">23.07.2025</span>
+							<span class="font-mono font-semibold text-brand-text shrink-0 text-xs">23.07.2025</span>
 							<a
 								href="https://radicle.xyz/2025/07/23/using-radicle-ci-for-development.html"
 								target="_blank"
 								rel="noreferrer"
-								class="truncate link-highlight min-w-0 flex-1"
+								class="truncate link-highlight inline-block max-w-full"
 							>
 								<span>Using Radicle CI for Development</span>
 							</a>
 						</li>
 						<li class="flex items-baseline gap-2 overflow-hidden whitespace-nowrap">
-							<span class="font-mono font-semibold text-brand shrink-0 text-xs">30.05.2025</span>
+							<span class="font-mono font-semibold text-brand-text shrink-0 text-xs">30.05.2025</span>
 							<a
 								href="https://radicle.xyz/2025/05/30/radicle-with-github-actions.html"
 								target="_blank"
 								rel="noreferrer"
-								class="truncate link-highlight min-w-0 flex-1"
+								class="truncate link-highlight inline-block max-w-full"
 							>
 								<span>How we used Radicle with GitHub Actions</span>
 							</a>
