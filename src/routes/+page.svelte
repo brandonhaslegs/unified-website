@@ -459,16 +459,6 @@
 						</li>
 						<li>
 							<a
-								href="https://radicle.zulipchat.com/"
-								target="_blank"
-								rel="noreferrer"
-								class="link-highlight"
-							>
-								<span>Zulip</span>
-							</a>
-						</li>
-						<li>
-							<a
 								href="https://bsky.app/profile/radicle.xyz"
 								target="_blank"
 								rel="noreferrer"
@@ -479,12 +469,12 @@
 						</li>
 						<li>
 							<a
-								href="https://x.com/radicle"
+								href="https://radicle.zulipchat.com/"
 								target="_blank"
 								rel="noreferrer"
 								class="link-highlight"
 							>
-								<span>X</span>
+								<span>Zulip</span>
 							</a>
 						</li>
 						<li>
@@ -495,6 +485,16 @@
 								class="link-highlight"
 							>
 								<span>RSS</span>
+							</a>
+						</li>
+						<li>
+							<a
+								href="https://x.com/radicle"
+								target="_blank"
+								rel="noreferrer"
+								class="link-highlight"
+							>
+								<span>X</span>
 							</a>
 						</li>
 					</ul>
