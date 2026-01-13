@@ -240,7 +240,7 @@
 
 			<div>
 				<div class="h-16 w-16 bg-brand/20 dark:bg-brand/30 rounded-sm flex items-center justify-center mb-6">
-					<Icon name="SeedFilled" size={32} className="icon-brand" />
+					<Icon name="Seed" size={32} className="icon-brand" />
 				</div>
 				<h3 class="text-2xl font-bold text-primary-light dark:text-primary-dark mb-3">Reliable Infrastructure</h3>
 				<p class="text-lg text-secondary-light dark:text-secondary-dark">
