@@ -362,62 +362,6 @@
 		<div>
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
 				<div class="space-y-4">
-					<h2 class="text-xl font-semibold text-primary-light dark:text-primary-dark">Contact</h2>
-					<ul class="space-y-2 text-secondary-light dark:text-secondary-dark">
-						<li>
-							<a
-								href="mailto:feedback@radicle.xyz"
-								target="_blank"
-								rel="noreferrer"
-								class="link-highlight"
-							>
-								<span>feedback@radicle.xyz</span>
-							</a>
-						</li>
-						<li>
-							<a
-								href="https://radicle.zulipchat.com/"
-								target="_blank"
-								rel="noreferrer"
-								class="link-highlight"
-							>
-								<span>Zulip</span>
-							</a>
-						</li>
-						<li>
-							<a
-								href="https://bsky.app/profile/radicle.xyz"
-								target="_blank"
-								rel="noreferrer"
-								class="link-highlight"
-							>
-								<span>Bluesky</span>
-							</a>
-						</li>
-						<li>
-							<a
-								href="https://x.com/radicle"
-								target="_blank"
-								rel="noreferrer"
-								class="link-highlight"
-							>
-								<span>X</span>
-							</a>
-						</li>
-						<li>
-							<a
-								href="https://radicle.xyz/feed.xml"
-								target="_blank"
-								rel="noreferrer"
-								class="link-highlight"
-							>
-								<span>RSS</span>
-							</a>
-						</li>
-					</ul>
-				</div>
-
-				<div class="space-y-4">
 					<h2 class="text-xl font-semibold text-primary-light dark:text-primary-dark">Products</h2>
 					<ul class="space-y-2 text-secondary-light dark:text-secondary-dark">
 						<li>
@@ -495,6 +439,62 @@
 								class="truncate link-highlight min-w-0 flex-1"
 							>
 								<span>How we used Radicle with GitHub Actions</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="space-y-4">
+					<h2 class="text-xl font-semibold text-primary-light dark:text-primary-dark">Contact</h2>
+					<ul class="space-y-2 text-secondary-light dark:text-secondary-dark">
+						<li>
+							<a
+								href="mailto:feedback@radicle.xyz"
+								target="_blank"
+								rel="noreferrer"
+								class="link-highlight"
+							>
+								<span>feedback@radicle.xyz</span>
+							</a>
+						</li>
+						<li>
+							<a
+								href="https://radicle.zulipchat.com/"
+								target="_blank"
+								rel="noreferrer"
+								class="link-highlight"
+							>
+								<span>Zulip</span>
+							</a>
+						</li>
+						<li>
+							<a
+								href="https://bsky.app/profile/radicle.xyz"
+								target="_blank"
+								rel="noreferrer"
+								class="link-highlight"
+							>
+								<span>Bluesky</span>
+							</a>
+						</li>
+						<li>
+							<a
+								href="https://x.com/radicle"
+								target="_blank"
+								rel="noreferrer"
+								class="link-highlight"
+							>
+								<span>X</span>
+							</a>
+						</li>
+						<li>
+							<a
+								href="https://radicle.xyz/feed.xml"
+								target="_blank"
+								rel="noreferrer"
+								class="link-highlight"
+							>
+								<span>RSS</span>
 							</a>
 						</li>
 					</ul>
