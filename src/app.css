@@ -1,13 +1,186 @@
+@font-face {
+	font-family: 'Booton';
+	src: url('/fonts/Booton-Regular.woff2') format('woff2');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Booton';
+	src: url('/fonts/Booton-RegularItalic.woff2') format('woff2');
+	font-weight: 400;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Booton';
+	src: url('/fonts/Booton-Medium.woff2') format('woff2');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Booton';
+	src: url('/fonts/Booton-SemiBold.woff2') format('woff2');
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Booton';
+	src: url('/fonts/Booton-SemiBoldItalic.woff2') format('woff2');
+	font-weight: 600;
+	font-style: italic;
+	font-display: swap;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+	:root {
+		--color-brand: 88 230 0;
+		--color-brand-emphasised: 115 233 38;
+		--color-brand-text: 37 100 0;
+		--color-brand-border: 115 233 38;
+	}
+
+	.dark {
+		--color-brand: 54 140 0;
+		--color-brand-emphasised: 70 160 24;
+		--color-brand-text: 205 245 165;
+		--color-brand-border: 70 160 24;
+	}
+
 	body {
 		margin: 0;
-		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+		font-family: 'Booton', sans-serif;
 		min-height: 100vh;
-		@apply bg-gray-50 dark:bg-gray-900;
+		background-color: #F8F9FA;
+	}
+
+	.dark body {
+		background-color: #00060F;
 	}
 }
 
+@layer components {
+	.btn-brand {
+		background-color: #58E600;
+		color: #000000;
+	}
+
+	.btn-brand:hover {
+		background-color: #73E926;
+	}
+
+	.btn-invert-hover {
+		position: relative;
+		overflow: hidden;
+		isolation: isolate;
+		transition: color 200ms ease;
+	}
+
+	.btn-invert-hover::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background-color: #000000;
+		transform: translateY(100%);
+		transition: transform 240ms ease;
+		z-index: 0;
+	}
+
+	.btn-invert-hover:hover::after {
+		transform: translateY(0);
+	}
+
+	.btn-invert-hover:hover {
+		color: #FFFFFF;
+	}
+
+	.btn-invert-hover > span {
+		position: relative;
+		z-index: 1;
+	}
+
+	.btn-invert-hover-white::after {
+		background-color: #FFFFFF;
+	}
+
+	.link-highlight {
+		position: relative;
+		display: inline-block;
+		border-radius: 0.125rem;
+		overflow: hidden;
+		isolation: isolate;
+		transition: color 200ms ease;
+	}
+
+	.link-highlight::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background-color: rgba(var(--color-brand) / 0.25);
+		transform: translateY(110%);
+		transition: transform 240ms ease;
+		z-index: 0;
+	}
+
+	.link-highlight:hover::after {
+		transform: translateY(0);
+	}
+
+	.link-highlight:hover {
+		color: #000000;
+	}
+
+	.link-highlight > span {
+		position: relative;
+		z-index: 1;
+	}
+
+	.link-highlight-block {
+		display: block;
+		width: 100%;
+		max-width: 100%;
+	}
+
+	.text-highlight {
+		background-color: #FFFFFF;
+		color: #000000;
+		box-decoration-break: clone;
+		padding: 0.2em 0.4em;
+	}
+
+	.dark .text-highlight {
+		background-color: #000000;
+		color: #FFFFFF;
+	}
+}
+
+@layer utilities {
+	.font-mono {
+		font-family: 'JetBrains Mono', monospace;
+	}
+
+	.icon-brand {
+		filter: brightness(0) saturate(100%) invert(63%) sepia(88%) saturate(749%) hue-rotate(46deg) brightness(96%) contrast(103%);
+	}
+
+	/* Override dark mode text colors */
+	.dark .text-primary-dark {
+		color: #E0E1E2 !important;
+	}
+
+	.dark .text-secondary-dark {
+		color: #B8BABC !important;
+	}
+}
