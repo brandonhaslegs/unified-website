@@ -6,7 +6,7 @@
 
 	let heroEl: HTMLElement;
 
-	const illustrationModules = import.meta.glob('/src/illustrations/*.{png,jpg,jpeg,webp,avif}', {
+	const illustrationModules = import.meta.glob('/src/illustrations/*.png', {
 		eager: true,
 		import: 'default'
 	});
@@ -43,7 +43,7 @@
 			</div>
 			<div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
 				<div class="max-w-4xl relative z-10">
-				<h1 class="text-6xl sm:text-7xl md:text-9xl font-bold tracking-tight text-white dark:text-black mb-6 leading-none">Always-on node for your Radicle repos</h1>
+				<h1 class="text-6xl sm:text-7xl md:text-9xl font-bold tracking-tight text-black mb-6 leading-none">Always-on node for your Radicle repos</h1>
 				<p class="text-2xl md:text-3xl text-secondary-light dark:text-black mb-12 leading-snug text-black">
 					<span class="text-highlight">The security of Radicle with the convenience of availability.</span>
 				</p>

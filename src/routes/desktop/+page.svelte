@@ -85,7 +85,7 @@
     installOptions[0];
 
   const illustrationModules = import.meta.glob(
-    "/src/illustrations/*.{png,jpg,jpeg,webp,avif}",
+    "/src/illustrations/*.png",
     {
       eager: true,
       import: "default",
@@ -153,14 +153,14 @@
       </div>
     </div>
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-      <div class="max-w-3xl">
+      <div>
         <h1
-          class="text-6xl md:text-7xl font-bold tracking-tight text-white dark:text-black mb-6"
+          class="text-6xl sm:text-7xl md:text-9xl font-bold tracking-tight text-black mb-6 leading-none"
         >
-          Radicle Desktop
+          Radicle collaboration, now on desktop
         </h1>
         <p
-          class="text-2xl text-secondary-light dark:text-black mb-10 leading-snug text-black"
+          class="text-2xl text-secondary-light dark:text-black mb-10 leading-snug text-black max-w-3xl"
         >
           <span class="text-highlight"
             >A simple, intuitive desktop app that makes contributing to the
@@ -182,6 +182,7 @@
               itemClass="block w-full text-left px-3 py-2 text-lg font-semibold rounded-sm hover:bg-black/5 dark:hover:bg-white/10"
               activeClass="bg-black/10 dark:bg-white/20"
               chevronClass="icon-text"
+              immediateClose={true}
               on:change={(event) => (selectedInstallValue = event.detail)}
             />
           </div>
@@ -230,17 +231,17 @@
             {/if}
           </div>
         </div>
-        <img
-          src={desktopHeroImage}
-          alt="Radicle Desktop repositories view"
-          class="mt-10 w-full rounded-sm"
-          loading="lazy"
-        />
       </div>
     </div>
   </section>
 
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+    <img
+      src={desktopHeroImage}
+      alt="Radicle Desktop repositories view"
+      class="mb-16 w-full rounded-sm"
+      loading="lazy"
+    />
     <section>
       <h2
         class="text-3xl font-semibold text-primary-light dark:text-primary-dark mb-8"

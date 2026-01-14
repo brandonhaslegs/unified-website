@@ -8,7 +8,7 @@
 	let copied = false;
 	let copyTimeout: ReturnType<typeof setTimeout> | null = null;
 
-	const illustrationModules = import.meta.glob('/src/illustrations/*.{png,jpg,jpeg,webp,avif}', {
+	const illustrationModules = import.meta.glob('/src/illustrations/*.png', {
 		eager: true,
 		import: 'default'
 	});
@@ -60,11 +60,11 @@
 			</div>
 		</div>
 		<div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-			<div class="max-w-3xl">
-				<h1 class="text-[clamp(4rem,12vw,11rem)] font-bold tracking-tight text-white dark:text-black mb-6">
-					CLI
+			<div>
+				<h1 class="text-6xl sm:text-7xl md:text-9xl font-bold tracking-tight text-black mb-6 leading-none">
+					Command-line control for Radicle
 				</h1>
-				<p class="text-2xl text-secondary-light dark:text-black mb-10 leading-snug text-black">
+				<p class="text-2xl text-secondary-light dark:text-black mb-10 leading-snug text-black max-w-3xl">
 					<span class="text-highlight">The command line interface for working with Radicle repositories, patches, and identities.</span>
 				</p>
 				<div class="inline-flex flex-col space-y-3 rounded-sm bg-white text-black dark:bg-black dark:text-white p-4 sm:p-5 w-fit max-w-full">

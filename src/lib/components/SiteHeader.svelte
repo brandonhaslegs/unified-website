@@ -16,10 +16,10 @@ let ctaCopied = false;
 let ctaCopyTimeout: ReturnType<typeof setTimeout> | null = null;
 
 	const pages = [
-		{ label: 'CLI', value: '/cli' },
-		{ label: 'Desktop', value: '/desktop' },
-		{ label: 'Protocol', value: '/protocol' },
-		{ label: 'Garden', value: '/garden' }
+		{ label: 'Protocol', value: '/protocol', icon: 'Share' },
+		{ label: 'CLI', value: '/cli', icon: 'Code' },
+		{ label: 'Desktop', value: '/desktop', icon: 'Device' },
+		{ label: 'Garden', value: '/garden', icon: 'Seed' }
 	];
 	$: currentValue =
 		$page.url.pathname.startsWith('/cli')
@@ -62,10 +62,10 @@ function handleCtaCopy() {
 					value={currentValue}
 					label={currentLabel}
 					ariaLabel="Page"
-					buttonClass="inline-flex items-center gap-1 text-lg font-normal"
-					menuClass="absolute left-0 top-full w-max rounded-sm bg-white text-black dark:bg-black dark:text-white shadow-lg p-2 z-20"
-					itemClass="block w-full text-left px-3 py-2 text-lg font-normal rounded-sm hover:bg-black/5 dark:hover:bg-white/10"
-					activeClass="bg-black/10 dark:bg-white/20"
+					buttonClass="inline-flex items-center gap-1 text-lg font-normal px-2"
+					menuClass="page-menu absolute left-0 top-full w-max bg-transparent text-black dark:text-white p-3 z-20 flex flex-col items-start gap-0"
+					itemClass="page-menu-item inline-flex w-fit items-center gap-2 text-left px-3 py-2 text-3xl font-normal bg-white text-black dark:bg-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
+					activeClass="!bg-black !text-white dark:!bg-white dark:!text-black"
 					chevronClass="icon-current"
 					on:change={(event) => handlePageChange(event.detail)}
 				/>

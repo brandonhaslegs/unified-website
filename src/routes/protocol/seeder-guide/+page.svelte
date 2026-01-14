@@ -7,7 +7,7 @@
 
 	let heroEl: HTMLElement;
 
-	const illustrationModules = import.meta.glob('/src/illustrations/*.{png,jpg,jpeg,webp,avif}', {
+	const illustrationModules = import.meta.glob('/src/illustrations/*.png', {
 		eager: true,
 		import: 'default'
 	});
@@ -53,7 +53,7 @@
 					<Icon name="ArrowLeft" size={14} className="icon-text" />
 					<span>Back</span>
 				</a>
-				<h1 class="text-6xl md:text-7xl font-bold tracking-tight text-white dark:text-black mb-6">
+				<h1 class="text-6xl md:text-7xl font-bold tracking-tight text-black mb-6">
 					Radicle Seeder Guide
 				</h1>
 				<p class="text-2xl text-secondary-light dark:text-black mb-10 leading-snug text-black">

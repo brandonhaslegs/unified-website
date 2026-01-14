@@ -177,6 +177,43 @@
 		max-width: 100%;
 	}
 
+	.page-menu-item {
+		border-radius: 0;
+	}
+
+.page-menu .page-menu-item {
+	transform-origin: top;
+	animation: page-menu-unfurl 140ms ease-out both;
+	animation-delay: calc(var(--menu-index) * 140ms);
+}
+
+.page-menu-closing .page-menu-item {
+	animation: page-menu-fold 140ms ease-in both;
+	animation-delay: calc((var(--menu-total) - 1 - var(--menu-index)) * 140ms);
+}
+
+	@keyframes page-menu-unfurl {
+		0% {
+			transform: scaleY(0);
+			transform-origin: top;
+		}
+		100% {
+			transform: scaleY(1);
+			transform-origin: top;
+		}
+	}
+
+	@keyframes page-menu-fold {
+		0% {
+			transform: scaleY(1);
+			transform-origin: top;
+		}
+		100% {
+			transform: scaleY(0);
+			transform-origin: top;
+		}
+	}
+
 	.text-highlight {
 		background-color: #FFFFFF;
 		color: #000000;

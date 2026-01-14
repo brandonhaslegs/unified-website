@@ -2,25 +2,25 @@
 	import SiteFooter from '$lib/components/SiteFooter.svelte';
 	import SiteHeader from '$lib/components/SiteHeader.svelte';
 	import Icon from '$lib/components/Icon.svelte';
-	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
 
 	let heroEl: HTMLElement;
 
-	const illustrationModules = import.meta.glob('/src/illustrations/*.{png,jpg,jpeg,webp,avif}', {
+	const illustrationModules = import.meta.glob('/src/illustrations/*.png', {
 		eager: true,
 		import: 'default'
 	});
 	const illustrationUrls = Object.values(illustrationModules) as string[];
 
-	$: if (heroEl && illustrationUrls.length > 0) {
-		const path = $page.url.pathname;
-		let hash = 0;
-		for (let i = 0; i < path.length; i += 1) {
-			hash = (hash * 31 + path.charCodeAt(i)) >>> 0;
+	onMount(() => {
+		if (!heroEl || illustrationUrls.length === 0) {
+			return;
 		}
-		const index = hash % illustrationUrls.length;
-		heroEl.style.setProperty('--hero-image', `url("${illustrationUrls[index]}")`);
-	}
+
+		const heroImage =
+			illustrationUrls.find((url) => url.includes('illustration1.png')) ?? illustrationUrls[0];
+		heroEl.style.setProperty('--hero-image', `url("${heroImage}")`);
+	});
 </script>
 
 <svelte:head>
@@ -45,11 +45,11 @@
 			</div>
 		</div>
 		<div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-			<div class="max-w-3xl">
-				<h1 class="text-6xl md:text-7xl font-bold tracking-tight text-white dark:text-black mb-6">
-					Radicle Protocol
+			<div>
+				<h1 class="text-6xl sm:text-7xl md:text-9xl font-bold tracking-tight text-black mb-6 leading-none">
+					A local-first protocol for peer-to-peer code
 				</h1>
-				<p class="text-2xl text-secondary-light dark:text-black mb-10 leading-snug text-black">
+				<p class="text-2xl text-secondary-light dark:text-black mb-10 leading-snug text-black max-w-3xl">
 					<span class="text-highlight">A local-first, peer-to-peer protocol for sovereign code collaboration—built on Git and backed by cryptographic identities.</span>
 				</p>
 				<div class="flex flex-col items-start gap-6">
