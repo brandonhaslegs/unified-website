@@ -29,10 +29,9 @@
 
 <header class="site-header">
 	<div class="site-header-row">
-		<div class="site-header-brand">
-			<Icon name="Logo" size={24} className="icon-current" />
-			<span>Radicle</span>
-		</div>
+		<a class="site-header-brand" href="/">
+			<img src="/icons/Logo.svg" alt="radicle" class="site-logo-full" />
+		</a>
 		<p class="site-header-tagline">Stop building the future on borrowed ground</p>
 		<div class="site-header-actions">
 			{#if showCta}

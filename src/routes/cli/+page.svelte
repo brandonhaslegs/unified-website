@@ -1,7 +1,7 @@
 <script lang="ts">
 	import SiteFooter from '$lib/components/SiteFooter.svelte';
-	import SiteHeader from '$lib/components/SiteHeader.svelte';
 	import SiteRail from '$lib/components/SiteRail.svelte';
+	import SiteContentHeader from '$lib/components/SiteContentHeader.svelte';
 	import Icon from '$lib/components/Icon.svelte';
 	import { page } from '$app/stores';
 
@@ -42,16 +42,10 @@
 </svelte:head>
 
 <div class="site-shell">
-	<SiteHeader
-		ctaLabel="Install the CLI"
-		ctaIcon="Copy"
-		ctaCopyText="curl -sSLf https://radicle.xyz/install | sh"
-		showAuxLinks={false}
-	/>
-
 	<div class="site-body">
 		<SiteRail />
 		<div class="space-y-16">
+			<SiteContentHeader ctaLabel="Install the CLI" ctaCopyText="curl -sSLf https://radicle.xyz/install | sh" />
 			<section class="site-hero" bind:this={heroEl}>
 				<div class="space-y-6">
 					<h1 class="hero-title">Command-line control for Radicle</h1>

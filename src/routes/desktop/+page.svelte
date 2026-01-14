@@ -1,7 +1,7 @@
 <script lang="ts">
   import SiteFooter from "$lib/components/SiteFooter.svelte";
-  import SiteHeader from "$lib/components/SiteHeader.svelte";
   import SiteRail from "$lib/components/SiteRail.svelte";
+  import SiteContentHeader from "$lib/components/SiteContentHeader.svelte";
   import HoverDropdown from "$lib/components/HoverDropdown.svelte";
   import Icon from "$lib/components/Icon.svelte";
   import { page } from "$app/stores";
@@ -127,18 +127,15 @@
 </svelte:head>
 
 <div class="site-shell">
-  <SiteHeader
-    ctaLabel="Install the desktop app"
-    ctaIcon="Copy"
-    ctaCopyText={selectedInstall.commands
-      .map((command) => command.text)
-      .join("\n\n")}
-    showAuxLinks={false}
-  />
-
   <div class="site-body">
     <SiteRail />
     <div class="space-y-16">
+      <SiteContentHeader
+        ctaLabel="Install the desktop app"
+        ctaCopyText={selectedInstall.commands
+          .map((command) => command.text)
+          .join("\n\n")}
+      />
       <section class="site-hero" bind:this={heroEl}>
         <div class="space-y-6">
           <h1 class="hero-title">Radicle collaboration, now on desktop</h1>

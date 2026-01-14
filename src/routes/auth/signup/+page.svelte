@@ -3,6 +3,8 @@
 	import { signUp } from '$lib/utils/auth';
 	import { showToast } from '$lib/stores/toast';
 	import { user } from '$lib/stores/auth';
+	import SiteRail from '$lib/components/SiteRail.svelte';
+	import SiteContentHeader from '$lib/components/SiteContentHeader.svelte';
 
 	let email = 'test@example.com';
 	let password = 'password123';
@@ -73,8 +75,12 @@
 	<title>Sign Up - Radicle Garden</title>
 </svelte:head>
 
-<div class="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-	<div class="max-w-md w-full space-y-8">
+<div class="app-shell">
+	<div class="site-body">
+		<SiteRail />
+		<div class="app-content">
+			<SiteContentHeader showCta={false} />
+			<div class="max-w-md w-full space-y-8">
 		<div>
 			<h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-gray-100">
 				Create your account
@@ -194,6 +200,7 @@
 				</button>
 			</div>
 		</form>
+			</div>
+		</div>
 	</div>
 </div>
-

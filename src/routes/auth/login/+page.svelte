@@ -3,6 +3,8 @@
 	import { signIn } from '$lib/utils/auth';
 	import { user, isAuthenticated } from '$lib/stores/auth';
 	import { showToast } from '$lib/stores/toast';
+	import SiteRail from '$lib/components/SiteRail.svelte';
+	import SiteContentHeader from '$lib/components/SiteContentHeader.svelte';
 
 	let email = 'test@example.com';
 	let password = 'password123';
@@ -47,96 +49,85 @@
 	<title>Login - Radicle Garden</title>
 </svelte:head>
 
-<div class="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-	<div class="max-w-md w-full space-y-8">
-		<div>
-			<h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-gray-100">Sign in to your account</h2>
-			<p class="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
-				Or
-				<a href="/auth/signup" class="font-medium text-green-600 dark:text-green-400 hover:text-green-500 dark:hover:text-green-300">
-					create a new account
-				</a>
-			</p>
-		</div>
+<div class="app-shell">
+	<div class="site-body">
+		<SiteRail />
+		<div class="app-content">
+			<SiteContentHeader showCta={false} />
+			<div class="max-w-md space-y-10">
+			<div class="space-y-3">
+				<h2 class="section-heading">Sign in to your account</h2>
+				<p class="app-meta">
+					Or
+					<a href="/auth/signup" class="link-highlight">
+						<span>create a new account</span>
+					</a>
+				</p>
+			</div>
 
-		<form class="mt-8 space-y-6" on:submit|preventDefault={handleSubmit}>
-			<div class="space-y-4">
-				<div>
-					<label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-						Email address
-					</label>
-					<input
-						id="email"
-						name="email"
-						type="email"
-						required
-						bind:value={email}
-						class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm {errors.email
-							? 'border-red-500 dark:border-red-500'
-							: ''}"
-						placeholder="you@example.com"
-					/>
-					{#if errors.email}
-						<p class="mt-1 text-sm text-red-600 dark:text-red-400">{errors.email}</p>
-					{/if}
-				</div>
-
-				<div>
-					<label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-						Password
-					</label>
-					<input
-						id="password"
-						name="password"
-						type="password"
-						required
-						bind:value={password}
-						class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm {errors.password
-							? 'border-red-500 dark:border-red-500'
-							: ''}"
-						placeholder="••••••••"
-					/>
-					{#if errors.password}
-						<p class="mt-1 text-sm text-red-600 dark:text-red-400">{errors.password}</p>
-					{/if}
-				</div>
-
-				<div class="flex items-center justify-between">
-					<div class="flex items-center">
+			<form class="space-y-8" on:submit|preventDefault={handleSubmit}>
+				<div class="space-y-6">
+					<div class="space-y-2">
+						<label for="email" class="app-meta">Email address</label>
 						<input
-							id="rememberMe"
-							name="rememberMe"
-							type="checkbox"
-							bind:checked={rememberMe}
-							class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 dark:border-gray-600 rounded"
+							id="email"
+							name="email"
+							type="email"
+							required
+							bind:value={email}
+							class="app-input {errors.email ? 'border-red-500' : ''}"
+							placeholder="you@example.com"
 						/>
-						<label for="rememberMe" class="ml-2 block text-sm text-gray-900 dark:text-gray-100">
-							Remember me
-						</label>
+						{#if errors.email}
+							<p class="app-meta text-red-600">{errors.email}</p>
+						{/if}
 					</div>
 
-					<div class="text-sm">
-						<a href="/auth/forgot-password" class="font-medium text-green-600 dark:text-green-400 hover:text-green-500 dark:hover:text-green-300">
-							Forgot password?
+					<div class="space-y-2">
+						<label for="password" class="app-meta">Password</label>
+						<input
+							id="password"
+							name="password"
+							type="password"
+							required
+							bind:value={password}
+							class="app-input {errors.password ? 'border-red-500' : ''}"
+							placeholder="••••••••"
+						/>
+						{#if errors.password}
+							<p class="app-meta text-red-600">{errors.password}</p>
+						{/if}
+					</div>
+
+					<div class="flex items-center justify-between">
+						<label class="inline-flex items-center gap-2 app-meta">
+							<input
+								id="rememberMe"
+								name="rememberMe"
+								type="checkbox"
+								bind:checked={rememberMe}
+								class="h-4 w-4 border border-black/40 dark:border-white/40"
+							/>
+							<span>Remember me</span>
+						</label>
+
+						<a href="/auth/forgot-password" class="app-meta link-highlight">
+							<span>Forgot password?</span>
 						</a>
 					</div>
 				</div>
-			</div>
 
-			{#if errors.submit}
-				<p class="text-sm text-red-600 dark:text-red-400 text-center">{errors.submit}</p>
-			{/if}
+				{#if errors.submit}
+					<p class="app-meta text-red-600">{errors.submit}</p>
+				{/if}
 
-			<div>
-				<button
-					type="submit"
-					disabled={loading}
-					class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
-				>
-					{loading ? 'Signing in...' : 'Sign in'}
-				</button>
+				<div>
+					<button type="submit" disabled={loading} class="cta-button w-full">
+						{loading ? 'Signing in...' : 'Sign in'}
+					</button>
+				</div>
+			</form>
 			</div>
-		</form>
+		</div>
 	</div>
 </div>
-

@@ -1,7 +1,10 @@
 <script lang="ts">
 	import SiteFooter from '$lib/components/SiteFooter.svelte';
-	import SiteHeader from '$lib/components/SiteHeader.svelte';
 	import SiteRail from '$lib/components/SiteRail.svelte';
+	import SiteContentHeader from '$lib/components/SiteContentHeader.svelte';
+	import illustration1 from '$lib/../illustrations/Illustration 1.png';
+	import illustration2 from '$lib/../illustrations/Illustration 2.png';
+	import illustration3 from '$lib/../illustrations/Illustration 3.png';
 	import { onMount } from 'svelte';
 
 	let heroEl: HTMLElement;
@@ -29,23 +32,49 @@
 </svelte:head>
 
 <div class="site-shell">
-	<SiteHeader showAuxLinks={false} ctaLabel="About the protocol" ctaHref="/protocol/guide" />
-
 	<div class="site-body">
 		<SiteRail />
 		<div class="space-y-16">
+			<SiteContentHeader ctaLabel="About the protocol" ctaHref="/protocol/guide" />
 			<section class="site-hero" bind:this={heroEl}>
 				<div class="space-y-6">
 					<h1 class="hero-title">A local-first protocol for peer-to-peer code</h1>
 					<p class="hero-subtitle">
 						A local-first, peer-to-peer protocol for sovereign code collaboration—built on Git and backed by cryptographic identities.
 					</p>
-					<div class="flex flex-wrap items-center gap-3">
-						<a href="/protocol/user-guide" class="cta-button">User guide</a>
-						<a href="/protocol/seeder-guide" class="cta-button cta-button-outline">Seeder guide</a>
-					</div>
 				</div>
-				<div class="hero-art" style="background-image: var(--hero-image);"></div>
+			</section>
+
+			<section class="space-y-10">
+				<div class="guide-card-grid">
+					<a class="guide-card" href="/protocol/user-guide">
+						<div
+							class="guide-card-art"
+							style={`background-image: url(${illustration1});`}
+							aria-hidden="true"
+						></div>
+						<div class="guide-card-title">User guide →</div>
+						<div class="guide-card-subtitle">Your introduction to using Radicle</div>
+					</a>
+					<a class="guide-card" href="/protocol/guide">
+						<div
+							class="guide-card-art"
+							style={`background-image: url(${illustration2});`}
+							aria-hidden="true"
+						></div>
+						<div class="guide-card-title">Protocol guide →</div>
+						<div class="guide-card-subtitle">How Radicle works under the hood</div>
+					</a>
+					<a class="guide-card" href="/protocol/seeder-guide">
+						<div
+							class="guide-card-art"
+							style={`background-image: url(${illustration3});`}
+							aria-hidden="true"
+						></div>
+						<div class="guide-card-title">Seeder guide →</div>
+						<div class="guide-card-subtitle">How to run a Radicle seed node</div>
+					</a>
+				</div>
 			</section>
 
 			<section class="space-y-10">

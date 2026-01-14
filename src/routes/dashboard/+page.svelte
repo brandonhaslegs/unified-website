@@ -43,17 +43,13 @@
 	<title>Dashboard - Radicle Garden</title>
 </svelte:head>
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="app-content">
 	{#if loading}
-		<div class="animate-pulse space-y-6">
-			<div class="h-32 bg-gray-200 dark:bg-gray-700 rounded-lg"></div>
-			<div class="h-32 bg-gray-200 dark:bg-gray-700 rounded-lg"></div>
-			<div class="h-64 bg-gray-200 dark:bg-gray-700 rounded-lg"></div>
-		</div>
+		<div class="space-y-6 app-meta">Loading...</div>
 	{:else}
-		<div class="space-y-6">
+		<div class="space-y-16">
 			<!-- Status Cards -->
-			<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+			<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
 				{#if nodeStatus}
 					<NodeStatusCard {nodeStatus} />
 				{/if}
@@ -63,23 +59,23 @@
 			</div>
 
 			<!-- Repositories Section -->
-			<div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-				<div class="flex items-center justify-between mb-4">
-					<h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100">Seeded Repositories</h2>
+			<div class="app-panel">
+				<div class="flex items-center justify-between mb-6">
+					<h2 class="section-heading">Seeded Repositories</h2>
 					<div class="flex items-center gap-3">
 						{#if repositories.length > 0}
 							<input
 								type="text"
 								placeholder="Search repositories..."
 								bind:value={searchQuery}
-								class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500"
+								class="app-input"
 							/>
 						{/if}
 						<button
 							on:click={() => (seedModalOpen = true)}
-							class="px-4 py-2 bg-green-600 text-white rounded-md text-sm font-medium hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+							class="cta-button"
 						>
-							Seed New Repository
+							Seed new repo
 						</button>
 					</div>
 				</div>
@@ -95,4 +91,3 @@
 <Modal open={seedModalOpen} title="Seed New Repository" on:close={() => (seedModalOpen = false)}>
 	<SeedRepositoryForm on:success={handleSeedSuccess} />
 </Modal>
-

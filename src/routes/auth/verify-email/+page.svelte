@@ -4,6 +4,7 @@
 	import { showToast } from '$lib/stores/toast';
 	import { goto } from '$app/navigation';
 	import { user, isAuthenticated } from '$lib/stores/auth';
+	import SiteRail from '$lib/components/SiteRail.svelte';
 
 	let email = $page.url.searchParams.get('email') || '';
 	let resending = false;
@@ -80,8 +81,11 @@
 	<title>Verify Email - Radicle Garden</title>
 </svelte:head>
 
-<div class="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-	<div class="max-w-md w-full space-y-8 text-center">
+<div class="app-shell">
+	<div class="site-body">
+		<SiteRail />
+		<div class="app-content">
+			<div class="max-w-md w-full space-y-8 text-center">
 		{#if verified}
 			<div>
 				<div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 dark:bg-green-900/30">
@@ -130,6 +134,7 @@
 				</div>
 			</div>
 		{/if}
+			</div>
+		</div>
 	</div>
 </div>
-

@@ -11,16 +11,16 @@
 	}
 </script>
 
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
 	<!-- Seeding Private Repositories -->
-	<div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+	<div class="app-panel">
 		<button
 			on:click={() => (seedingExpanded = !seedingExpanded)}
 			class="w-full flex justify-between items-center text-left"
 		>
-			<h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Seeding Private Repositories</h3>
+			<h3 class="section-heading">Seeding Private Repositories</h3>
 			<svg
-				class="w-5 h-5 text-gray-500 dark:text-gray-400 transform transition-transform {seedingExpanded
+				class="w-5 h-5 app-meta transform transition-transform {seedingExpanded
 					? 'rotate-180'
 					: ''}"
 				fill="none"
@@ -32,16 +32,16 @@
 		</button>
 
 		{#if seedingExpanded}
-			<div class="mt-4 space-y-4 text-sm text-gray-600 dark:text-gray-400">
+			<div class="mt-6 space-y-6 app-meta">
 				<p>To seed a private repository, you need to add your Always On Node to the repository's allowlist.</p>
 
 				<div>
-					<p class="font-medium text-gray-900 dark:text-gray-100 mb-2">1. Get your node ID:</p>
-					<div class="bg-gray-50 dark:bg-gray-700 rounded p-3 font-mono text-xs flex items-center justify-between">
-						<span class="text-gray-900 dark:text-gray-100">{nodeId || 'Your node ID will appear here'}</span>
+					<p class="app-meta mb-2">1. Get your node ID:</p>
+					<div class="border border-black/10 dark:border-white/10 rounded-sm p-3 font-mono flex items-center justify-between">
+						<span>{nodeId || 'Your node ID will appear here'}</span>
 						<button
 							on:click={() => copyToClipboard(nodeId)}
-							class="ml-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+							class="ml-2 app-meta"
 							title="Copy"
 						>
 							<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -57,13 +57,13 @@
 				</div>
 
 				<div>
-					<p class="font-medium text-gray-900 dark:text-gray-100 mb-2">2. Add to repository allowlist:</p>
-					<div class="bg-gray-50 dark:bg-gray-700 rounded p-3 font-mono text-xs">
+					<p class="app-meta mb-2">2. Add to repository allowlist:</p>
+					<div class="border border-black/10 dark:border-white/10 rounded-sm p-3 font-mono">
 						<div class="flex items-center justify-between">
-							<code class="text-gray-900 dark:text-gray-100">rad remote add --allow hynmyfz3hqj7wzr8t5k9s2m4p6x8y0z</code>
+							<code>rad remote add --allow hynmyfz3hqj7wzr8t5k9s2m4p6x8y0z</code>
 							<button
 								on:click={() => copyToClipboard(`rad remote add --allow ${nodeId}`)}
-								class="ml-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+								class="ml-2 app-meta"
 								title="Copy"
 							>
 								<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -80,13 +80,13 @@
 				</div>
 
 				<div>
-					<p class="font-medium text-gray-900 dark:text-gray-100 mb-2">3. Push changes:</p>
-					<div class="bg-gray-50 dark:bg-gray-700 rounded p-3 font-mono text-xs">
+					<p class="app-meta mb-2">3. Push changes:</p>
+					<div class="border border-black/10 dark:border-white/10 rounded-sm p-3 font-mono">
 						<div class="flex items-center justify-between">
-							<code class="text-gray-900 dark:text-gray-100">rad push</code>
+							<code>rad push</code>
 							<button
 								on:click={() => copyToClipboard('rad push')}
-								class="ml-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+								class="ml-2 app-meta"
 								title="Copy"
 							>
 								<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -106,14 +106,14 @@
 	</div>
 
 	<!-- Configure Local Node -->
-	<div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+	<div class="app-panel">
 		<button
 			on:click={() => (configExpanded = !configExpanded)}
 			class="w-full flex justify-between items-center text-left"
 		>
-			<h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Configure Local Node</h3>
+			<h3 class="section-heading">Configure Local Node</h3>
 			<svg
-				class="w-5 h-5 text-gray-500 dark:text-gray-400 transform transition-transform {configExpanded ? 'rotate-180' : ''}"
+				class="w-5 h-5 app-meta transform transition-transform {configExpanded ? 'rotate-180' : ''}"
 				fill="none"
 				viewBox="0 0 24 24"
 				stroke="currentColor"
@@ -123,17 +123,17 @@
 		</button>
 
 		{#if configExpanded}
-			<div class="mt-4 space-y-4 text-sm text-gray-600 dark:text-gray-400">
+			<div class="mt-6 space-y-6 app-meta">
 				<p>Add your Always On Node as a preferred seed for faster access to your repositories.</p>
 
 				<div>
-					<p class="font-medium text-gray-900 dark:text-gray-100 mb-2">Add preferred seed:</p>
-					<div class="bg-gray-50 dark:bg-gray-700 rounded p-3 font-mono text-xs">
+					<p class="app-meta mb-2">Add preferred seed:</p>
+					<div class="border border-black/10 dark:border-white/10 rounded-sm p-3 font-mono">
 						<div class="flex items-center justify-between">
-							<code class="text-gray-900 dark:text-gray-100">rad remote add --seed hynmyfz3hqj7wzr8t5k9s2m4p6x8y0z</code>
+							<code>rad remote add --seed hynmyfz3hqj7wzr8t5k9s2m4p6x8y0z</code>
 							<button
 								on:click={() => copyToClipboard(`rad remote add --seed ${nodeId}`)}
-								class="ml-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+								class="ml-2 app-meta"
 								title="Copy"
 							>
 								<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -152,4 +152,3 @@
 		{/if}
 	</div>
 </div>
-

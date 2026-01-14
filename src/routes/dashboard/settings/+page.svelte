@@ -67,84 +67,72 @@
 	<title>Account Settings - Radicle Garden</title>
 </svelte:head>
 
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-	<h1 class="text-2xl font-bold text-gray-900 mb-6">Account Settings</h1>
+<div class="app-content">
+	<h1 class="section-heading">Account Settings</h1>
 
-	<div class="space-y-6">
+	<div class="space-y-16">
 		<!-- Email Section -->
-		<div class="bg-white shadow rounded-lg p-6">
-			<h2 class="text-lg font-semibold text-gray-900 mb-4">Email Address</h2>
+		<div class="app-panel">
+			<h2 class="section-heading">Email Address</h2>
 			<div class="flex items-center justify-between">
-				<p class="text-sm text-gray-600">{$user?.email}</p>
+				<p class="app-meta">{$user?.email}</p>
 				<button
 					disabled
-					class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-gray-50 cursor-not-allowed"
+					class="cta-button cta-button-outline opacity-70 text-black dark:text-white cursor-not-allowed"
 				>
 					Change Email
 				</button>
 			</div>
-			<p class="mt-2 text-xs text-gray-500">Email change functionality coming soon</p>
+			<p class="app-meta mt-2">Email change functionality coming soon</p>
 		</div>
 
 		<!-- Password Change Section -->
-		<div class="bg-white shadow rounded-lg p-6">
-			<h2 class="text-lg font-semibold text-gray-900 mb-4">Change Password</h2>
-			<form on:submit|preventDefault={handlePasswordChange} class="space-y-4">
-				<div>
-					<label for="currentPassword" class="block text-sm font-medium text-gray-700 mb-1">
-						Current Password
-					</label>
+		<div class="app-panel">
+			<h2 class="section-heading">Change Password</h2>
+			<form on:submit|preventDefault={handlePasswordChange} class="space-y-6">
+				<div class="space-y-2">
+					<label for="currentPassword" class="app-meta">Current Password</label>
 					<input
 						id="currentPassword"
 						type="password"
 						bind:value={currentPassword}
-						class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-green-500 focus:border-green-500 {errors.currentPassword
-							? 'border-red-500'
-							: ''}"
+						class="app-input {errors.currentPassword ? 'border-red-500' : ''}"
 					/>
 					{#if errors.currentPassword}
-						<p class="mt-1 text-sm text-red-600">{errors.currentPassword}</p>
+						<p class="app-meta text-red-600">{errors.currentPassword}</p>
 					{/if}
 				</div>
 
-				<div>
-					<label for="newPassword" class="block text-sm font-medium text-gray-700 mb-1">
-						New Password
-					</label>
+				<div class="space-y-2">
+					<label for="newPassword" class="app-meta">New Password</label>
 					<input
 						id="newPassword"
 						type="password"
 						bind:value={newPassword}
-						class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-green-500 focus:border-green-500 {errors.newPassword
-							? 'border-red-500'
-							: ''}"
+						class="app-input {errors.newPassword ? 'border-red-500' : ''}"
 					/>
 					{#if errors.newPassword}
-						<p class="mt-1 text-sm text-red-600">{errors.newPassword}</p>
+						<p class="app-meta text-red-600">{errors.newPassword}</p>
 					{/if}
 				</div>
 
-				<div>
-					<label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-1">
-						Confirm New Password
-					</label>
+				<div class="space-y-2">
+					<label for="confirmPassword" class="app-meta">Confirm New Password</label>
 					<input
 						id="confirmPassword"
 						type="password"
 						bind:value={confirmPassword}
-						class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-green-500 focus:border-green-500 {errors.confirmPassword
-							? 'border-red-500'
-							: ''}"
+						class="app-input {errors.confirmPassword ? 'border-red-500' : ''}"
 					/>
 					{#if errors.confirmPassword}
-						<p class="mt-1 text-sm text-red-600">{errors.confirmPassword}</p>
+						<p class="app-meta text-red-600">{errors.confirmPassword}</p>
 					{/if}
 				</div>
 
 				<button
 					type="submit"
 					disabled={changePasswordLoading}
-					class="px-4 py-2 bg-green-600 text-white rounded-md text-sm font-medium hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50"
+					class="cta-button"
 				>
 					{changePasswordLoading ? 'Changing...' : 'Change Password'}
 				</button>
@@ -152,16 +140,16 @@
 		</div>
 
 		<!-- Danger Zone -->
-		<div class="bg-white shadow rounded-lg p-6 border-2 border-red-200">
-			<h2 class="text-lg font-semibold text-red-900 mb-4">Danger Zone</h2>
+		<div class="app-panel">
+			<h2 class="section-heading text-red-600">Danger Zone</h2>
 			<div class="flex items-center justify-between">
 				<div>
-					<p class="text-sm font-medium text-gray-900">Delete Account</p>
-					<p class="text-sm text-gray-500">Permanently delete your account and all data</p>
+					<p class="app-meta">Delete Account</p>
+					<p class="app-meta">Permanently delete your account and all data</p>
 				</div>
 				<button
 					on:click={() => (deleteModalOpen = true)}
-					class="px-4 py-2 bg-red-600 text-white rounded-md text-sm font-medium hover:bg-red-700"
+					class="cta-button cta-button-danger"
 				>
 					Delete Account
 				</button>
@@ -171,24 +159,23 @@
 </div>
 
 <Modal open={deleteModalOpen} title="Delete Account" on:close={() => (deleteModalOpen = false)}>
-	<p class="text-sm text-gray-600 mb-4">
+	<p class="app-meta mb-4">
 		Are you sure you want to delete your account? This action cannot be undone. All your data,
 		repositories, and subscription will be permanently deleted.
 	</p>
-	<div class="flex space-x-3">
+	<div class="flex gap-3">
 		<button
 			on:click={() => (deleteModalOpen = false)}
-			class="flex-1 px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50"
+			class="cta-button cta-button-outline flex-1"
 		>
 			Cancel
 		</button>
 		<button
 			on:click={handleDeleteAccount}
 			disabled={deleteLoading}
-			class="flex-1 px-4 py-2 bg-red-600 text-white rounded-md text-sm font-medium hover:bg-red-700 disabled:opacity-50"
+			class="cta-button cta-button-danger flex-1"
 		>
 			{deleteLoading ? 'Deleting...' : 'Delete Account'}
 		</button>
 	</div>
 </Modal>
-

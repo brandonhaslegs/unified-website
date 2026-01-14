@@ -10,6 +10,9 @@
 </script>
 
 <nav class="site-rail" aria-label="Primary site navigation">
+	<a class="site-rail-logo" href="/">
+		<img src="/icons/Logo.svg" alt="radicle" class="site-logo-full" />
+	</a>
 	<div role="group" aria-label="Primary links">
 		{#each primaryNav as item}
 			<a

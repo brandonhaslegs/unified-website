@@ -1,7 +1,7 @@
 <script lang="ts">
 	import SiteFooter from '$lib/components/SiteFooter.svelte';
-	import SiteHeader from '$lib/components/SiteHeader.svelte';
 	import SiteRail from '$lib/components/SiteRail.svelte';
+	import SiteContentHeader from '$lib/components/SiteContentHeader.svelte';
 	import { page } from '$app/stores';
 
 	let heroEl: HTMLElement;
@@ -28,23 +28,14 @@
 </svelte:head>
 
 <div class="site-shell">
-	<SiteHeader showAuxLinks={false} />
-
 	<div class="site-body">
 		<SiteRail />
 		<div class="space-y-16">
+			<SiteContentHeader ctaLabel="Get one for $10/month" ctaHref="/auth/signup" />
 			<section class="site-hero" bind:this={heroEl}>
 				<div class="space-y-6">
 					<h1 class="hero-title">Always-on node for your Radicle repos</h1>
 					<p class="hero-subtitle">The security of Radicle with the convenience of availability.</p>
-					<div class="flex flex-wrap items-center gap-3">
-						<a href="/auth/signup" class="cta-button">
-							<span>Get one for $10/month</span>
-						</a>
-						<a href="/auth/login" class="cta-button cta-button-outline">
-							<span>Log in</span>
-						</a>
-					</div>
 				</div>
 				<div
 					class="hero-art"

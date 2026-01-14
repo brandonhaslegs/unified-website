@@ -1,7 +1,7 @@
 <script lang="ts">
 	import SiteFooter from '$lib/components/SiteFooter.svelte';
-	import SiteHeader from '$lib/components/SiteHeader.svelte';
 	import SiteRail from '$lib/components/SiteRail.svelte';
+	import SiteContentHeader from '$lib/components/SiteContentHeader.svelte';
 	import Icon from '$lib/components/Icon.svelte';
 	import guideHtml from '$lib/content/user-guide.html?raw';
 	import { page } from '$app/stores';
@@ -31,17 +31,10 @@
 </svelte:head>
 
 <div class="site-shell">
-	<SiteHeader
-		ctaLabel="About the protocol"
-		ctaHref="/protocol/guide"
-		showAuxLinks={false}
-		auxLinkLabel="Get started as a user"
-		auxLinkHref="/protocol/user-guide"
-	/>
-
 	<div class="site-body">
 		<SiteRail />
 		<div class="space-y-12">
+			<SiteContentHeader showCta={false} />
 			<section class="site-hero" bind:this={heroEl}>
 				<div class="space-y-5">
 					<a href="/protocol" class="cta-button cta-button-outline cta-button-small w-fit">

@@ -3,6 +3,7 @@
 	import { goto } from '$app/navigation';
 	import { resetPassword } from '$lib/utils/auth';
 	import { showToast } from '$lib/stores/toast';
+	import SiteRail from '$lib/components/SiteRail.svelte';
 
 	let password = 'password123';
 	let confirmPassword = 'password123';
@@ -57,8 +58,11 @@
 	<title>Reset Password - Radicle Garden</title>
 </svelte:head>
 
-<div class="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-	<div class="max-w-md w-full space-y-8">
+<div class="app-shell">
+	<div class="site-body">
+		<SiteRail />
+		<div class="app-content">
+			<div class="max-w-md w-full space-y-8">
 		<div>
 			<h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-gray-100">Set new password</h2>
 		</div>
@@ -129,6 +133,7 @@
 				</div>
 			</form>
 		{/if}
+			</div>
+		</div>
 	</div>
 </div>
-

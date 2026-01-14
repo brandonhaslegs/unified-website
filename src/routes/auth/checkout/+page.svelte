@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { showToast } from '$lib/stores/toast';
+	import SiteRail from '$lib/components/SiteRail.svelte';
 
 	let loading = false;
 	let cardNumberRaw = '4242424242424242';
@@ -60,8 +61,11 @@
 	<title>Checkout - Radicle Garden</title>
 </svelte:head>
 
-<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-	<div class="max-w-2xl mx-auto">
+<div class="app-shell">
+	<div class="site-body">
+		<SiteRail />
+		<div class="app-content">
+			<div class="max-w-2xl mx-auto">
 		<!-- Header -->
 		<div class="mb-8">
 			<h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100">Complete your subscription</h1>
@@ -182,6 +186,7 @@
 				<span>Secure payment • Encrypted and secure</span>
 			</div>
 		</div>
+			</div>
+		</div>
 	</div>
 </div>
-

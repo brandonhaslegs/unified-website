@@ -1,7 +1,7 @@
 <script lang="ts">
 	import SiteFooter from '$lib/components/SiteFooter.svelte';
-	import SiteHeader from '$lib/components/SiteHeader.svelte';
 	import SiteRail from '$lib/components/SiteRail.svelte';
+	import SiteContentHeader from '$lib/components/SiteContentHeader.svelte';
 </script>
 
 <svelte:head>
@@ -9,11 +9,10 @@
 </svelte:head>
 
 <div class="site-shell">
-	<SiteHeader showAuxLinks={false} />
-
 	<div class="site-body">
 		<SiteRail />
 		<div class="space-y-16">
+			<SiteContentHeader showCta={false} />
 			<section class="space-y-6">
 				<h1 class="hero-title">Updates</h1>
 				<p class="hero-subtitle">Latest releases and announcements from the Radicle team.</p>

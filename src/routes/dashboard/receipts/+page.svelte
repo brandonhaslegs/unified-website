@@ -26,7 +26,7 @@
 	});
 
 	function getStatusBadgeColor(status: string) {
-		return status === 'paid' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800';
+		return status === 'paid' ? 'text-green-600' : 'text-red-600';
 	}
 </script>
 
@@ -34,64 +34,56 @@
 	<title>Receipts - Radicle Garden</title>
 </svelte:head>
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-	<h1 class="text-2xl font-bold text-gray-900 mb-6">Billing History</h1>
+<div class="app-content">
+	<h1 class="section-heading">Billing History</h1>
 
 	{#if loading}
-		<div class="bg-white shadow rounded-lg p-6">
-			<div class="animate-pulse space-y-4">
-				<div class="h-12 bg-gray-200 rounded"></div>
-				<div class="h-12 bg-gray-200 rounded"></div>
-				<div class="h-12 bg-gray-200 rounded"></div>
-			</div>
-		</div>
+		<div class="app-meta">Loading...</div>
 	{:else if receipts.length === 0}
-		<div class="bg-white shadow rounded-lg p-6 text-center">
-			<p class="text-gray-500">No receipts found</p>
-		</div>
+		<p class="app-meta">No receipts found</p>
 	{:else}
-		<div class="bg-white shadow rounded-lg overflow-hidden">
-			<table class="min-w-full divide-y divide-gray-200">
-				<thead class="bg-gray-50">
+		<div class="app-panel">
+			<table class="app-table">
+				<thead>
 					<tr>
-						<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+						<th class="pr-6">
 							Date
 						</th>
-						<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+						<th class="pr-6">
 							Amount
 						</th>
-						<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+						<th class="pr-6">
 							Status
 						</th>
-						<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+						<th>
 							Invoice
 						</th>
 					</tr>
 				</thead>
-				<tbody class="bg-white divide-y divide-gray-200">
+				<tbody>
 					{#each receipts as receipt (receipt.id)}
 						<tr>
-							<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+							<td class="pr-6">
 								{formatDate(receipt.date)}
 							</td>
-							<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+							<td class="pr-6">
 								{formatCurrency(receipt.amount, receipt.currency)}
 							</td>
-							<td class="px-6 py-4 whitespace-nowrap">
+							<td class="pr-6">
 								<span
-									class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {getStatusBadgeColor(receipt.status)}"
+									class="inline-flex app-meta {getStatusBadgeColor(receipt.status)}"
 								>
 									{receipt.status.charAt(0).toUpperCase() + receipt.status.slice(1)}
 								</span>
 							</td>
-							<td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+							<td class="app-meta">
 								<a
 									href={receipt.invoiceUrl}
 									target="_blank"
 									rel="noopener noreferrer"
-									class="text-green-600 hover:text-green-900"
+									class="link-highlight"
 								>
-									Download PDF
+									<span>Download PDF</span>
 								</a>
 							</td>
 						</tr>
@@ -101,4 +93,3 @@
 		</div>
 	{/if}
 </div>
-

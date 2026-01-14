@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { requestPasswordReset } from '$lib/utils/auth';
 	import { showToast } from '$lib/stores/toast';
+	import SiteRail from '$lib/components/SiteRail.svelte';
 
 	let email = 'test@example.com';
 	let loading = false;
@@ -39,8 +40,11 @@
 	<title>Forgot Password - Radicle Garden</title>
 </svelte:head>
 
-<div class="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-	<div class="max-w-md w-full space-y-8">
+<div class="app-shell">
+	<div class="site-body">
+		<SiteRail />
+		<div class="app-content">
+			<div class="max-w-md space-y-8">
 		<div>
 			<h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-gray-100">Reset your password</h2>
 			<p class="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
@@ -117,6 +121,7 @@
 				</div>
 			</form>
 		{/if}
+			</div>
+		</div>
 	</div>
 </div>
-
