@@ -3,7 +3,7 @@
 	import SiteHeader from '$lib/components/SiteHeader.svelte';
 	import Icon from '$lib/components/Icon.svelte';
 	import guideHtml from '$lib/content/seeder-guide.html?raw';
-	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 
 	let heroEl: HTMLElement;
 
@@ -13,14 +13,15 @@
 	});
 	const illustrationUrls = Object.values(illustrationModules) as string[];
 
-	onMount(() => {
-		if (!heroEl || illustrationUrls.length === 0) {
-			return;
+	$: if (heroEl && illustrationUrls.length > 0) {
+		const path = $page.url.pathname;
+		let hash = 0;
+		for (let i = 0; i < path.length; i += 1) {
+			hash = (hash * 31 + path.charCodeAt(i)) >>> 0;
 		}
-
-		const index = Math.floor(Math.random() * illustrationUrls.length);
+		const index = hash % illustrationUrls.length;
 		heroEl.style.setProperty('--hero-image', `url("${illustrationUrls[index]}")`);
-	});
+	}
 </script>
 
 <svelte:head>
