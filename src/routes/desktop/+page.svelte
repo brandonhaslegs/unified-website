@@ -28,7 +28,7 @@
 </svelte:head>
 
 <div class="min-h-screen bg-white dark:bg-black">
-	<SiteHeader ctaLabel="Download Radicle Desktop" />
+	<SiteHeader ctaLabel="Download Radicle Desktop" showAuxLinks={false} auxLinkLabel="Get the CLI" auxLinkHref="/cli" />
 
 	<section class="relative overflow-hidden" bind:this={heroEl}>
 		<div class="absolute inset-y-0 left-0 right-0 flex justify-center" aria-hidden="true">

@@ -4,7 +4,10 @@
 	import { onMount } from 'svelte';
 	import Icon from '$lib/components/Icon.svelte';
 
-	export let ctaLabel = 'Get one for $10/month';
+export let ctaLabel = 'Get one for $10/month';
+export let showAuxLinks = true;
+export let auxLinkLabel: string | null = null;
+export let auxLinkHref: string | null = null;
 
 	const pages = [
 		{ label: 'CLI', value: '/cli' },
@@ -61,15 +64,23 @@
 					<Icon name="ChevronDown" size={14} className="icon-current pointer-events-none absolute right-0 top-1/2 -translate-y-1/2" />
 				</div>
 			</div>
-			<div class="flex items-center gap-3 text-sm font-semibold sm:gap-6 sm:ml-auto">
-				<a href="https://desktop.radicle.xyz/" class="link-highlight">
-					<span>Download Radicle</span>
-				</a>
-				<span class="hidden sm:block h-6 w-px bg-black/20 dark:bg-white/30" aria-hidden="true"></span>
-				<button on:click={() => goto('/dashboard')} class="link-highlight">
-					<span>Log in</span>
-				</button>
-			</div>
+			{#if showAuxLinks}
+				<div class="flex items-center gap-3 text-sm font-semibold sm:gap-6 sm:ml-auto">
+					<a href="https://desktop.radicle.xyz/" class="link-highlight">
+						<span>Download Radicle</span>
+					</a>
+					<span class="hidden sm:block h-6 w-px bg-black/20 dark:bg-white/30" aria-hidden="true"></span>
+					<button on:click={() => goto('/dashboard')} class="link-highlight">
+						<span>Log in</span>
+					</button>
+				</div>
+			{:else if auxLinkLabel && auxLinkHref}
+				<div class="flex items-center gap-3 text-sm font-semibold sm:gap-6 sm:ml-auto">
+					<a href={auxLinkHref} class="link-highlight">
+						<span>{auxLinkLabel}</span>
+					</a>
+				</div>
+			{/if}
 				<a
 					href="/auth/signup"
 					class="bg-brand text-black px-4 py-2 rounded-sm font-semibold transition btn-invert-hover btn-invert-hover-white-dark hover:text-white dark:hover:text-black w-full sm:w-auto sm:ml-3 text-center"
