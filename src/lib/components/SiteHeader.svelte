@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import Icon from '$lib/components/Icon.svelte';
+	import HoverDropdown from '$lib/components/HoverDropdown.svelte';
 
 export let ctaLabel = 'Get one for $10/month';
 export let ctaHref = '/auth/signup';
@@ -32,9 +33,8 @@ let ctaCopyTimeout: ReturnType<typeof setTimeout> | null = null;
 						: '/garden';
 	$: currentLabel = pages.find((pageOption) => pageOption.value === currentValue)?.label ?? 'Garden';
 
-function handlePageChange(event: Event) {
-	const target = event.target as HTMLSelectElement;
-	goto(target.value);
+function handlePageChange(value: string) {
+	goto(value);
 }
 
 function handleCtaCopy() {
@@ -57,23 +57,18 @@ function handleCtaCopy() {
 			<div class="flex items-center gap-3 mr-auto">
 				<Icon name="Logo" size={28} className="icon-brand" />
 				<span class="text-lg font-semibold tracking-tight">Radicle</span>
-				<label class="sr-only" for="page-switcher">Page</label>
-				<div class="relative inline-flex items-center gap-1">
-					<span class="text-lg font-normal">{currentLabel}</span>
-					<Icon name="ChevronDown" size={14} className="icon-current" />
-					<select
-						id="page-switcher"
-						class="absolute inset-0 opacity-0 cursor-pointer"
-						on:change={handlePageChange}
-						value={currentValue}
-					>
-						{#each pages as pageOption}
-							<option value={pageOption.value}>
-								{pageOption.label}
-							</option>
-						{/each}
-					</select>
-				</div>
+				<HoverDropdown
+					items={pages}
+					value={currentValue}
+					label={currentLabel}
+					ariaLabel="Page"
+					buttonClass="inline-flex items-center gap-1 text-lg font-normal"
+					menuClass="absolute left-0 top-full w-max rounded-sm bg-white text-black dark:bg-black dark:text-white shadow-lg p-2 z-20"
+					itemClass="block w-full text-left px-3 py-2 text-lg font-normal rounded-sm hover:bg-black/5 dark:hover:bg-white/10"
+					activeClass="bg-black/10 dark:bg-white/20"
+					chevronClass="icon-current"
+					on:change={(event) => handlePageChange(event.detail)}
+				/>
 			</div>
 			{#if showAuxLinks}
 				<div class="flex items-center gap-3 text-sm font-semibold sm:gap-6 sm:ml-auto">
