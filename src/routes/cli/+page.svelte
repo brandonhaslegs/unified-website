@@ -5,6 +5,8 @@
 	import { onMount } from 'svelte';
 
 	let heroEl: HTMLElement;
+	let copied = false;
+	let copyTimeout: ReturnType<typeof setTimeout> | null = null;
 
 	const illustrationModules = import.meta.glob('/src/illustrations/*.{png,jpg,jpeg,webp,avif}', {
 		eager: true,
@@ -20,6 +22,17 @@
 		const index = Math.floor(Math.random() * illustrationUrls.length);
 		heroEl.style.setProperty('--hero-image', `url("${illustrationUrls[index]}")`);
 	});
+
+	function handleCopy() {
+		navigator.clipboard.writeText('curl -sSLf https://radicle.xyz/install | sh');
+		copied = true;
+		if (copyTimeout) {
+			clearTimeout(copyTimeout);
+		}
+		copyTimeout = setTimeout(() => {
+			copied = false;
+		}, 3000);
+	}
 </script>
 
 <svelte:head>
@@ -27,7 +40,14 @@
 </svelte:head>
 
 <div class="min-h-screen bg-white dark:bg-black">
-	<SiteHeader ctaLabel="Get the CLI" showAuxLinks={false} auxLinkLabel="Get the desktop app" auxLinkHref="/desktop" />
+	<SiteHeader
+		ctaLabel="Install the CLI"
+		ctaIcon="Copy"
+		ctaCopyText="curl -sSLf https://radicle.xyz/install | sh"
+		showAuxLinks={false}
+		auxLinkLabel="Get the desktop app"
+		auxLinkHref="/desktop"
+	/>
 
 	<section class="relative overflow-hidden" bind:this={heroEl}>
 		<div class="absolute inset-y-0 left-0 right-0 flex justify-center" aria-hidden="true">
@@ -46,14 +66,31 @@
 				<p class="text-2xl text-secondary-light dark:text-black mb-10 leading-snug text-black">
 					<span class="text-highlight">The command line interface for working with Radicle repositories, patches, and identities.</span>
 				</p>
-				<a
-					href="https://radicle.xyz/#get-started"
-					target="_blank"
-					rel="noreferrer"
-					class="inline-block px-8 py-4 rounded-sm text-lg font-semibold transition bg-black text-white dark:bg-white dark:text-black btn-invert-hover btn-invert-hover-white btn-invert-hover-dark hover:text-black dark:hover:text-white"
-				>
-					<span>Get the CLI</span>
-				</a>
+				<div class="inline-flex flex-col space-y-3 rounded-sm bg-white text-black dark:bg-black dark:text-white p-4 sm:p-5 w-fit max-w-full">
+					<p class="text-lg font-normal">Install the CLI</p>
+					<div class="inline-flex items-center gap-3 bg-black text-white dark:bg-white dark:text-black rounded-sm px-4 py-3 text-sm font-mono max-w-[520px] w-auto">
+						<pre class="truncate whitespace-nowrap overflow-hidden text-ellipsis min-w-0 flex-1">curl -sSLf https://radicle.xyz/install | sh</pre>
+						<button
+							type="button"
+							class="p-1 rounded-sm bg-white/10 text-white dark:bg-black/10 dark:text-black relative overflow-hidden flex items-center justify-center flex-shrink-0"
+							aria-label="Copy install command"
+							on:click={handleCopy}
+						>
+							<span class="relative block h-4 w-4 flex items-center justify-center overflow-hidden">
+								<Icon
+									name="Copy"
+									size={14}
+									className={`icon-terminal absolute left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-200 ease-out ${copied ? 'top-[120%] opacity-0' : 'top-1/2 opacity-100'}`}
+								/>
+								<Icon
+									name="Checkmark"
+									size={14}
+									className={`icon-terminal absolute left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-200 ease-out ${copied ? 'top-1/2 opacity-100' : 'top-[-60%] opacity-0'}`}
+								/>
+							</span>
+						</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>

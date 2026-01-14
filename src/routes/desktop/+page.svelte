@@ -5,12 +5,95 @@
 	import { onMount } from 'svelte';
 
 	let heroEl: HTMLElement;
+	let copied = false;
+	let copyTimeout: ReturnType<typeof setTimeout> | null = null;
+
+	const installOptions = [
+		{
+			label: 'Apple Silicon',
+			value: 'apple',
+			commands: [
+				{
+					label: 'Download and open',
+					text:
+						'curl --output ~/Downloads/radicle-desktop-0.8.0-a250dc9-aarch64.dmg https://files.radicle.xyz/releases/radicle-desktop/latest/radicle-desktop-aarch64.dmg && open ~/Downloads/radicle-desktop-0.8.0-a250dc9-aarch64.dmg'
+				}
+			]
+		},
+		{
+			label: 'Linux AppImage',
+			value: 'appimage',
+			commands: [
+				{
+					label: 'Download AppImage',
+					text:
+						'curl --output radicle-desktop-0.8.0-a250dc9-amd64.AppImage https://files.radicle.xyz/releases/radicle-desktop/latest/radicle-desktop-amd64.AppImage'
+				}
+			]
+		},
+		{
+			label: 'Debian/Ubuntu',
+			value: 'debian',
+			commands: [
+				{
+					label: 'Install keyring',
+					text:
+						'curl -LO https://radicle.xyz/apt/radicle-archive-keyring.deb\nchmod a+r radicle-archive-keyring.deb\nsudo apt install ./radicle-archive-keyring.deb'
+				},
+				{
+					label: 'Add this to /etc/apt/sources.list',
+					text:
+						'deb [signed-by=/usr/share/radicle/radicle-archive-keyring.asc] https://radicle.xyz/apt release main'
+				},
+				{
+					label: 'Install Radicle Desktop',
+					text:
+						'sudo apt update\nsudo apt install radicle-desktop'
+				}
+			]
+		},
+		{
+			label: 'Arch Linux',
+			value: 'arch',
+			commands: [
+				{
+					label: 'Install with yay',
+					text: 'yay -S radicle-desktop'
+				}
+			]
+		},
+		{
+			label: 'NixOS',
+			value: 'nix',
+			commands: [
+				{
+					label: 'Run with nix',
+					text:
+						"nix run 'git+https://seed.radicle.xyz/z4D5UCArafTzTQpDZNQRuqswh3ury.git?rev=a250dc94ed936df7f4afcc40c03a49cb52a83f0a'"
+				}
+			]
+		},
+		{
+			label: 'Windows WSL2',
+			value: 'wsl2',
+			commands: [
+				{
+					label: 'Use Linux install',
+					text: 'Use WSL2 with any of the Linux install options to run Radicle Desktop on Windows.'
+				}
+			]
+		}
+	];
+	let selectedInstallValue = installOptions[0].value;
+	$: selectedInstall = installOptions.find((option) => option.value === selectedInstallValue) ?? installOptions[0];
 
 	const illustrationModules = import.meta.glob('/src/illustrations/*.{png,jpg,jpeg,webp,avif}', {
 		eager: true,
 		import: 'default'
 	});
 	const illustrationUrls = Object.values(illustrationModules) as string[];
+
+	const desktopHeroImage = 'https://desktop.radicle.xyz/hero/repos.png';
 
 	onMount(() => {
 		if (!heroEl || illustrationUrls.length === 0) {
@@ -20,6 +103,17 @@
 		const index = Math.floor(Math.random() * illustrationUrls.length);
 		heroEl.style.setProperty('--hero-image', `url("${illustrationUrls[index]}")`);
 	});
+
+	function handleCopy(text: string) {
+		navigator.clipboard.writeText(text);
+		copied = true;
+		if (copyTimeout) {
+			clearTimeout(copyTimeout);
+		}
+		copyTimeout = setTimeout(() => {
+			copied = false;
+		}, 3000);
+	}
 </script>
 
 <svelte:head>
@@ -28,7 +122,14 @@
 </svelte:head>
 
 <div class="min-h-screen bg-white dark:bg-black">
-	<SiteHeader ctaLabel="Download Radicle Desktop" showAuxLinks={false} auxLinkLabel="Get the CLI" auxLinkHref="/cli" />
+	<SiteHeader
+		ctaLabel="Install the desktop app"
+		ctaIcon="Copy"
+		ctaCopyText={selectedInstall.commands.map((command) => command.text).join('\n\n')}
+		showAuxLinks={false}
+		auxLinkLabel="Get the CLI"
+		auxLinkHref="/cli"
+	/>
 
 	<section class="relative overflow-hidden" bind:this={heroEl}>
 		<div class="absolute inset-y-0 left-0 right-0 flex justify-center" aria-hidden="true">
@@ -47,14 +148,72 @@
 				<p class="text-2xl text-secondary-light dark:text-black mb-10 leading-snug text-black">
 					<span class="text-highlight">A simple, intuitive desktop app that makes contributing to the Radicle network easier than ever.</span>
 				</p>
-				<a
-					href="https://desktop.radicle.xyz/"
-					target="_blank"
-					rel="noreferrer"
-					class="inline-block px-8 py-4 rounded-sm text-lg font-semibold transition bg-black text-white dark:bg-white dark:text-black btn-invert-hover btn-invert-hover-white btn-invert-hover-dark hover:text-black dark:hover:text-white"
-				>
-					<span>Download Radicle Desktop</span>
-				</a>
+				<div class="inline-flex flex-col space-y-3 rounded-sm bg-white text-black dark:bg-black dark:text-white p-4 sm:p-5 w-fit max-w-full">
+					<div class="flex flex-wrap items-center gap-1">
+						<p class="text-lg font-normal">Install the desktop app on</p>
+						<label class="sr-only" for="desktop-install">Platform</label>
+						<div class="relative inline-flex items-center">
+							<span class="text-lg font-semibold px-3 pr-7">
+								{selectedInstall.label}
+							</span>
+							<select
+								id="desktop-install"
+								class="absolute inset-0 h-full w-full opacity-0 cursor-pointer appearance-none"
+								bind:value={selectedInstallValue}
+							>
+								{#each installOptions as option}
+									<option value={option.value}>{option.label}</option>
+								{/each}
+							</select>
+							<Icon name="ChevronDown" size={14} className="icon-text pointer-events-none absolute right-2 top-1/2 -translate-y-1/2" />
+						</div>
+					</div>
+					<div class="flex flex-col gap-3">
+						{#if selectedInstall.value === 'wsl2'}
+							<p class="text-lg font-normal max-w-2xl">
+								{selectedInstall.commands[0].text}
+							</p>
+						{:else}
+							{#each selectedInstall.commands as command}
+								<div class="space-y-2">
+									{#if selectedInstall.value === 'debian'}
+										<p class="text-lg font-normal">{command.label}</p>
+									{/if}
+									<div class="inline-flex items-start gap-3 bg-black text-white dark:bg-white dark:text-black rounded-sm px-4 py-3 text-sm font-mono max-w-[520px] w-auto">
+										<pre class="truncate whitespace-nowrap overflow-hidden text-ellipsis min-w-0 flex-1">
+											{command.text}
+										</pre>
+										<button
+											type="button"
+											class="p-1 rounded-sm bg-white/10 text-white dark:bg-black/10 dark:text-black relative overflow-hidden flex items-center justify-center flex-shrink-0"
+											aria-label={`Copy ${command.label}`}
+											on:click={() => handleCopy(command.text)}
+										>
+											<span class="relative block h-4 w-4 flex items-center justify-center overflow-hidden">
+												<Icon
+													name="Copy"
+													size={14}
+													className={`icon-terminal absolute left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-200 ease-out ${copied ? 'top-[120%] opacity-0' : 'top-1/2 opacity-100'}`}
+												/>
+												<Icon
+													name="Checkmark"
+													size={14}
+													className={`icon-terminal absolute left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-200 ease-out ${copied ? 'top-1/2 opacity-100' : 'top-[-60%] opacity-0'}`}
+												/>
+											</span>
+										</button>
+									</div>
+								</div>
+							{/each}
+						{/if}
+					</div>
+				</div>
+				<img
+					src={desktopHeroImage}
+					alt="Radicle Desktop repositories view"
+					class="mt-10 w-full rounded-sm"
+					loading="lazy"
+				/>
 			</div>
 		</div>
 	</section>
