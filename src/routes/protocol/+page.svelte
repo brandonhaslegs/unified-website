@@ -2,6 +2,24 @@
 	import SiteFooter from '$lib/components/SiteFooter.svelte';
 	import SiteHeader from '$lib/components/SiteHeader.svelte';
 	import Icon from '$lib/components/Icon.svelte';
+	import { onMount } from 'svelte';
+
+	let heroEl: HTMLElement;
+
+	const illustrationModules = import.meta.glob('/src/illustrations/*.{png,jpg,jpeg,webp,avif}', {
+		eager: true,
+		import: 'default'
+	});
+	const illustrationUrls = Object.values(illustrationModules) as string[];
+
+	onMount(() => {
+		if (!heroEl || illustrationUrls.length === 0) {
+			return;
+		}
+
+		const index = Math.floor(Math.random() * illustrationUrls.length);
+		heroEl.style.setProperty('--hero-image', `url("${illustrationUrls[index]}")`);
+	});
 </script>
 
 <svelte:head>
@@ -11,34 +29,47 @@
 
 <div class="min-h-screen bg-white dark:bg-black">
 	<SiteHeader
-		ctaLabel="More about the protocol"
-		ctaHref="https://radicle.xyz/guides/protocol/"
 		showAuxLinks={false}
-		auxLinkLabel="Get started as a user"
-		auxLinkHref="https://radicle.xyz/guides/user/"
+		showCta={false}
 	/>
 
-	<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-		<div class="max-w-3xl">
-			<h1 class="text-6xl md:text-7xl font-bold tracking-tight text-primary-light dark:text-primary-dark mb-6">
-				Radicle Protocol
-			</h1>
-			<p class="text-2xl text-secondary-light dark:text-secondary-dark mb-10 leading-snug">
-				A local-first, peer-to-peer protocol for sovereign code collaboration—built on Git and backed by cryptographic identities.
-			</p>
-			<div class="flex flex-wrap items-center gap-4">
-				<a
-					href="https://radicle.xyz/guides/protocol/"
-					target="_blank"
-					rel="noreferrer"
-					class="inline-block px-8 py-4 rounded-sm text-lg font-semibold transition bg-black text-white dark:bg-white dark:text-black btn-invert-hover btn-invert-hover-white btn-invert-hover-dark hover:text-black dark:hover:text-white"
-				>
-					<span>More about the protocol</span>
-				</a>
+	<section class="relative overflow-hidden" bind:this={heroEl}>
+		<div class="absolute inset-y-0 left-0 right-0 flex justify-center" aria-hidden="true">
+			<div class="w-full max-w-7xl">
+				<div
+					class="h-full w-[125%] relative left-1/2 -translate-x-1/2"
+					style="background-image: var(--hero-image); background-size: cover; background-position: center center;"
+				></div>
 			</div>
 		</div>
+		<div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+			<div class="max-w-3xl">
+				<h1 class="text-6xl md:text-7xl font-bold tracking-tight text-white dark:text-black mb-6">
+					Radicle Protocol
+				</h1>
+				<p class="text-2xl text-secondary-light dark:text-black mb-10 leading-snug text-black">
+					<span class="text-highlight">A local-first, peer-to-peer protocol for sovereign code collaboration—built on Git and backed by cryptographic identities.</span>
+				</p>
+				<div class="flex flex-wrap items-center gap-4">
+					<a
+						href="/protocol/guide"
+						class="inline-block px-8 py-4 rounded-sm text-lg font-semibold transition bg-white text-black dark:bg-black dark:text-white btn-invert-hover btn-invert-hover-white-dark btn-invert-hover-dark-text"
+					>
+						<span>About the protocol</span>
+					</a>
+					<a
+						href="/protocol/user-guide"
+						class="inline-block px-8 py-4 rounded-sm text-lg font-semibold transition bg-black text-white dark:bg-white dark:text-black btn-invert-hover btn-invert-hover-white btn-invert-hover-dark hover:text-black dark:hover:text-white"
+					>
+						<span>Get started as a user</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
 
-		<section class="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+	<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+		<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
 			<div>
 				<div class="h-12 w-12 bg-brand/20 dark:bg-brand/30 rounded-sm flex items-center justify-center mb-4">
 					<Icon name="Key" size={24} className="icon-brand" />

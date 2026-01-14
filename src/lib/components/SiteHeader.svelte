@@ -10,6 +10,7 @@ export let auxLinkLabel: string | null = null;
 export let auxLinkHref: string | null = null;
 export let ctaIcon: string | null = null;
 export let ctaCopyText: string | null = null;
+export let showCta = true;
 let ctaCopied = false;
 let ctaCopyTimeout: ReturnType<typeof setTimeout> | null = null;
 
@@ -20,13 +21,15 @@ let ctaCopyTimeout: ReturnType<typeof setTimeout> | null = null;
 		{ label: 'Garden', value: '/garden' }
 	];
 	$: currentValue =
-		$page.url.pathname === '/cli'
+		$page.url.pathname.startsWith('/cli')
 			? '/cli'
-			: $page.url.pathname === '/desktop'
+			: $page.url.pathname.startsWith('/desktop')
 				? '/desktop'
-				: $page.url.pathname === '/protocol'
+				: $page.url.pathname.startsWith('/protocol')
 					? '/protocol'
-					: '/garden';
+					: $page.url.pathname.startsWith('/garden')
+						? '/garden'
+						: '/garden';
 	$: currentLabel = pages.find((pageOption) => pageOption.value === currentValue)?.label ?? 'Garden';
 
 function handlePageChange(event: Event) {
@@ -74,7 +77,7 @@ function handleCtaCopy() {
 			</div>
 			{#if showAuxLinks}
 				<div class="flex items-center gap-3 text-sm font-semibold sm:gap-6 sm:ml-auto">
-					<a href="https://desktop.radicle.xyz/" class="link-highlight">
+					<a href="/desktop" class="link-highlight">
 						<span>Download Radicle</span>
 					</a>
 					<span class="hidden sm:block h-6 w-px bg-black/20 dark:bg-white/30" aria-hidden="true"></span>
@@ -89,32 +92,34 @@ function handleCtaCopy() {
 					</a>
 				</div>
 			{/if}
-			{#if ctaCopyText}
-				<button
-					type="button"
-					on:click={handleCtaCopy}
-					class="bg-brand text-black px-4 py-2 rounded-sm font-semibold transition btn-invert-hover btn-invert-hover-white-dark hover:text-white dark:hover:text-black w-full sm:w-auto sm:ml-3 text-center"
-					aria-label={ctaLabel}
-				>
-					<span class="inline-flex items-center gap-2">
-						{#if ctaIcon}
-							<Icon name={ctaCopied ? 'Checkmark' : ctaIcon} size={14} className="icon-black cta-icon" />
-						{/if}
-						<span>{ctaLabel}</span>
-					</span>
-				</button>
-			{:else}
-				<a
-					href={ctaHref}
-					class="bg-brand text-black px-4 py-2 rounded-sm font-semibold transition btn-invert-hover btn-invert-hover-white-dark hover:text-white dark:hover:text-black w-full sm:w-auto sm:ml-3 text-center"
-				>
-					<span class="inline-flex items-center gap-2">
-						{#if ctaIcon}
-							<Icon name={ctaIcon} size={14} className="icon-black cta-icon" />
-						{/if}
-						<span>{ctaLabel}</span>
-					</span>
-				</a>
+			{#if showCta}
+				{#if ctaCopyText}
+					<button
+						type="button"
+						on:click={handleCtaCopy}
+						class="bg-brand text-black px-4 py-2 rounded-sm font-semibold transition btn-invert-hover btn-invert-hover-white-dark hover:text-white dark:hover:text-black w-full sm:w-auto sm:ml-3 text-center"
+						aria-label={ctaLabel}
+					>
+						<span class="inline-flex items-center gap-2">
+							{#if ctaIcon}
+								<Icon name={ctaCopied ? 'Checkmark' : ctaIcon} size={14} className="icon-black cta-icon" />
+							{/if}
+							<span>{ctaLabel}</span>
+						</span>
+					</button>
+				{:else}
+					<a
+						href={ctaHref}
+						class="bg-brand text-black px-4 py-2 rounded-sm font-semibold transition btn-invert-hover btn-invert-hover-white-dark hover:text-white dark:hover:text-black w-full sm:w-auto sm:ml-3 text-center"
+					>
+						<span class="inline-flex items-center gap-2">
+							{#if ctaIcon}
+								<Icon name={ctaIcon} size={14} className="icon-black cta-icon" />
+							{/if}
+							<span>{ctaLabel}</span>
+						</span>
+					</a>
+				{/if}
 			{/if}
 		</div>
 	</div>

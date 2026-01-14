@@ -1,0 +1,2244 @@
+<h1>Radicle User Guide</h1>
+      <p class="subtitle">A fantastic journey through the Radicle universe</p>
+      <ul class="toc"><li class="toc-h2"><a href="#1-getting-started">1. Getting Started</a><ul><li class="toc-h3"><a href="#installation">Installation</a></li><li class="toc-h3"><a href="#come-into-being-from-the-elliptic-aether">Come into being from the <em>elliptic aether</em></a></li><li class="toc-h3"><a href="#operate-nodes-smoothly">Operate nodes, smoothly</a></li><li class="toc-h3"><a href="#git-going-with-repositories">Git going with repositories</a></li><li class="toc-h3"><a href="#publishing-ch-ch-ch-ch-changes">Publishing <em>ch-ch-ch-ch-changes</em></a></li><li class="toc-h3"><a href="#the-basics-of-seeding-and-cloning">The basics of <em>seeding</em> and <em>cloning</em></a></li></ul></li><li class="toc-h2"><a href="#2-collaborating-the-radicle-way">2. Collaborating the Radicle Way</a><ul><li class="toc-h3"><a href="#working-with-issues">Working with <em>issues</em></a></li><li class="toc-h3"><a href="#assigning-issues">Assigning issues</a></li><li class="toc-h3"><a href="#working-with-patches">Working with <em>patches</em></a></li><li class="toc-h3"><a href="#updating-patches">Updating patches</a></li><li class="toc-h3"><a href="#merging-patches-into-the-canonical">Merging patches into the canonical</a></li><li class="toc-h3"><a href="#from-remote-viewing-to-adding-remotes">From remote viewing to adding remotes</a></li><li class="toc-h3"><a href="#synchronizing-the-canonical">Synchronizing the canonical</a></li></ul></li><li class="toc-h2"><a href="#3-selectively-revealing-repositories">3. Selectively Revealing Repositories</a><ul><li class="toc-h3"><a href="#initializing-a-private-repository">Initializing a private repository</a></li><li class="toc-h3"><a href="#curating-the-allow-list">Curating the <em>allow</em> list</a></li><li class="toc-h3"><a href="#replicating-to-our-seed-node">Replicating to our seed node</a></li><li class="toc-h3"><a href="#cloning-as-a-trusted-peer">Cloning as a trusted peer</a></li><li class="toc-h3"><a href="#removing-nodes-from-the-allow-list">Removing nodes from the <em>allow</em> list</a></li></ul></li><li class="toc-h2"><a href="#4-embracing-the-onion">4. Embracing the Onion</a><ul><li class="toc-h3"><a href="#setting-up-a-tor-onion-service-for-radicle">Setting up a Tor Onion Service for Radicle</a><ul><li class="toc-h4"><a href="#configuring-radicle-in-mixed-mode">Configuring Radicle in <em>Mixed Mode</em></a></li><li class="toc-h4"><a href="#making-connections">Making connections</a></li></ul></li><li class="toc-h3"><a href="#alternative-tor-configurations">Alternative Tor configurations</a><ul><li class="toc-h4"><a href="#full-proxy-mode">Full Proxy Mode</a></li><li class="toc-h4"><a href="#transparent-proxy-mode">Transparent Proxy Mode</a></li></ul></li></ul></li></ul>
+      <hr />
+      <p>Software is <em>the</em> fundamental way in which we interface with data that
+comprises our current reality, and code is the language of software. Most
+software systems were created through a collaborative process involving
+multiple people. If we accept that software is important and collaborative by
+nature, then a shared system for communicating about code and collaborating is
+needed. This system shouldn&#8217;t be owned by one company, as code is too important
+to be monopolized.</p>
+
+<aside class="span-2">
+  <p> Microsoft acquired GitHub in 2018. They also own 49% of OpenAI. One of
+  our prophets of the future, the author Philip K. Dick, has shown us many
+  projections of alternate dystopian realities that emerge when corporations
+  amass too much power. </p>
+  <p> While some may question the reliability of his visions as
+  he was often fueled by substances that would make even psychonauts raise an
+  eyebrow, consider this: the Oracle at Delphi's officiant claimed to glimpse
+  through the veil by inhaling naturally occurring gasses emerging from the
+  ground. </p>
+</aside>
+
+<p>Furthermore, our world is increasingly polarized, and this reality is finding
+its way into software companies and therefore into software products. Users are
+banned from using a platform because of their geographic location or the ideas
+they stand for. This is not tenable.</p>
+
+<p>This is why we&#8217;ve created Radicle, an open protocol that enables users like you
+to collaborate on your code within a sovereign network. It&#8217;s a neutral
+environment where you have full ownership of your data and you have the
+autonomy to set the rules of your code universe as you see fit. You can work on
+software projects (and ultimately more) even when offline, while also being
+connected to a broader network, through which you&#8217;ll eventually be able to find
+contributors.</p>
+
+<p>We&#8217;ve created this Radicle Guide to initiate you as a settler of our network
+through teaching you how to use the software we&#8217;ve developed&#8212;the Radicle
+CLI, which is both a node and command line interface tool for interacting with
+the protocol. This guide is split into multiple chapters and we recommend
+starting with the first chapter for a higher level introduction that takes you
+on a tour through Radicle&#8217;s core functions. Subsequent chapters will provide
+deeper dives into specific use cases, but they are still in progress.</p>
+
+<blockquote>
+  <p>&#128126;</p>
+
+  <p>Greetings, I&#8217;m your guide! Whenever you see &#128126;, it&#8217;s because I&#8217;ve got
+some spicy tips on how to use Radicle. You&#8217;ll also see &#129399; for privacy
+tips, &#128123; for things you should be wary of, and &#129504; for opportunities to learn
+more.</p>
+
+  <p>If you ever get stuck and want additional guidance, join us in our
+<a href="https://radicle.zulipchat.com/">chatroom</a> on Zulip and ask your questions in the <code class="language-plaintext highlighter-rouge">#support</code> channel.</p>
+
+  <p>Also, this guide teaches you how to use Radicle in a narrative fashion. If
+you&#8217;re looking for more straightforward usage docs, check out the Radicle
+manual or the <a href="https://radicle.xyz/guides/protocol/">Protocol Guide</a> for more information on Radicle&#8217;s
+fundamental building blocks and motivations.</p>
+</blockquote>
+
+<aside> The Radicle manual can be accessed by entering <code>man
+rad</code> from your command line, after installing Radicle. </aside>
+
+<h2 id="1-getting-started">1. Getting Started</h2>
+
+<p>One of the important facts to understand about Radicle is that it is a
+peer-to-peer protocol, which is uncommon when it comes to software you
+typically rely on. Most collaboration technologies are hinged upon a
+client-server model, where you&#8217;re entrusting your data and social interactions
+to a single entity that is managing a bunch of servers or data centers. This
+paradigm is transformed in a peer-to-peer protocol, where every user of the
+protocol is a <em>peer</em>, participating equally. Peers on the Radicle network are
+also referred to as <strong>nodes</strong>, and it doesn&#8217;t matter what you are doing &#8211;
+whether you&#8217;re publishing repositories or discussing issues &#8211; you have to run
+a node.</p>
+
+<p>Within a few paragraphs, you&#8217;ll be operating a Radicle Node via the command
+line by installing the Radicle software stack. It&#8217;s a pretty easy process that
+can be completed in under 5 minutes, but there are a few requirements that are
+important to run through before you proceed:</p>
+
+<ol>
+  <li>You need a <strong>Linux</strong> or <strong>Unix</strong> based operating
+system like macOS or Ubuntu and a basic understanding of how to use your
+terminal.</li>
+  <li>Radicle is built on top of <strong>Git</strong>, so a recent version of Git
+(2.34.0 or later) is recommended. We also assume you have <em>some</em> experience
+using Git.</li>
+  <li>OpenSSH (version 9.1 or later) with <strong>ssh-agent</strong> has to also
+be installed and running. This is a helper program that is used to secure
+the secret key related to your Radicle identity.</li>
+</ol>
+
+<aside> What is <strong>Git</strong>, you wonder? <a href="https://en.wikipedia.org/wiki/Git">Git</a> is a distributed version
+control system that manages and tracks changes in computer files, predominantly
+used for source code and collaborative programming. </aside>
+
+<blockquote>
+  <p>&#128126;</p>
+
+  <p>You can check your Git and SSH installations by running <code class="language-plaintext highlighter-rouge">git
+--version</code> or <code class="language-plaintext highlighter-rouge">ssh -V</code> in your terminal.</p>
+
+  <p>If you haven&#8217;t used Git before, you&#8217;re going to be in a world of pain and
+should read through the <a href="https://git-scm.com/book/en/v2">Pro Git</a> book first.</p>
+</blockquote>
+
+<h3 id="installation">Installation</h3>
+
+<p>The easiest way to install Radicle is by firing up your terminal and running
+the following command:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ curl -sSLf https://radicle.xyz/install | sh
+</code></pre></div></div>
+
+<p>This command runs an installer script that automates the setup process, by:</p>
+
+<ul>
+  <li>Identifying your OS, and installing Radicle binaries suitable for your
+system, including <code class="language-plaintext highlighter-rouge">rad</code>, <code class="language-plaintext highlighter-rouge">git-remote-rad</code>, <code class="language-plaintext highlighter-rouge">radicle-node</code>, and
+<code class="language-plaintext highlighter-rouge">radicle-httpd</code>, all placed in <code class="language-plaintext highlighter-rouge">~/.radicle/bin</code> by default. This is a
+non-standard location, so the script also updates your <code class="language-plaintext highlighter-rouge">PATH</code> variable to
+include the path to these binaries.</li>
+  <li>Installing <code class="language-plaintext highlighter-rouge">man</code> pages into <code class="language-plaintext highlighter-rouge">~/.radicle/man</code>, which enables you to access
+the Radicle CLI user manual through <code class="language-plaintext highlighter-rouge">man rad</code> or <code class="language-plaintext highlighter-rouge">rad help</code>.</li>
+</ul>
+
+<blockquote>
+  <p>&#128126;</p>
+
+  <p>If you want the above to be installed in a different location than
+<code class="language-plaintext highlighter-rouge">~/.radicle</code>, you can pass <code class="language-plaintext highlighter-rouge">--prefix</code> to the installation script, eg.
+<code class="language-plaintext highlighter-rouge">--prefix=/usr/local</code>.</p>
+
+  <p>Note that if you don&#8217;t want to use the installer script, you can also always
+compile from the <a href="https://radicle.network/nodes/iris.radicle.xyz/rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5">source code</a> or get the <a href="https://radicle.xyz/download">binaries</a> if you
+prefer.</p>
+</blockquote>
+
+<p>Once you&#8217;ve installed Radicle, you can make sure that it was successful by
+running:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad --version
+</code></pre></div></div>
+
+<h3 id="come-into-being-from-the-elliptic-aether">Come into being from the <em>elliptic aether</em></h3>
+
+<p>When using Radicle for the first time, you have to create a new Radicle
+identity, which is simply a cryptographic key pair, using the <code class="language-plaintext highlighter-rouge">rad-auth</code>
+command. The public key is what uniquely identifies you across the network,
+while the private key is used to authenticate your node, as well as sign code
+and other artifacts you publish on the network.</p>
+
+<aside class="span-5">
+  <p> A <strong>cryptographic key pair</strong> is a set of two keys used in
+  cryptography, typically for securing digital communication and data.</p>
+
+  <p> The pair consists of a public key and a private (or secret) key. The
+  public key can be shared with others and is used to encrypt data or verify
+  digital signatures created with the corresponding private key. Conversely,
+  the private key is kept secret by the owner and is used to decrypt data
+  encrypted with the public key or to create digital signatures. </p>
+
+  <p> The use of these keys ensures authenticity, as digital signatures can
+  confirm that a message or data was indeed sent by the owner of the private
+  key. </p>
+</aside>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad auth
+</code></pre></div></div>
+
+<p>That&#8217;s how you&#8217;ll cryptographically forge your new Radicle identity.</p>
+
+<p>Follow the instructions by entering an <strong>alias</strong>, a non-unique name that makes
+it easier to identify your node, in addition to a <strong>passphrase</strong> to protect
+your key pair. Note that your alias can always be changed at a later time.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad auth
+
+Initializing your radicle &#128126; identity
+
+&#10003; Enter your alias: paxel
+&#10003; Enter a passphrase: ********
+&#10003; Creating your Ed25519 keypair...
+&#10003; Adding your radicle key to ssh-agent...
+&#10003; Your Radicle DID is did:key:z6Mkhp7VUnuufpvuQ3PdysShAjL86VDRUpPpkesqiysDBGs9. This identifies your device. Run `rad self` to show it at all times.
+&#10003; You're all set.
+...
+</code></pre></div></div>
+
+<p>When you&#8217;ve completed the steps, your new Radicle DID (Decentralized Identifier)
+will be generated and displayed. If <code class="language-plaintext highlighter-rouge">ssh-agent</code> is running, your private key will
+also be added to it for future use. While similar to your Node ID (NID), the Radicle
+DID is formatted as a <a href="https://en.wikipedia.org/wiki/Decentralized_identifier">Decentralized Identifier</a>, whereas the NID is simply the
+encoded public key. The Radicle DID is your own <a href="https://en.wikipedia.org/wiki/Self-sovereign_identity">self-sovereign</a> identity. Share
+it freely with collaborators!</p>
+
+<aside class="span-4">
+  <p><strong>DIDs</strong> are a new identifier standard established by the W3C
+  that are used for interoperability across various systems and provide
+  flexibility for incorporating different types of identifiers in the
+  future.</p>
+
+  <p><strong>Ed25519</strong> is a public-key signature system that uses a
+  variant of the Schnorr signature based on Twisted Edwards curves. It's known
+  for its speed, security, and efficiency, and is used in applications like SSH
+  authentication, TLS encryption, and software package verification.</p>
+</aside>
+
+<aside class="span-4">
+  <p> <code>ssh-agent</code> is a helper program that manages your SSH keys
+  and passphrases, encrypting the keys with your passphrase for secure
+  storage.</p>
+
+  <p>Once the keys are loaded into the agent, it can use them to authenticate
+  your access to Radicle and sign data, eliminating the need to re-enter your
+  passphrase.</p> <p>Use <code>ssh-add -l</code> to view the keys the agent
+  currently holds. For further details, visit the
+  <a href="https://www.ssh.com/academy/ssh/agent">website</a>. </p>
+</aside>
+
+<p>If you run <code class="language-plaintext highlighter-rouge">rad auth</code> again you can verify that your key was added to
+<code class="language-plaintext highlighter-rouge">ssh-agent</code>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad auth
+&#10003; Radicle key already in ssh-agent
+</code></pre></div></div>
+
+<blockquote>
+  <p>&#128123;</p>
+
+  <p>If you plan on using multiple devices, it is very important that you do not try
+to share your Radicle identity across those devices.</p>
+
+  <p>At the moment, each device is required to be identified by its own DID,
+meaning you have to go through the <code class="language-plaintext highlighter-rouge">rad auth</code> process on each device you plan
+on using.</p>
+
+  <p>We understand the desire and need to link devices to make collaboration smoother.
+We are in the process of designing and implementing this functionality.</p>
+</blockquote>
+
+<p>If you forget your DID, you can query your full identity by running <code class="language-plaintext highlighter-rouge">rad
+self</code> or alternatively you can grab your DID with <code class="language-plaintext highlighter-rouge">rad self --did</code>.
+If you need your NID, you can query for it with <code class="language-plaintext highlighter-rouge">rad node status --only nid</code>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad self
+Alias           paxel
+DID             did:key:z6Mkhp7VUnuufpvuQ3PdysShAjL86VDRUpPpkesqiysDBGs9
+&#9492;&#9588;Node ID (NID) z6Mkhp7VUnuufpvuQ3PdysShAjL86VDRUpPpkesqiysDBGs9
+SSH             running (3817)
+&#9500;&#9588;Key (hash)    SHA256:YCmRe6BkDOp45lYg0m5DeYxgRcPKftQZb4RmQD1nkjQ
+&#9492;&#9588;Key (full)    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO9xo9DHlsZJeZWnZaaawsnKFjcQxN4LQ&#8230;
+Home            /home/paxel/.radicle
+&#9500;&#9588;Config        /home/paxel/.radicle/config.json
+&#9500;&#9588;Storage       /home/paxel/.radicle/storage
+&#9500;&#9588;Keys          /home/paxel/.radicle/keys
+&#9492;&#9588;Node          /home/paxel/.radicle/node
+</code></pre></div></div>
+
+<p>This displays your alias, DID, SSH agent status, SSH keys, and the locations of
+important files or directories.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad self --did
+did:key:z6Mkhp7VUnuufpvuQ3PdysShAjL86VDRUpPpkesqiysDBGs9
+</code></pre></div></div>
+
+<p>For focusing on your DID.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad node status --only nid
+z6Mkhp7VUnuufpvuQ3PdysShAjL86VDRUpPpkesqiysDBGs9
+</code></pre></div></div>
+
+<p>For getting the NID of the current, running node.</p>
+
+<blockquote>
+  <p>&#128126;</p>
+
+  <p>Many of the other items you see in the <code class="language-plaintext highlighter-rouge">rad self</code> output can be viewed
+individually. Wondering about your alias? A quick <code class="language-plaintext highlighter-rouge">rad self --alias</code> has you
+covered. Need to pinpoint your Radicle home folder? <code class="language-plaintext highlighter-rouge">rad self --home</code> is your
+friend. And for your config file location, just hit up <code class="language-plaintext highlighter-rouge">rad self --config</code>.</p>
+
+  <p>If you&#8217;re ever feeling lost, <code class="language-plaintext highlighter-rouge">rad self --help</code> will lay out all your options.</p>
+</blockquote>
+
+<h3 id="operate-nodes-smoothly">Operate nodes, smoothly</h3>
+
+<p>Now that your node has an identity (or &#8216;public key&#8217;), you have what it takes to
+connect to the Radicle Network. That&#8217;s right &#8211; we don&#8217;t need your email
+address or any other personal identifying information. Your alias can be your
+cat&#8217;s name for all we care.</p>
+
+<p>The first command to embed deep within your consciousness is the one for
+checking your node&#8217;s status:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad node status
+</code></pre></div></div>
+
+<p>If the node is not running, you can start it as a background daemon with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad node start
+</code></pre></div></div>
+
+<p>After your node starts, it will attempt to connect to peers on the network.</p>
+
+<p>But let&#8217;s take a step back and ponder some fundamental questions: <em>What exactly
+happens when these nodes interact? And how does Git fit into this picture?</em></p>
+
+<p>At its core, Radicle marries Git with peer-to-peer networking. Your node isn&#8217;t
+just another cog in the machine; it&#8217;s a conduit for collaboration. It&#8217;s there
+<em>to host and synchronize repositories you&#8217;re interested in</em>.</p>
+
+<p>Radicle&#8217;s peer-to-peer architecture draws inspiration from <a href="https://en.wikipedia.org/wiki/Secure_Scuttlebutt">Secure
+Scuttlebutt&#8217;s</a> gossip protocol where data transmission relies on a
+publish/subscribe system, allowing peers to host and sync only the data they
+care about. Similar to <a href="https://en.wikipedia.org/wiki/BitTorrent">BitTorrent</a>, we use the terminology &#8220;seeding&#8221; to
+describe distributing and sharing a repository across the network.</p>
+
+<p>With Radicle&#8217;s gossip protocol, peers exchange messages about the network that
+facilitate the discovery and replication of repositories. The replication
+process kicks off when a node establishes a secure connection with another
+node, the initiating node conducts a <em>fetch</em> operation via the Git protocol to
+pull the pertinent objects into the node&#8217;s storage, thereby availing them to
+the local user and other interested nodes.</p>
+
+<aside> <strong>Replication</strong> is the process of creating multiple copies
+<em>(replicas)</em> of data across a network of peers to ensure redundancy,
+improve reliability and enhance access speed. </aside>
+
+<blockquote>
+  <p>If you&#8217;re curious about how Radicle works under the hood, read our
+<a href="https://radicle.xyz/guides/protocol/">Protocol Guide</a>.</p>
+</blockquote>
+
+<h3 id="git-going-with-repositories">Git going with repositories</h3>
+
+<p>Now, time to return to your terminal. The next thing we&#8217;ll do is publish a
+repository to the Radicle network. Once we&#8217;ve done this, anyone with a node
+will be able to fetch and seed your repository, increasing its replica count
+on the network.</p>
+
+<aside class="span-3"> We built Radicle on good old Git, the go-to for version control
+because, well, it is widely used and works extremely well. For a zeptosecond,
+we considered inventing a new system but heard a strong shout in our brains
+that said something like "YOU'D BE SO STUPID TO REINVENT VERSION CONTROL RIGHT
+NOW". </aside>
+
+<p>Pick a repository you maintain and navigate to a local copy. It can be any Git
+repository, but it should have at least one commit.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ pwd
+/home/paxel/src/dark-star
+
+$ git status
+On branch master
+Your branch is up to date with 'origin/master'.
+nothing to commit, working tree clean
+</code></pre></div></div>
+
+<p>To publish it to the Radicle network, run the <code class="language-plaintext highlighter-rouge">rad init</code> command.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad init
+
+Initializing radicle &#128126; project in .
+
+&#10003; Name: dark-star
+&#10003; Description: Decoding data from the dark star to establish a model of the universe
+&#10003; Default branch: main
+&#10003; Visibility: public
+&#10003; Project dark-star created.
+
+Your project's Repository ID (RID) is rad:z31hE1wco9132nedN3mm5qJjyotna.
+You can show it any time by running `rad .` from this directory.
+
+&#10003; Project successfully announced to the network.
+
+Your project has been announced to the network and is now discoverable by peers.
+You can check for any nodes that have replicated your project by running `rad sync status`.
+
+To push changes, run `git push`.
+</code></pre></div></div>
+
+<p>Don&#8217;t be afraid to do this on one of your existing public repositories! Because
+even if you aren&#8217;t ready to use Radicle for code collaboration, it works great
+for distribution. Radicle&#8217;s network of seed nodes help propagate and host code,
+forming a decentralized, censorship resistant, and ungovernable distribution system.</p>
+
+<p>What <code class="language-plaintext highlighter-rouge">rad init</code> does is gather the essential details from you which are needed
+to initialize the repository into Radicle: the repository name, description,
+default branch (typically <code class="language-plaintext highlighter-rouge">main</code> or <code class="language-plaintext highlighter-rouge">master</code>), and whether it is public or
+private.</p>
+
+<p>Similar to how <code class="language-plaintext highlighter-rouge">git init</code> is used to initialize a Git repository, we use
+nomenclature you&#8217;re familiar with so you don&#8217;t go crazy. That&#8217;d be so cruel if
+you had to do <code class="language-plaintext highlighter-rouge">rad new</code>, instead, wouldn&#8217;t it?</p>
+
+<blockquote>
+  <p>&#128123;</p>
+
+  <p>It&#8217;s important to only publish repositories you own or are a maintainer of,
+and to communicate with the other maintainers so that they don&#8217;t initialize
+redundant repository identities.</p>
+</blockquote>
+
+<p>After entering your repository details, you&#8217;re presented with a Repository
+Identifier (RID) that is a globally unique URN that you can share with your
+collaborators or friends so that they can clone or seed your repository.
+Besides generating the RID, <code class="language-plaintext highlighter-rouge">rad init</code> creates a special Git remote in your
+working copy named <code class="language-plaintext highlighter-rouge">rad</code> and publishes the repository to the network (assuming
+it&#8217;s public). We&#8217;ll talk more about private repositories in another chapter.</p>
+
+<aside class="span-2">
+  <p>A <strong>Uniform Resource Name</strong> (URN) is a type of Uniform
+  Resource Identifier (URI) that is used to uniquely identify resources without
+  specifying the location or means to access them. Unlike URLs, which provide
+  information on where a resource can be found on the Internet (their
+  location), URNs serve as persistent, location-independent resource
+  identifiers.</p>
+</aside>
+
+<aside>
+In Radicle, a <strong>delegate</strong> refers to a role or entity that has
+been granted the authority to sign for and manage a repository and its metadata.
+</aside>
+
+<p>When you initialize a repository you are the sole maintainer or <em>delegate</em>, the
+term used in Radicle. Delegates can represent a group, person or even a bot. In
+your case, I&#8217;m assuming you&#8217;re a person. Delegates can be added or removed from
+a repository, by existing delegates. We&#8217;ll talk about this more in one of the
+next chapters.</p>
+
+<blockquote>
+  <p>&#128126;</p>
+
+  <p>A few spicy commands you might want to know about, that can be run within a
+repository you&#8217;ve initialized:</p>
+
+  <ul>
+    <li>It&#8217;s difficult to memorize RIDs. Use <code class="language-plaintext highlighter-rouge">rad .</code> to display the current
+repository&#8217;s RID.</li>
+    <li>To display the repository&#8217;s identity payload, which contains its name,
+description and default branch, run <code class="language-plaintext highlighter-rouge">rad inspect --payload</code>.</li>
+    <li>To be able to push changes to a repository from all of your devices, simply
+add each device&#8217;s DID as a repository delegate, using <code class="language-plaintext highlighter-rouge">rad id update</code>.</li>
+    <li>For more details on managing the repository&#8217;s identity, including adding
+delegates, or making updates to its name, description, and visibility, refer
+to <code class="language-plaintext highlighter-rouge">rad id --help</code>.</li>
+  </ul>
+
+  <p>By the way since your Radicle key is a valid SSH key, it can be used to sign
+Git commits since version Git <code class="language-plaintext highlighter-rouge">2.34.0</code>. This is an alternative to the more
+common GPG signing method. If you&#8217;d like to setup your repository to use your
+Radicle key for signing commits, enter these commands from its working
+directory:</p>
+
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config user.signingKey "$(rad self --ssh-key)"
+git config gpg.format ssh
+git config gpg.ssh.program ssh-keygen
+git config gpg.ssh.allowedSignersFile .gitsigners
+git config commit.gpgsign true
+</code></pre></div>  </div>
+
+  <p>You can also set this up globally by passing the <code class="language-plaintext highlighter-rouge">--global</code> option to <code class="language-plaintext highlighter-rouge">git
+config</code>.</p>
+
+  <p>Commit signing is a purely optional step; Radicle internally signs everything
+you publish anyway, so don&#8217;t worry if you don&#8217;t set this up!</p>
+</blockquote>
+
+<p>Note that your new repository will only be replicated by nodes that you are
+connected to and either have an open seeding policy, or follow you. Seeding
+involves both hosting the repository and synchronizing changes with other
+nodes. In the early stages of the Radicle network, all public repositories are
+automatically seeded by <code class="language-plaintext highlighter-rouge">iris.radicle.xyz</code> and <code class="language-plaintext highlighter-rouge">rosa.radicle.xyz</code> which
+are <em>public seed nodes</em> run by the core team.</p>
+
+<!-- TODO: Talk about seeding policies and following -->
+
+<aside class="span-2"> <strong>Seed nodes</strong> are always-on machines that
+significantly enhance the network&#8217;s capacity to provide continuous access to
+repositories. They can vary in their seeding policies, from public seed nodes
+like <code>iris.radicle.xyz</code> and <code>rosa.radicle.xyz</code> that
+openly seed all repositories, to community seed nodes that selectively seed
+repositories based on rules established by their operators. </aside>
+
+<p>You don&#8217;t <em>have</em> to trust or rely on our public seed node. You can run
+your own. As more people run them, Radicle becomes more resilient and
+reliable for code collaboration.</p>
+
+<blockquote>
+  <p>We are always looking to attract more people
+that want to operate public seed nodes: if that&#8217;s you, check out our
+<a href="https://radicle.xyz/guides/seeder/">Seeder&#8217;s Guide</a> for more details.</p>
+</blockquote>
+
+<h3 id="publishing-ch-ch-ch-ch-changes">Publishing <em>ch-ch-ch-ch-changes</em></h3>
+
+<div class="poem"> Still don't know what I was waiting for<br /> Requiring an
+internet connection to push to remote<br /> But now I push to my local-first, oh so
+`rad` remote<br /> Instead of that one shoddy monopolized forge </div>
+
+<p>As we just mentioned, <code class="language-plaintext highlighter-rouge">rad init</code> creates a special remote in your working copy
+named <code class="language-plaintext highlighter-rouge">rad</code>. What&#8217;s this doing under the hood? With Radicle, you will typically
+be interacting with two different repository copies on your device, the
+<em>working copy</em> and a hidden, <em>stored copy</em> that you interact with via <code class="language-plaintext highlighter-rouge">git push
+rad</code> and <code class="language-plaintext highlighter-rouge">git pull rad</code> commands using Radicle&#8217;s <em>git remote helper</em> program
+named <code class="language-plaintext highlighter-rouge">git-remote-rad</code>. Remote helpers are particularly useful for integrating
+Git with specialized network protocols like Radicle. Git calls the custom
+<code class="language-plaintext highlighter-rouge">git-remote-rad</code> program when it encounters <code class="language-plaintext highlighter-rouge">rad://</code> remotes.</p>
+
+<blockquote>
+  <p>&#129504;</p>
+
+  <p>Git remote helpers are custom programs that allow Git to interact with
+repositories hosted on various types of servers or protocols that are not
+natively supported. Remote helpers are invoked by Git when it encounters a URL
+scheme that matches a supported helper. For example, in Radicle&#8217;s use case, if
+Git sees a URL starting with <code class="language-plaintext highlighter-rouge">rad://</code>, it will look for a remote helper program
+named <code class="language-plaintext highlighter-rouge">git-remote-rad</code> and use this program to handle operations related to
+that URL, such as fetching, pushing, and cloning. For more details, check out
+Git&#8217;s <a href="https://git-scm.com/docs/gitremote-helpers">documentation</a> on remote
+helpers.</p>
+</blockquote>
+
+<p>To view information about the <code class="language-plaintext highlighter-rouge">rad</code> remote in your repository, try:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git remote show rad
+* remote rad
+  Fetch URL: rad://z31hE1wco9132nedN3mm5qJjyotna
+  Push  URL: rad://z31hE1wco9132nedN3mm5qJjyotna/z6MkvZwzK64f3GuDcAs6dEcje89ddfHkBjS1v9Dkh7aCGq3C
+  HEAD branch: (unknown)
+  Remote branch:
+    main tracked
+  Local branch configured for 'git pull':
+    main merges with remote main
+  Local ref configured for 'git push':
+    main pushes to main (up to date)
+</code></pre></div></div>
+
+<p>You&#8217;ll notice the Repository ID in a URL format under <code class="language-plaintext highlighter-rouge">Fetch URL</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rad://z31hE1wco9132nedN3mm5qJjyotna
+</code></pre></div></div>
+
+<p>For the <code class="language-plaintext highlighter-rouge">Push URL</code>, you may be wondering, what is the element after the slash?</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>z6MkvZwzK64f3GuDcAs6dEcje89ddfHkBjS1v9Dkh7aCGq3C
+</code></pre></div></div>
+
+<p>Does it look familiar to you? Well, it&#8217;s your Node ID. Remember you can always
+check your Node ID by running <code class="language-plaintext highlighter-rouge">rad node status --only nid</code>.</p>
+
+<p>When using Git with traditional forges, you are pushing to a remote which is a
+centralized server that all other collaborators are also using. In Radicle, the
+remote is on your local device, which means that you can push changes even when
+you&#8217;re disconnected from the internet. Changes that you push to the remote
+while offline will automatically propagate to the network once you come back
+online. This is one of the very unique aspects of Radicle that makes offline
+work <em>way smoother</em>.</p>
+
+<aside>
+ When using GitHub, for example, you will be pushing to a remote URL that
+ starts with <code>https://github.com/</code>, followed by an account and
+ repository name. On Radicle, the URL you push to does not represent a specific
+ host, it represents a de-centralized repository, identified by name only, not
+ location.
+</aside>
+
+<blockquote>
+  <p>&#129504;</p>
+
+  <p>Radicle&#8217;s storage layout accommodates multiple source trees <em>(forks)</em> per
+repository. Each repository is stored as a bare Git repository, residing under
+a common base directory, uniquely identified by its Repository ID (RID). Rather
+than storing peer data in separate Git repositories with individual object
+databases (ODBs), Radicle consolidates peer data within the same Git
+repository. This is achieved using the <code class="language-plaintext highlighter-rouge">gitnamespaces</code> feature, where each
+peer&#8217;s unique Node ID serves as a namespace to partition their Git references.</p>
+
+  <p>See the <a href="https://radicle.xyz/guides/protocol#local-first-storage">storage</a> section of the
+protocol guide for more information.</p>
+</blockquote>
+
+<p>Now let&#8217;s try publishing some changes to see how this works.</p>
+
+<p>Use your favorite text editor to make a change to the repository that you just
+initialized. For example, you can update its README to include instructions on
+how to clone the repository on Radicle:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git diff
+diff --git a/README.md b/README.md
+index 91b304791..70ef6efc9 100644
+--- a/README.md
++++ b/README.md
+@@ -58,6 +58,12 @@
+
++## Radicle
++
++To clone this repository on Radicle, simply run:
++
++    rad clone rad:z31hE1wco9132nedN3mm5qJjyotna
++
+</code></pre></div></div>
+
+<p>Once you&#8217;re finished, add and commit your changes with <code class="language-plaintext highlighter-rouge">git add</code> and <code class="language-plaintext highlighter-rouge">git
+commit</code> just as you would when collaborating on any other Git repository. Then
+use <code class="language-plaintext highlighter-rouge">git push rad master</code> to synchronize the changes with your node (be sure to
+replace <code class="language-plaintext highlighter-rouge">master</code> with your default branch, in case that&#8217;s not it).</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git add README.md
+$ git commit -m "Add instruction on cloning with Radicle"
+$ git push rad master
+&#10003; Synced with 1 node(s)
+To rad://z31hE1wco9132nedN3mm5qJjyotna/z6MkvZwzK64f3GuDcAs6dEcje89ddfHkBjS1v9Dkh7aCGq3C
+   ecb1bf0..74fb8d2  master -&gt; master
+</code></pre></div></div>
+
+<p>Whenever you execute a <code class="language-plaintext highlighter-rouge">git push rad</code> command, you are pushing the changes in
+your local working copy to your remote copy. You see that the remote of your
+repository is represented by the URL:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rad://z31hE1wco9132nedN3mm5qJjyotna/z6MkvZwzK64f3GuDcAs6dEcje89ddfHkBjS1v9Dkh7aCGq3C
+</code></pre></div></div>
+
+<p>As the sole delegate of the repository, changes that you push to the
+repository&#8217;s default branch under the <code class="language-plaintext highlighter-rouge">rad</code> remote, represent the <strong>canonical</strong>
+or <em>authoritative</em> state of the repository. This means that if someone were to
+clone your repository, they would be getting the state that you just pushed,
+given your nodes are able to communicate with each other.</p>
+
+<blockquote>
+  <p>&#129504;</p>
+
+  <p>The canonical repository state is established <em>dynamically</em> based on the
+delegate thresholds defined for the repository. For example, if a <code class="language-plaintext highlighter-rouge">threshold</code>
+of two out of three delegates is set, with the <code class="language-plaintext highlighter-rouge">defaultBranch</code> specified as
+<code class="language-plaintext highlighter-rouge">main</code>, and both Alice and Bob have the same commit in their <code class="language-plaintext highlighter-rouge">main</code> branches,
+that specific commit is recognized as the authoritative, current state of the
+repository. In the current Radicle release, the dynamic establishment of an
+authoritative state is limited to a single <code class="language-plaintext highlighter-rouge">defaultBranch</code>. Future releases
+of the protocol may enhance this feature to include additional secondary
+branches.</p>
+</blockquote>
+
+<p>You may be wondering &#8211; now that you&#8217;ve pushed to your remote, how do other
+peers get this update? Any peer who has cloned or seeded the repository will
+receive a <em>reference announcement</em> message from its peers, via the gossip
+protocol, which informs the node there was an update. Following this, peers
+conduct a <em>fetch</em> operation via the Git protocol to pull the pertinent Git
+objects into their local storage.</p>
+
+<h3 id="the-basics-of-seeding-and-cloning">The basics of <em>seeding</em> and <em>cloning</em></h3>
+
+<p>Nodes have a <em>seeding policy</em> which specifies the list of repositories they are
+interested in replicating on the network.</p>
+
+<p>Whenever you clone or initialize a new repository, your node&#8217;s seeding policy
+is updated to keep these repositories in sync with the network.</p>
+
+<p>There are a few ways that seeding relationships are established among nodes.
+One of the main methods is by one node intentionally <em>cloning</em> another
+repository. You can run the <code class="language-plaintext highlighter-rouge">rad clone</code> command to clone a repository from the
+Radicle network, by supplying a Repository Identifier (RID).</p>
+
+<p>Let&#8217;s try this out. First, navigate to a directory where you typically clone
+Git repositories. Then run this command to clone the Radicle
+<a href="https://radicle.network/nodes/iris.radicle.xyz/rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5">Heartwood</a> repository:</p>
+
+<aside class="span-2"> Heartwood is the name of the current version of the
+Radicle protocol. An alpha version was initially released in April 2023.
+</aside>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad clone rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5
+&#10003; Seeding policy updated for rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5 with scope 'all'
+&#10003; Fetching rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5 from z6Mkk4R&#8230;SBiyXVM..
+&#10003; Fetching rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5 from z6Mksmp&#8230;1DN6QSz..
+&#10003; Fetching rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5 from z6MkrLM&#8230;ocNYPm7..
+&#10003; Creating checkout in ./heartwood..
+&#10003; Remote cloudhead@z6MksFqXN3Yhqk8pTJdUGLwATkRfQvwZXPqR2qMEhbS9wzpT added
+&#10003; Remote-tracking branch cloudhead@z6MksFqXN3Yhqk8pTJdUGLwATkRfQvwZXPqR2qMEhbS9wzpT/master created for z6MksFq&#8230;bS9wzpT
+&#10003; Repository successfully cloned under /home/paxel/src/heartwood/
+&#9581;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9582;
+&#9474; heartwood                          &#9474;
+&#9474; Radicle Heartwood Protocol &amp; Stack &#9474;
+&#9474; 8 issues &#183; 14 patches              &#9474;
+&#9584;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9583;
+Run `cd ./heartwood` to go to the project directory.
+</code></pre></div></div>
+
+<p>Cloning has some similarities to Git&#8217;s <code class="language-plaintext highlighter-rouge">clone</code> command, in that it creates a
+working copy of a remote repository, but this is executed in a much different
+way since Radicle is a peer-to-peer protocol.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">rad clone</code> command is essentially equivalent to running these lower-level
+commands:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong><code class="language-plaintext highlighter-rouge">rad seed</code></strong></td>
+      <td>Updates your seeding policy to start seeding this repository</td>
+    </tr>
+    <tr>
+      <td><strong><code class="language-plaintext highlighter-rouge">rad sync -f</code></strong></td>
+      <td>Fetches the latest repository data from other seeds and stores it in your local storage</td>
+    </tr>
+    <tr>
+      <td><strong><code class="language-plaintext highlighter-rouge">rad checkout</code></strong></td>
+      <td>Creates a working copy of the repository from local storage</td>
+    </tr>
+    <tr>
+      <td><strong><code class="language-plaintext highlighter-rouge">rad remote add</code></strong></td>
+      <td>Creates a Git remote in your working copy for all repository delegates</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>When you only want to <em>seed</em> a repository and have no interest in contributing
+code, you can still be a repository&#8217;s friend with the <code class="language-plaintext highlighter-rouge">rad seed</code> command. This
+is Radicle&#8217;s version of a &#11088; <em>star</em> or &#128077; <em>like</em>, where you show a repository
+some real love and care by sharing it with others on the network.</p>
+
+<aside>
+  <strong>Seeding</strong> a repository is a great way of supporting and giving
+  back to a project you care about or use. By offering a little bandwidth to
+  the network, you ensure the continued availability of the repository to
+  others. &#10084;&#65039;
+</aside>
+
+<p>This works similarly to cloning, where the RID is provided, the main difference
+is that it doesn&#8217;t create a working copy.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad seed rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5
+&#10003; Seeding policy updated for rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5 with scope 'all'
+&#10003; Fetching rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5 from z6Mkk4R&#8230;SBiyXVM..
+</code></pre></div></div>
+
+<p>When you seed a repository, it updates your seeding policy to subscribe to
+updates. It fetches a copy of the repository under your local storage, and
+provides a replica to the network.</p>
+
+<p>In the future, if you change your mind and decide that you want to contribute
+code to a repository you&#8217;re seeding, you can always run <code class="language-plaintext highlighter-rouge">rad checkout</code> to
+create a working copy of the repository from local storage and <code class="language-plaintext highlighter-rouge">rad remote add</code>
+to create remotes of peers that you can pull from and push to.</p>
+
+<p>If on the other hand you want to stop seeding a repository, simply run <code class="language-plaintext highlighter-rouge">rad
+unseed</code>. For example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad unseed rad:z9DV738hJpCa6aQXqvQC4SjaZvsi
+</code></pre></div></div>
+
+<p>You can list all of your seeded repositories with the <code class="language-plaintext highlighter-rouge">ls</code> sub-command:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad ls --seeded
+</code></pre></div></div>
+
+<p>If on the other hand you only want to see repositories you&#8217;ve contributed to in
+some way, for example by pushing a branch or commenting on an issue, simply run
+<code class="language-plaintext highlighter-rouge">ls</code> with no arguments:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad ls
+</code></pre></div></div>
+
+<blockquote>
+  <p>&#128126;</p>
+
+  <p>The set of peers that are followed in the context of a seeded repository
+is called the <em>scope</em>.</p>
+
+  <p>By default, when cloning or seeding a repository, your node will subscribe to
+content from <em>all</em> peers. This behavior is part of the seeding policy and can
+be changed by passing <code class="language-plaintext highlighter-rouge">--scope followed</code> to the <code class="language-plaintext highlighter-rouge">seed</code> and <code class="language-plaintext highlighter-rouge">clone</code> commands,
+to only subscribe to content from the repository <em>delegates</em> plus any node
+that is explicitly followed via <code class="language-plaintext highlighter-rouge">rad follow</code>.</p>
+
+  <p>If a repository wasn&#8217;t initially cloned or seeded in this way, it can also be
+changed later via the <code class="language-plaintext highlighter-rouge">rad seed</code> command, e.g.</p>
+
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rad seed rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5 --scope followed
+</code></pre></div>  </div>
+
+  <p>Conversely, to reset it to the default, <code class="language-plaintext highlighter-rouge">--scope all</code> can be passed.</p>
+</blockquote>
+
+<p>This marks the end of our initial foray into Radicle. As we move forward to
+Chapter 2, we&#8217;ll dissect the collaborative mechanisms at play, exploring
+issues and patches from the unique perspectives of both contributors and
+delegates. It&#8217;s here that the true kernel of <em>code collaboration</em> begins to
+unfold.</p>
+
+<h2 id="2-collaborating-the-radicle-way">2. Collaborating the Radicle Way</h2>
+
+<p>Now is the time to delve into Radicle&#8217;s approach to working with social
+artifacts like issues and patches. In the context of version control systems,
+social artifacts refer to collaborative features that facilitate discussions,
+bug tracking, and code review. Patches, in particular, represent proposed
+changes to the codebase, often in response to issues or feature requests.
+Unlike traditional centralized forges, Radicle leverages Git&#8217;s distributed
+version control system to allow you to maintain local copies of your
+repository&#8217;s associated issues and patches, alongside the repository source
+tree.</p>
+
+<aside> Note that social artifacts are not stored in your
+<em>working</em> copy. They are stored in the associate <em>bare</em>
+repository as part of Radicle's local storage. Read more about Radicle storage
+in the <a href="https://radicle.xyz/guides/protocol#local-first-storage">Protocol Guide</a>.
+</aside>
+
+<p>If you&#8217;re familiar with Git, you know that when you <code class="language-plaintext highlighter-rouge">commit</code> code changes, a
+unique hash called a commit hash is generated to identify that snapshot in
+history. In Radicle, issues, patches, and their associated comments work
+similarly to code commits. They are stored as Git objects within the repository
+itself, each with its own unique Git Object ID (OID). This means that all
+collaborative interactions, such as creating issues, submitting patches, and
+commenting, are self-contained within the Git repository.</p>
+
+<p>Furthermore, these objects are cryptographically signed by their author,
+providing an additional layer of security and trust. This allows all
+participants to independently verify the authenticity of the collaborative
+interactions, ensuring the integrity of the project&#8217;s history. By storing social
+artifacts within Git and leveraging cryptographic signatures, Radicle
+enables projects to operate independently of centralized platforms, giving users
+full control over their collaborative data, and the ability to work offline.</p>
+
+<aside> The <strong>Git OID</strong> is a SHA-1 hash, which is a 160-bit number
+typically represented as a 40-character hexadecimal string that uniquely
+identifies objects within a Git repository. This identification is part of
+Git's content-addressable storage system, ensuring the integrity of every piece
+of data. </aside>
+
+<p>In Radicle, these collaborative social interactions are implemented using a
+novel system of <a href="https://radicle.xyz/guides/protocol/#collaborative-objects">Collaborative Objects</a> or simply &#8220;COBs&#8221; &#127805;, that are
+implemented using Git primitives.</p>
+
+<!-- TODO: Feels out of place?
+
+You know what this all means? One day, creating an AI agent that codes and thinks
+like you will be much easier than if you were to download the deepest parts of
+your brain onto a platform owned by a megacorporation. There, it is an unknown
+abyss, where your issues and thoughts are not hashed nor associated with public
+keys. The platform has an iron grip on your data, feeding it to their mysterious
+AI models without even giving you a peek behind the curtain.
+
+That's the old system. The beauty of local-first systems like Radicle is that
+everything is hashed and all your data is readily accessible from your local
+machine. There is no need for complex API calls or special bots to extract
+data for the projects you're working on, as you'll get it anytime you fetch.
+
+> &#129504;
+>
+>
+> While we don't have a plugin for creating sovereign AI agents just yet, the
+potential is there. If you're interested in exploring this idea further,
+[let us know][zulip]!
+
+-->
+
+<h3 id="working-with-issues">Working with <em>issues</em></h3>
+
+<div class="poem"> The more we git together<br />
+Together, together<br />
+The more we git together<br />
+The happier we'll be</div>
+
+<aside class="span-2">
+  <p> A <strong>Conflict-Free Replicated Data Type (CRDT)</strong> is a data
+  structure that allows distributed systems to update data independently and
+  resolve inconsistencies without central coordination. </p>
+  <p> CRDTs ensure that all copies of some piece of data converge to the same
+  state, making them ideal for environments with intermittent connectivity or
+  where immediate consistency is not required. </p>
+</aside>
+
+<p>Before we get into <em>issue management</em>, you should first get to know our trusted
+friend, the COB &#127805;. Discussing issues and patches is not natively supported by
+Git, so we had to extend it. We named this data type a <a href="https://radicle.xyz/guides/protocol/#collaborative-objects">Collaborative
+Object</a> or &#8220;COB&#8221; for short. They use Conflict-Free Replicated Data Types
+(CRDTs) under the hood for data consistency and are one of the fundamental
+building blocks of the Radicle protocol.</p>
+
+<aside class="span-4">
+  <p> Git has a built-in command called <code>git format-patch</code> that
+  generates a patch file from commits. This patch file contains the changes made
+  in the commits, along with metadata such as the commit message, author, and
+  date. The patch file can then be easily shared with others via email or other
+  means for review and discussion. </p>
+  <p>This patch-based workflow is particularly popular in the Linux development
+  community, where patches are often sent to mailing lists for review before
+  being applied to the main repository. </p>
+  <p>Radicle takes some ideas from this email based workflow but tries to
+  offer a much more modern, secure, and user-friendly experience than that
+  of email. </p>
+</aside>
+
+<p>Now, to see how COBs are leveraged through the process of collaboration, we&#8217;ll
+open an issue under our &#8220;paxel&#8221; user alias, in a repository where we are a
+contributor, but not a delegate.</p>
+
+<p>We&#8217;re going to <code class="language-plaintext highlighter-rouge">cd</code> into our copy of the <code class="language-plaintext highlighter-rouge">dark-star</code> repository we are
+collaborating on, and open an issue with <code class="language-plaintext highlighter-rouge">rad issue open</code>. This will open your
+text editor, prompting you to enter a title and description for the issue.
+Radicle follows the same convention as Git commits when it comes to
+inputing via an editor: the first line is a summary or <em>title</em> of the issue,
+then comes the <em>description</em>, separated by a blank line.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd dark-star
+$ rad issue open
+</code></pre></div></div>
+
+<p>We&#8217;ll enter the following title and description in our editor:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Establish data standards for IUI Dark Star Data group
+
+As we go out and recruit the Neboriens and other intelligences to join
+the Intergalactic Union of Intelligences (IUI), we are going to have to
+establish standards for Dark Star data submissions.
+</code></pre></div></div>
+
+<p>When we save and close the editor, the issue is displayed on the command line:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&#9581;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9582;
+&#9474; Title   Establish data standards for IUI Dark Star Data group &#9474;
+&#9474; Issue   e4255cc2a0a65b543c2b5badac14bf9e0d9f409f              &#9474;
+&#9474; Author  paxel (you)                                           &#9474;
+&#9474; Status  open                                                  &#9474;
+&#9474;                                                               &#9474;
+&#9474; As we go out and recruit the Neboriens and other              &#9474;
+&#9474; intelligences to join the Intergalactic Union of              &#9474;
+&#9474; Intelligences (IUI), we are going to have to establish        &#9474;
+&#9474; standards for Dark Star data submissions.                     &#9474;
+&#9584;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9583;
+</code></pre></div></div>
+
+<p>Behind the scenes, <code class="language-plaintext highlighter-rouge">rad issue open</code> conjures up a brand-new COB for the issue,
+bestowing upon it a unique identifier. This COB becomes the guardian of all the
+metadata and interactions associated with the issue, ready to be replicated and
+synced across the Radicle network.</p>
+
+<blockquote>
+  <p>&#128126;</p>
+
+  <p>To ensure that your preferred editor is chosen when you enter <code class="language-plaintext highlighter-rouge">rad issue
+open</code>, make sure the <code class="language-plaintext highlighter-rouge">EDITOR</code> environment variable is set appropriately. It
+must be set to the full path to your preferred editor, for example:</p>
+
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export EDITOR=/usr/bin/vim
+</code></pre></div>  </div>
+
+  <p>If you&#8217;d prefer to enter the issue title and description via the command-line
+without spawning your editor, you can use the <code class="language-plaintext highlighter-rouge">--title</code> and <code class="language-plaintext highlighter-rouge">--description</code>
+options to <code class="language-plaintext highlighter-rouge">rad issue open</code>.</p>
+</blockquote>
+
+<p>COBs such as issues and patches can be created even when offline, since Radicle
+is local-first. COBs you create offline will simply synchronize with the
+network once you go online.</p>
+
+<p>You can always see a table with all of the issues associated to a repository
+by running <code class="language-plaintext highlighter-rouge">rad issue</code> within its working directory.</p>
+
+<pre class="wide"><code>$ rad issue
+&#9581;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9582;
+&#9474; &#9679;   ID        Title                                                    Author                    &#9474;
+&#9500;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9508;
+&#9474; &#9679;   80464b3   Categorize initial dataset                               paxel    (you)            &#9474;
+&#9474; &#9679;   e4255cc   Establish data standards for IUI Dark Star Data group    paxel    (you)            &#9474;
+&#9474; &#9679;   3e2f653   Add anomalous data from ship 897AF                       calyx    z6Mkgom&#8230;unurCap  &#9474;
+&#9474; &#9679;   badda04   Recruit Neboriens to join IUI and share dark star data   calyx    z6Mkgom&#8230;unurCap  &#9474;
+&#9584;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9583;
+</code></pre>
+
+<p>Let&#8217;s display an issue that looks interesting, using <code class="language-plaintext highlighter-rouge">rad issue show</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad issue show 3e2f65
+&#9581;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9582;
+&#9474; Title   Add anomalous data from ship 897AF                  &#9474;
+&#9474; Issue   3e2f653383f0d2fe21ef4e859a25925c364c740a            &#9474;
+&#9474; Author  calyx                                               &#9474;
+&#9474; Status  open                                                &#9474;
+&#9474;                                                             &#9474;
+&#9474; Before we onboard new IUI members like the Neborians, it is &#9474;
+&#9474; important we upload the data from ship 897AF. I just        &#9474;
+&#9474; reviewed the database and it seems this is missing.         &#9474;
+&#9584;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9583;
+</code></pre></div></div>
+
+<p>The issue, originally opened by Calyx, the repository&#8217;s delegate, outlines a
+task that aligns perfectly with our knowledge area.</p>
+
+<blockquote>
+  <p>&#128126;</p>
+
+  <p><em>Full identifiers do not need to be used in most commands!</em></p>
+
+  <p>Notice that the full identifier is displayed under the <code class="language-plaintext highlighter-rouge">Issue</code> field. When
+working with COBs, it&#8217;s always possible to use the first few characters of a
+COB&#8217;s ID instead of the full hash, as we did above with <code class="language-plaintext highlighter-rouge">rad issue show</code>.</p>
+
+</blockquote>
+
+<aside> This works exactly the same way as Git commit hashes: as long as the
+given prefix is unambiguous, Radicle will resolve it to its full value.
+</aside>
+
+<p>Let&#8217;s compose a comment, with <code class="language-plaintext highlighter-rouge">rad issue comment</code>, expressing our interest in
+tackling the issue.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad issue comment 3e2f65 --message "I can help."
+&#9581;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9582;
+&#9474; paxel (you) now 74faf0e &#9474;
+&#9474; I can help.             &#9474;
+&#9584;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9583;
+</code></pre></div></div>
+
+<p>This time, we used the command-line <code class="language-plaintext highlighter-rouge">--message</code> option to provide a comment,
+but if you don&#8217;t specify any option, you will be prompted to enter a message
+via your editor, just like with <code class="language-plaintext highlighter-rouge">rad issue open</code>.</p>
+
+<blockquote>
+  <p>&#129504;</p>
+
+  <p>Since Radicle&#8217;s COB types are extensible by users, globally-unique <em>Type
+IDs</em>, such as <code class="language-plaintext highlighter-rouge">xyz.radicle.issue</code> and <code class="language-plaintext highlighter-rouge">xyz.radicle.patch</code> are used to
+identify them, preventing naming collisions. This reverse domain name
+notation not only houses Radicle&#8217;s predefined COBs but also accommodates
+user-defined ones.</p>
+
+  <p>For example, if a user or organization were to define a new COB type under
+their domain, it might look something like <code class="language-plaintext highlighter-rouge">com.acme.task</code>, for some
+hypothetical &#8220;task&#8221; COB under the <code class="language-plaintext highlighter-rouge">acme.com</code> domain. This extensibility
+allows for an unlimited set of new collaboration primitives to be defined by
+users.</p>
+
+  <p>If you&#8217;re interested in creating a custom COB, pop into our <a href="https://radicle.zulipchat.com/">chatroom</a>
+and we can get you started.</p>
+</blockquote>
+
+<h3 id="assigning-issues">Assigning issues</h3>
+
+<p>Now, let&#8217;s enter Calyx&#8217;s point of view for a second. Calyx is the maintainer of
+the repository and is starting his day, gazing into a fresh terminal window,
+where he enters <code class="language-plaintext highlighter-rouge">rad inbox</code>.</p>
+
+<pre class="wide"><code>$ rad inbox
+&#9581;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9582;
+&#9474; dark-star                                                                                  &#9474;
+&#9500;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9508;
+&#9474; 004   &#9679;   3e2f653   Add anomalous data from ship 897AF   issue   open   calyx   1 hour ago &#9474;
+&#9584;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9583;
+</code></pre>
+
+<p>The Radicle inbox is like a notifications center, displaying issues and patches
+that are newly created or have unread comments or new activity.</p>
+
+<blockquote>
+  <p>&#128126;</p>
+
+  <p>If you run <code class="language-plaintext highlighter-rouge">rad inbox</code> from a Radicle repository, only notifications
+belonging to this repository will be shown. You can override this by using
+<code class="language-plaintext highlighter-rouge">--all</code> to show notifications from all repositories. If the command is run
+outside a Radicle repository, all repositories will be displayed.</p>
+</blockquote>
+
+<p>Calyx decides to display the notification in his inbox with <code class="language-plaintext highlighter-rouge">rad inbox show</code>,
+using the notification number.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad inbox show 4
+&#9581;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9582;
+&#9474; Title   Add anomalous data from ship 897AF                  &#9474;
+&#9474; Issue   3e2f653383f0d2fe21ef4e859a25925c364c740a            &#9474;
+&#9474; Author  calyx                                               &#9474;
+&#9474; Status  open                                                &#9474;
+&#9474;                                                             &#9474;
+&#9474; Before we onboard new IUI members like the Neborians, it is &#9474;
+&#9474; important we upload the data from ship 897AF. I just        &#9474;
+&#9474; reviewed the database and it seems this is missing.         &#9474;
+&#9500;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9508;
+&#9474; paxel z6MkvZw&#8230;7aCGq3C 1 hour ago 74faf0e                    &#9474;
+&#9474; I can help.                                                 &#9474;
+&#9584;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9583;
+</code></pre></div></div>
+
+<p>He sees that we (Paxel) left a comment and we&#8217;re interested in helping with
+the issue, and decides to assign it to us with <code class="language-plaintext highlighter-rouge">rad issue assign</code>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad issue assign 3e2f653 --add did:key:z6MkvZwzK64f3GuDcAs6dEcje89ddfHkBjS1v9Dkh7aCGq3C
+</code></pre></div></div>
+
+<p>He adds a comment to the issue as well.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad issue comment 3e2f653 --message "Great, I've assigned it to you."
+</code></pre></div></div>
+
+<blockquote>
+  <p>&#128126;</p>
+
+  <p>The <code class="language-plaintext highlighter-rouge">assign</code> sub-command can be used to add (<code class="language-plaintext highlighter-rouge">--add</code>) or remove (<code class="language-plaintext highlighter-rouge">--delete</code>)
+assignees.</p>
+</blockquote>
+
+<p>As a delegate of <code class="language-plaintext highlighter-rouge">dark-star</code>, Calyx has the rights to assign this issue. Calyx
+can then use <code class="language-plaintext highlighter-rouge">rad issue show</code>, to confirm that the issue was correctly
+assigned:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad issue show 3e2f65
+&#9581;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9582;
+&#9474; Title      Add anomalous data from ship 897AF               &#9474;
+&#9474; Issue      3e2f653383f0d2fe21ef4e859a25925c364c740a         &#9474;
+&#9474; Author     calyx                                            &#9474;
+&#9474; Assignees  paxel z6MkvZw&#8230;7aCGq3C                            &#9474;
+&#9474; Status     open                                             &#9474;
+&#9474;                                                             &#9474;
+&#9474; Before we onboard new IUI members like the Neborians, it is &#9474;
+&#9474; important we upload the data from ship 897AF. I just        &#9474;
+&#9474; reviewed the database and it seems this is missing.         &#9474;
+&#9500;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9508;
+&#9474; paxel z6MkvZw&#8230;7aCGq3C 6 hours ago 39134b6                   &#9474;
+&#9474; I can help.                                                 &#9474;
+&#9500;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9508;
+&#9474; calyx 2 minutes ago 922fac7                                 &#9474;
+&#9474; Great, I've assigned it to you.                             &#9474;
+&#9584;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9583;
+</code></pre></div></div>
+
+<blockquote>
+  <p>&#128126;</p>
+
+  <p>There&#8217;s a lot more that you can do with issues, such as:</p>
+
+  <ul>
+    <li>Editing with <code class="language-plaintext highlighter-rouge">rad issue edit</code></li>
+    <li>Labeling with <code class="language-plaintext highlighter-rouge">rad issue label</code></li>
+    <li>Closing with <code class="language-plaintext highlighter-rouge">rad issue state --closed</code></li>
+  </ul>
+
+  <p>We don&#8217;t want to overwhelm you though! Check out <code class="language-plaintext highlighter-rouge">rad issue --help</code> for more
+details.</p>
+</blockquote>
+
+<h3 id="working-with-patches">Working with <em>patches</em></h3>
+
+<p>The collaboration voyage doesn&#8217;t stop at issues though! In the realm of code,
+issues typically lead to <em>patches</em>.</p>
+
+<p>Since Calyx has assigned the above issue to us, we&#8217;ll start working on it by
+making the changes in a new branch, and once we&#8217;re done, we&#8217;ll open a patch.
+Let&#8217;s dive into it step-by-step.</p>
+
+<p>First, we need to make sure we&#8217;re in our working copy of the <code class="language-plaintext highlighter-rouge">dark-star</code>
+repository. You can always check the current Radicle repository using the <code class="language-plaintext highlighter-rouge">rad
+.</code> invocation.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad .
+rad:z3cyotNHuasWowQ2h4yF9c3tFFdvc
+</code></pre></div></div>
+
+<p>Now, let&#8217;s create a new branch where we&#8217;ll add the missing data from ship
+897AF, as mentioned in the issue. We happen to have this data right on our
+system!</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git checkout -b anomalous-data-897af
+$ cp /var/run/897af.log data/897af.log
+$ git add data/
+</code></pre></div></div>
+
+<p>Finally, we commit our changes to the branch.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git commit -m "Add anomalous data from ship 897AF"
+</code></pre></div></div>
+
+<p>Now that our changes are committed, we&#8217;re ready to open a patch. To do so, we
+simply push our branch to <code class="language-plaintext highlighter-rouge">refs/patches</code>, on <code class="language-plaintext highlighter-rouge">rad</code> remote.</p>
+
+<aside class="span-3"> The <code>refs/patches</code> remote reference is what
+we call a <em>magic ref</em> &#129668; - it doesn't exist as a regular Git reference;
+instead, Radicle intercepts the command and opens a new patch whenever you push
+code to it using the Radicle remote helper. If you're familiar with <a href="https://www.gerritcodereview.com/" target="_blank">Gerrit</a>, Google's
+code review tool, it works the same way!</aside>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git push rad HEAD:refs/patches
+</code></pre></div></div>
+
+<p>Radicle will then open your editor, where the patch title can be edited and a
+description can be added. Just like for issues, the first line of text is the
+patch title, while the subsequent lines make up the description.</p>
+
+<blockquote>
+  <p>&#128126;</p>
+
+  <p>In the above command, <code class="language-plaintext highlighter-rouge">HEAD:refs/patches</code> is a <em>refspec</em>, where <code class="language-plaintext highlighter-rouge">HEAD</code> is a
+reference to the last commit in the currently checked-out branch, and
+<code class="language-plaintext highlighter-rouge">refs/patches</code> is a (magic) reference on the remote side. But you don&#8217;t have
+to use <code class="language-plaintext highlighter-rouge">HEAD</code>; any local branch will do. Even an arbitrary commit hash can be
+used to open a patch!</p>
+</blockquote>
+
+<aside class="apan-2">
+  A <strong>refspec</strong> in Git defines the relationship between local
+  and remote references. It's a pattern used primarily with Git commands like
+  <code>fetch</code>, <code>push</code>, and <code>pull</code> to specify which
+  branches or commits should be transferred between the local repository and
+  the remote repository. A refspec is composed of two parts, separated by a
+  colon <code>:</code>, the <em>source</em> and the <em>destination</em>
+  reference.
+</aside>
+
+<p>Once we&#8217;ve entered the details describing the patch, we save and exit our
+editor. This pushes our commit to the <code class="language-plaintext highlighter-rouge">rad</code> remote, opening the patch.</p>
+
+<pre class="wide">&#10003; Patch e5f0a5a5adaa33c3b931235967e4930ece9bb617 opened
+&#10003; Synced with 8 node(s)
+
+To rad://z3cyotNHuasWowQ2h4yF9c3tFFdvc/z6MkvZwzK64f3GuDcAs6dEcje89ddfHkBjS1v9Dkh7aCGq3C
+* [new reference]   HEAD -&gt; refs/patches</pre>
+
+<p>In the above Git output, we see our patch&#8217;s identifier displayed:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>e5f0a5a5adaa33c3b931235967e4930ece9bb617
+</code></pre></div></div>
+
+<p>Patches are a type of COB &#127805;, just like issues, and this is the SHA-1 hash that
+uniquely identifies this patch.</p>
+
+<blockquote>
+  <p>&#128126;</p>
+
+  <p>If you want to avoid remembering the <code class="language-plaintext highlighter-rouge">git push rad HEAD:refs/patches</code>
+command, you can add an alias to your local (or global) Git configuration:</p>
+
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git config alias.patch 'push rad HEAD:refs/patches'
+</code></pre></div>  </div>
+
+  <p>This allows you to create a patch by simply running <code class="language-plaintext highlighter-rouge">git patch</code>. Use the
+<code class="language-plaintext highlighter-rouge">--global</code> option with <code class="language-plaintext highlighter-rouge">git config</code> to add the alias to your global Git
+config.</p>
+</blockquote>
+
+<blockquote>
+  <p>&#129504;</p>
+
+  <p>Radicle&#8217;s patch workflow is implemented using the <code class="language-plaintext highlighter-rouge">git-remote-rad</code> helper
+program developed for Radicle. This program is called by Git when it detects
+a push to any <code class="language-plaintext highlighter-rouge">rad://</code> URL, such as the one under our <code class="language-plaintext highlighter-rouge">rad</code> remote.</p>
+</blockquote>
+
+<p>In addition to opening a patch, the above <code class="language-plaintext highlighter-rouge">push</code> command creates a new remote
+tracking branch and makes it the upstream of our <code class="language-plaintext highlighter-rouge">anomalous-data-897af</code> branch.
+Any subsequent push from this original branch will now update the patch,
+synchronizing our local changes with the network.</p>
+
+<blockquote>
+  <p>&#129504;</p>
+
+  <p>The name of the remote patch branch is always <code class="language-plaintext highlighter-rouge">rad/patches/</code> followed by the
+patch identifier. For example:</p>
+
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rad/patches/e5f0a5a5adaa33c3b931235967e4930ece9bb617
+</code></pre></div>  </div>
+
+</blockquote>
+
+<p>We can take a look at remote tracking branches using <code class="language-plaintext highlighter-rouge">git branch --remotes</code> to
+understand this better.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git branch --remotes
+  calyx@z6Mkgom1bTxdh9fMFxFNXFMw3SbXnma6NARdsfcFuunurCap/main
+  rad/main
+  rad/patches/e5f0a5a5adaa33c3b931235967e4930ece9bb617
+</code></pre></div></div>
+
+<p>Here we see three branches: the <code class="language-plaintext highlighter-rouge">main</code> branch of Calyx (<code class="language-plaintext highlighter-rouge">calyx@z6Mk..</code>), our
+own main branch (<code class="language-plaintext highlighter-rouge">rad/main</code>), and the branch associated with our recent patch
+(<code class="language-plaintext highlighter-rouge">rad/patches/e5f0a..</code>).</p>
+
+<p>We can also check the commit hashes associated with the <code class="language-plaintext highlighter-rouge">rad</code> remote references:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git ls-remote rad
+e81db74197f48cc5198d9c03cceaec955af82abf  refs/heads/main
+80b8d420658834afc444a13c03f0c3ff6875a71c  refs/heads/patches/e5f0a5a5adaa33c3b931235967e4930ece9bb617
+</code></pre></div></div>
+
+<p>Since the <code class="language-plaintext highlighter-rouge">rad</code> remote is associated with our published copy of the repository,
+these are the branch heads that are publicly accessible on the network.</p>
+
+<h3 id="updating-patches">Updating patches</h3>
+
+<p>So let&#8217;s say we&#8217;d like to update the patch we just submitted. We found some
+formatting issues with the log file we included and we&#8217;d like to correct it
+and update the patch.</p>
+
+<p>First, let&#8217;s dive into our editor and fix the formatting:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ vi data/897af.log
+</code></pre></div></div>
+
+<p>Then, we commit the changes and push.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git commit --amend
+$ git push --force
+</code></pre></div></div>
+
+<p>To update the patch, we simply use <code class="language-plaintext highlighter-rouge">git push</code>. Since we amended the original
+commit, we have to use the <code class="language-plaintext highlighter-rouge">--force</code> option when pushing. This is common
+practice when a patch has been reworked.</p>
+
+<p>As with opening a patch, this opens an editor to enter a reason for updating
+the patch. Leave it blank if you&#8217;d like to skip that.</p>
+
+<pre class="wide"><code>&#10003; Patch e5f0a5a updated to revision 4d0c1156f8ac7af2297d1314cd7556185cd16ae4
+&#10003; Synced with 6 node(s)
+
+To rad://z3cyotNHuasWowQ2h4yF9c3tFFdvc/z6MkvZwzK64f3GuDcAs6dEcje89ddfHkBjS1v9Dkh7aCGq3C
+ + b766431...80b8d42 anomalous-data-897af -&gt; patches/e5f0a5a5adaa33c3b931235967e4930ece9bb617 (forced update)
+</code></pre>
+
+<p>We see that the change that was pushed is represented by a new identifier:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4d0c1156f8ac7af2297d1314cd7556185cd16ae4
+</code></pre></div></div>
+
+<p>This identifier represents the current version of the patch. Patch versions,
+called <em>revisions</em> in Radicle, are immutable. Therefore, each update to a patch
+creates a new revision, and patch updates are non-destructive, even when you
+force-push.</p>
+
+<aside class="span-2"> The immutability of patch revisions makes code review a
+<em>breeze</em>. It's easy to know what you've reviewed and you can quickly
+tell what has changed since your last review by comparing patch revisions. </aside>
+
+<blockquote>
+  <p>&#128126;</p>
+
+  <p>If the branch upstream is not set to the patch reference, eg.
+<code class="language-plaintext highlighter-rouge">rad/patches/e5f0a5a..</code>, you can set it with <code class="language-plaintext highlighter-rouge">rad patch set e5f0a5a</code>.</p>
+</blockquote>
+
+<p>As with issues, we can display the patch using the <code class="language-plaintext highlighter-rouge">show</code> sub-command:</p>
+
+<pre class="wide"><code>$ rad patch show e5f0a5a
+&#9581;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9582;
+&#9474; Title     Add anomalous data from ship 897AF                                   &#9474;
+&#9474; Patch     e5f0a5a5adaa33c3b931235967e4930ece9bb617                             &#9474;
+&#9474; Author    paxel (you)                                                          &#9474;
+&#9474; Head      80b8d420658834afc444a13c03f0c3ff6875a71c                             &#9474;
+&#9474; Branches  anomalous-data-897af                                                 &#9474;
+&#9474; Commits   ahead 1, behind 0                                                    &#9474;
+&#9474; Status    open                                                                 &#9474;
+&#9474;                                                                                &#9474;
+&#9474; Data from ship 897AF.                                                          &#9474;
+&#9500;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9508;
+&#9474; 80b8d42 Add anomalous data from ship 897AF                                     &#9474;
+&#9500;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9508;
+&#9474; &#9679; opened by paxel (you) (b766431) 58 minutes ago                               &#9474;
+&#9474; &#8593; updated to 4d0c1156f8ac7af2297d1314cd7556185cd16ae4 (80b8d42) 44 minutes ago &#9474;
+&#9584;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9583;
+</code></pre>
+
+<p>Notice at the bottom that there is a timeline, with the original patch head
+(<code class="language-plaintext highlighter-rouge">b766431</code>) and the updated head (<code class="language-plaintext highlighter-rouge">80b8d42</code>) after a new revisions (<code class="language-plaintext highlighter-rouge">4d0c115</code>)
+was created via a patch update.</p>
+
+<p>Revisions are much more than changesets; they can carry useful metadata such as
+reviews, comments, and a top-level description that spans all the commits under
+it. That&#8217;s why you see two identifiers for the revision, the first one is the
+hash of the revision, and the second is the hash of the code itself (eg. your
+branch head).</p>
+
+<blockquote>
+  <p>&#129504;</p>
+
+  <p>All patches start with an <em>initial</em> revision. This revision has the same identifier
+as the patch itself, ie. <code class="language-plaintext highlighter-rouge">e5f0a5a5adaa33c3b931235967e4930ece9bb617</code> in the
+example above.</p>
+</blockquote>
+
+<h3 id="merging-patches-into-the-canonical">Merging patches into the canonical</h3>
+
+<p>Now that we&#8217;ve opened a patch, let&#8217;s switch perspectives again and return to
+Calyx-land. Calyx will want to <code class="language-plaintext highlighter-rouge">checkout</code> the patch, review it, possibly make
+changes and run tests, and then <code class="language-plaintext highlighter-rouge">merge</code> it. Let&#8217;s walk through this process
+together.</p>
+
+<p>First, within the repository, Calyx runs <code class="language-plaintext highlighter-rouge">rad patch</code> and notices there is a new patch.</p>
+
+<pre class="wide"><code>$ rad patch
+&#9581;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9582;
+&#9474; &#9679;  ID       Title                                Author           Head     +       -   Updated    &#9474;
+&#9500;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9508;
+&#9474; &#9679;  e5f0a5a  Add anomalous data from ship 897AF   z6MkvZw&#8230;7aCGq3C  80b8d42  +50382  -0  1 hour ago &#9474;
+&#9584;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9583;
+</code></pre>
+
+<p>Calyx then uses the <code class="language-plaintext highlighter-rouge">checkout</code> sub-command of <code class="language-plaintext highlighter-rouge">patch</code> to switch to the patch:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad patch checkout e5f0a5a
+&#10003; Switched to branch patch/e5f0a5a at revision 4d0c1156f8ac7af2297d1314cd7556185cd16ae4
+&#10003; Branch patch/e5f0a5a setup to track rad/patches/e5f0a5a5adaa33c3b931235967e4930ece9bb617
+</code></pre></div></div>
+
+<p>When collaborating with peers, it&#8217;s often useful to be able to checkout a patch
+in its own branch. With a patch checkout, you can browse the code, run tests
+and even propose your own revision to the patch.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">checkout</code> sub-command switches to a new local branch which has the patch
+checked out at a specific revision. By default, the latest of the patch
+author&#8217;s revisions is chosen, but you can specify a different revision using
+the <code class="language-plaintext highlighter-rouge">--revision</code> option. See <code class="language-plaintext highlighter-rouge">rad patch --help</code> for more information.</p>
+
+<blockquote>
+  <p>&#128126;</p>
+
+  <p>If you&#8217;d just like to view the patch changes without checking out the code,
+use the <code class="language-plaintext highlighter-rouge">diff</code> command!</p>
+
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rad patch diff e5f0a5a
+</code></pre></div>  </div>
+
+</blockquote>
+
+<p>It&#8217;s a rare occasion that someone submits a perfect patch that can be merged
+as-is. For example, in some cases a maintainer may want to rebase the patch&#8217;s commits on top
+of the main branch, which could have moved since the patch was proposed.</p>
+
+<p>Calyx will do just that by running the following command from the patch
+checkout:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git rebase main
+</code></pre></div></div>
+
+<p>This replays the patch&#8217;s commits on top of the current <code class="language-plaintext highlighter-rouge">main</code> branch. All
+that&#8217;s left to do is to update the patch itself, with a new revision:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git push -o patch.message="Rebased!" --force
+&#10003; Patch e5f0a5a updated to revision 1e0596d917725c447106b1efc900bebf4b95a810
+&#10003; Synced with 12 node(s)
+
+To rad://z3cyotNHuasWowQ2h4yF9c3tFFdvc/z6Mkgom1bTxdh9fMFxFNXFMw3SbXnma6NARdsfcFuunurCap
+* [new branch]      patch/e5f0a5a -&gt; patches/e5f0a5a5adaa33c3b931235967e4930ece9bb617
+</code></pre></div></div>
+
+<p>Although Calyx isn&#8217;t the author of the patch  he can propose a new revision. In
+fact, <em>anyone</em> can do that, and you will see their revision if you follow them!</p>
+
+<p>Since Calyx did a rebase, the <code class="language-plaintext highlighter-rouge">--force</code> flag was required. Notice also the  <code class="language-plaintext highlighter-rouge">-o
+patch.message</code> option; this allows Calyx to directly provide a comment related
+to this revision, bypassing his editor.</p>
+
+<blockquote>
+  <p>&#129504;</p>
+
+  <p>Git has something called &#8220;push options&#8221;, these are options that are passed to
+the remote helper and/or server when executing a push, and can be specified
+via <code class="language-plaintext highlighter-rouge">-o &lt;string&gt;</code> or <code class="language-plaintext highlighter-rouge">--push-option=&lt;string&gt;</code>. Radicle as well as other
+forges use these to configure a push.</p>
+
+  <p>Radicle supports other options such as:</p>
+
+  <ul>
+    <li><code class="language-plaintext highlighter-rouge">-o sync</code>: force a network sync after the push.</li>
+    <li><code class="language-plaintext highlighter-rouge">-o no-sync</code>: don&#8217;t wait for sync after the push.</li>
+    <li>-<code class="language-plaintext highlighter-rouge">o patch.draft</code>: open a &#8220;draft&#8221; patch.</li>
+  </ul>
+
+  <p>See <code class="language-plaintext highlighter-rouge">man rad-patch</code> for the full list of options.</p>
+</blockquote>
+
+<p>If we look at the patch now, we&#8217;ll see the new revision Calyx just pushed:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad patch show e5f0a5a
+...
+&#9474; &#9679; opened by z6MkvZw&#8230;7aCGq3C (b766431) 2 hours ago                           &#9474;
+&#9474; &#8593; updated to 4d0c1156f8ac7af2297d1314cd7556185cd16ae4 (80b8d42) 2 hours ago &#9474;
+&#9474; * revised by calyx in 1e0596d (25f8515) 3 minutes ago                       &#9474;
+&#9584;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9583;
+</code></pre></div></div>
+
+<p>Here we see that Calyx&#8217;s changes are associated to the revision identifier
+starting with <code class="language-plaintext highlighter-rouge">1e0596d</code> and to the commit hash <code class="language-plaintext highlighter-rouge">25f8515</code>.</p>
+
+<p>To merge this latest revision, Calyx uses regular Git commands. When Radicle
+detects that a patch&#8217;s revision was merged into the main branch, the associated
+patch is marked as <em>merged</em>.</p>
+
+<aside class="span-2"> In this guide, we use the term <em>main branch</em> to
+mean the branch configured as the repository's <em>default branch</em> during
+the repository initialization process (<code>rad init</code>). You can check
+which branch is set as your default branch using the <code>rad inspect
+--payload</code> command. </aside>
+
+<p>First Calyx merges the patch&#8217;s changeset into the <code class="language-plaintext highlighter-rouge">main</code> branch, by merging
+the patch branch he is on:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git checkout main
+Switched to branch 'main'
+Your branch is up to date with 'rad/main'.
+$ git merge patch/e5f0a5a
+Updating e81db74..25f8515
+Fast-forward
+data/897af.log | 50382 ++++++++++
+1 file changed, 50382 insertions(+)
+create mode 100644 data/897af.log
+</code></pre></div></div>
+
+<p>Then he pushes <code class="language-plaintext highlighter-rouge">main</code> to the <code class="language-plaintext highlighter-rouge">rad</code> remote.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git push rad main
+&#10003; Patch e5f0a5a5adaa33c3b931235967e4930ece9bb617 merged at revision 1e0596d
+&#10003; Canonical head updated to 25f851529d68180a780cfafc15a48b89208ba8c4
+&#10003; Synced with 7 node(s)
+
+To rad://z3cyotNHuasWowQ2h4yF9c3tFFdvc/z6Mkgom1bTxdh9fMFxFNXFMw3SbXnma6NARdsfcFuunurCap
+  e81db74..25f8515  main -&gt; main
+</code></pre></div></div>
+
+<p>This marks the patch as <em>merged</em>, as seen in the output, updates the
+repository&#8217;s <strong>canonical</strong> or &#8220;authoritative&#8221; state to <code class="language-plaintext highlighter-rouge">25f851</code>, and
+synchronizes the changes with the network.</p>
+
+<p>The patch no longer shows up under <code class="language-plaintext highlighter-rouge">rad patch</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad patch
+Nothing to show.
+</code></pre></div></div>
+
+<p>We can verify that it is merged via <code class="language-plaintext highlighter-rouge">rad patch show e5f0a5a</code>, or <code class="language-plaintext highlighter-rouge">rad patch
+--merged</code>, which shows all merged patches.</p>
+
+<blockquote>
+  <p>&#128126;</p>
+
+  <p>Patch commands work similar to issues. You can:</p>
+
+  <ul>
+    <li>Edit with <code class="language-plaintext highlighter-rouge">rad patch edit</code>.</li>
+    <li>Label with <code class="language-plaintext highlighter-rouge">rad patch label</code>.</li>
+    <li>Archive with <code class="language-plaintext highlighter-rouge">rad patch archive</code>.</li>
+  </ul>
+
+  <p>For more details on how to work with patches, read the manual with <code class="language-plaintext highlighter-rouge">man
+rad-patch</code>.</p>
+</blockquote>
+
+<h3 id="from-remote-viewing-to-adding-remotes">From remote viewing to adding remotes</h3>
+
+<p>Whenever you <code class="language-plaintext highlighter-rouge">init</code> or <code class="language-plaintext highlighter-rouge">clone</code> a repository, your node will follow all peers
+for that repository, which means that everyone&#8217;s patches and issues will be
+synchronized to your device.</p>
+
+<p>You can change this behavior by specifying a different scope when cloning or
+initializing a repository, with the <code class="language-plaintext highlighter-rouge">--scope</code> option. For example, <code class="language-plaintext highlighter-rouge">--scope
+followed</code> will only synchronize changes by peers you explicitly follow with the
+<code class="language-plaintext highlighter-rouge">rad follow</code> command. The default is <code class="language-plaintext highlighter-rouge">--scope all</code>.</p>
+
+<p>But if a peer becomes a regular collaborator, it would be useful to add them as
+a Git remote to track their changes and <code class="language-plaintext highlighter-rouge">checkout</code> their branches, even if
+they haven&#8217;t been submitted as patches. The <code class="language-plaintext highlighter-rouge">rad remote</code> family of commands
+can help you achieve this.</p>
+
+<p>Calyx decides to do this, and adds us (Paxel) as a remote:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rad remote add z6MkvZwzK64f3GuDcAs6dEcje89ddfHkBjS1v9Dkh7aCGq3C --name paxel
+</code></pre></div></div>
+
+<p>This allows Calyx to keep up with our changes by creating a remote tracking
+branch in his working copy, that has our main branch as its upstream.</p>
+
+<pre class="wide"><code>$ git remote -v
+paxel   rad://z3cyotNHuasWowQ2h4yF9c3tFFdvc/z6MkvZwzK64f3GuDcAs6dEcje89ddfHkBjS1v9Dkh7aCGq3C (fetch)
+paxel   rad://z3cyotNHuasWowQ2h4yF9c3tFFdvc/z6MkvZwzK64f3GuDcAs6dEcje89ddfHkBjS1v9Dkh7aCGq3C (push)
+rad     rad://z3cyotNHuasWowQ2h4yF9c3tFFdvc (fetch)
+rad     rad://z3cyotNHuasWowQ2h4yF9c3tFFdvc/z6Mkgom1bTxdh9fMFxFNXFMw3SbXnma6NARdsfcFuunurCap (push)
+</code></pre>
+
+<p>In the above output, we see the names of the remotes on the left. We see that
+the <code class="language-plaintext highlighter-rouge">paxel</code> remote points to a different namespace than the <code class="language-plaintext highlighter-rouge">rad</code> remote, which
+points to Calyx&#8217;s namespace. Remotes can also be viewed using <code class="language-plaintext highlighter-rouge">rad remote</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad remote
+paxel z6MkvZwzK64f3GuDcAs6dEcje89ddfHkBjS1v9Dkh7aCGq3C (fetch)
+rad   (canonical upstream)                             (fetch)
+rad   z6Mkgom1bTxdh9fMFxFNXFMw3SbXnma6NARdsfcFuunurCap (push)
+</code></pre></div></div>
+
+<p>Now that a remote is setup, Calyx can fetch our branches with <code class="language-plaintext highlighter-rouge">git fetch</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git fetch paxel
+  From rad://z3cyotNHuasWowQ2h4yF9c3tFFdvc/z6MkvZwzK64f3GuDcAs6dEcje89ddfHkBjS1v9Dkh7aCGq3C
+    * [new branch]      dark-star-secrets       -&gt; paxel/dark-star-secrets
+</code></pre></div></div>
+
+<p>Oh darn, what has he found! If you don&#8217;t want a branch to be published on
+the Radicle network, avoid pushing it to your <code class="language-plaintext highlighter-rouge">rad</code> remote!</p>
+
+<blockquote>
+  <p>&#128126;</p>
+
+  <p>You can always use <code class="language-plaintext highlighter-rouge">rad remote list --untracked</code> to find peers that you are
+following but are not tracking in your working copy.</p>
+</blockquote>
+
+<h3 id="synchronizing-the-canonical">Synchronizing the canonical</h3>
+
+<p>Now that Calyx has updated the repository&#8217;s <code class="language-plaintext highlighter-rouge">main</code> branch by merging our patch,
+all we need to do is pull those changes ourselves, to have the most up to date
+state.</p>
+
+<p>We&#8217;ll start by switching back to our <code class="language-plaintext highlighter-rouge">main</code> branch with <code class="language-plaintext highlighter-rouge">git checkout main</code>,
+and then we&#8217;ll initiate a regular <code class="language-plaintext highlighter-rouge">pull</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git pull
+Fetching rad
+From rad://z3cyotNHuasWowQ2h4yF9c3tFFdvc
+  e81db74..25f8515  main       -&gt; rad/main
+Updating e81db74..25f8515
+Fast-forward
+...
+</code></pre></div></div>
+
+<blockquote>
+  <p>&#129504;</p>
+
+  <p>The <code class="language-plaintext highlighter-rouge">git pull</code> command is really just a <code class="language-plaintext highlighter-rouge">git fetch</code> followed by a <code class="language-plaintext highlighter-rouge">git
+merge</code>. If you&#8217;re comfortable with Git, it can be a good idea to first run
+the <code class="language-plaintext highlighter-rouge">fetch</code>, see which remote-tracking branches were updated, and decide what
+to merge yourself.</p>
+</blockquote>
+
+<p>There we go, our working copy is now up to date with Calyx&#8217;s.</p>
+
+<p>If you get <code class="language-plaintext highlighter-rouge">Already up to date.</code>, it could mean that the changes pushed by
+Calyx haven&#8217;t reached your node yet. In that case, it&#8217;s a good idea to ask
+your node to fetch changes from the network:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad sync --fetch
+&#10003; Fetching rad:z3cyotNHuasWowQ2h4yF9c3tFFdvc from z6MkrLM&#8230;ocNYPm7..
+&#10003; Fetching rad:z3cyotNHuasWowQ2h4yF9c3tFFdvc from z6Mkg5Z&#8230;4Q8qCHw..
+&#10003; Fetched repository from 2 seed(s)
+</code></pre></div></div>
+
+<p>After the <code class="language-plaintext highlighter-rouge">sync</code> command succeeds, try to <code class="language-plaintext highlighter-rouge">git pull</code> again.</p>
+
+<p>And, that&#8217;s a wrap! You now know the most relevant nitty gritty details of how
+to leverage Radicle for code collaboration.</p>
+
+<p><em>One thing to keep in mind is that Radicle doesn&#8217;t have advanced code review
+features yet for patches, but that is coming in a near-term release.</em></p>
+
+<h2 id="3-selectively-revealing-repositories">3. Selectively Revealing Repositories</h2>
+
+<p>In his influential work, <a href="https://www.activism.net/cypherpunk/manifesto.html">A Cypherpunk&#8217;s Manifesto</a> (1993), Eric
+Hughes eloquently encapsulated the essence of privacy, stating: <strong><em>Privacy is
+the power to selectively reveal oneself to the world.</em></strong> This notion of
+self-determination and control over one&#8217;s personal information stands in stark
+contrast to the reality of using &#8220;private repository&#8221; features on traditional
+centralized code forges. In those systems, privacy is merely an illusion
+maintained by terms of service agreements, as data is stored in cleartext, fully
+accessible to the platform&#8217;s employees, vulnerable to potential misuse or
+leaks, and subject to external pressures such as government requests. Users are
+left with no real control, forced to blindly trust that their code and data
+won&#8217;t be viewed, exploited, or even used without consent for purposes like
+training large language models.</p>
+
+<p>In contrast, Radicle&#8217;s decentralized approach puts the power of privacy directly
+in the hands of users by leveraging public key cryptography and granular access
+control mechanisms. The <em>power to selectively reveal</em> is a foundational
+principle in Radicle, fostering a more resilient and safer environment for
+code collaboration. Through selective replication, private repositories are only
+accessible to and replicated by repository collaborators, while fully encrypted
+connections ensure confidential data transfer between peers.</p>
+
+<p>By combining selective replication and encrypted and authenticated connections,
+repositories are invisible to the rest of the network. This approach
+effectively creates isolated spaces for private collaboration, forgoing the
+need for encryption at rest.</p>
+
+<p>In this chapter, we&#8217;ll explore how to maintain sovereignty and control over a
+private repository while collaborating with a set of peers and a trusted
+seed node.</p>
+
+<h3 id="initializing-a-private-repository">Initializing a private repository</h3>
+
+<p>When a private repository is created in Radicle, it is only visible and
+accessible to explicitly authorized peers. Privacy is extended to all aspects of
+the repository, including its data, creation time, Repository ID (RID),
+Collaborative Objects (COBs), and its set of collaborators.</p>
+
+<p>To maintain this privacy during data transfer, all connections between nodes,
+including those to seed nodes, are fully encrypted using an AEAD algorithm,
+<code class="language-plaintext highlighter-rouge">ChaCha20-Poly1305</code>.</p>
+
+<aside class="span-2">
+  <strong>ChaCha20-Poly1305</strong> is a modern AEAD encryption algorithm
+  designed for speed and security. It combines two parts: ChaCha20, which
+  scrambles the data to keep it secret, and Poly1305, which creates a unique
+  "fingerprint" for the encrypted data to ensure it hasn't been tampered with.
+  This system works efficiently on all types of devices, from smartphones to
+  computers, without needing special hardware.
+</aside>
+
+<p>To demonstrate how this works in practice, let&#8217;s create a private repository for
+a sensitive research project we&#8217;re working on with our peer, Calyx. We&#8217;ll start
+by initializing a repository within a new directory named
+<code class="language-plaintext highlighter-rouge">schr&#246;dingers-paradox</code> and committing our initial research findings:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd schr&#246;dingers-paradox
+$ git init
+$ cp ~/secrets/897af-captain.log data/897af-captain.log
+$ git commit -a -m "Add captain's log from ship 897AF"
+</code></pre></div></div>
+
+<p>Next, to securely share this with Calyx, we initialize it as a private
+repository in Radicle using the <code class="language-plaintext highlighter-rouge">--private</code> flag:</p>
+
+<aside><code>Paxel</code></aside>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad init --private
+</code></pre></div></div>
+
+<p>This invocation functions similarly to the public repository initialization
+process; the key difference is that it automatically configures the
+<code class="language-plaintext highlighter-rouge">visibility</code> option of the repository to private. As a result, the repository
+remains unannounced &#129399; and unpublished on the network, reflecting its nature.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad init --private
+
+Initializing private radicle &#128126; repository in /home/paxel/src/schr&#246;dingers-paradox..
+...
+
+Your Repository ID (RID) is rad:z3jEQE4VMzkR1UVeSLiN9E8AMtV6a.
+You can show it any time by running `rad .` from this directory.
+
+You have created a private repository.
+This repository will only be visible to you, and to peers you explicitly allow.
+
+To make it public, run `rad publish`.
+To push changes, run `git push`.
+</code></pre></div></div>
+
+<p>If we run <code class="language-plaintext highlighter-rouge">rad ls --private</code>, we&#8217;ll find the repository with its <code class="language-plaintext highlighter-rouge">private</code>
+visibility.</p>
+
+<pre class="wide">&#9581;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9582;
+&#9474; Name                   RID                                 Visibility  &#9474;
+&#9500;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9508;
+&#9474; schr&#246;dingers-paradox   rad:z3jEQE4VMzkR1UVeSLiN9E8AMtV6a   private     &#9474;
+&#9584;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9583;</pre>
+
+<h3 id="curating-the-allow-list">Curating the <em>allow</em> list</h3>
+
+<p>Now that we have our private repository, the next step is to grant access to our
+collaborators.</p>
+
+<p>The newly created private repository, <code class="language-plaintext highlighter-rouge">schr&#246;dingers-paradox</code>, will initially be
+accessible only by us, the lone delegate. This is due to the fact that
+repository delegates always have access to their private repositories. However,
+to collaborate on this repository with others, we need to curate its allow list
+to include the DIDs of Calyx, and at least one <a href="https://radicle.xyz/guides/seeder/">seed node</a> <em>we trust</em>.
+This seed node will act as a trusted relay, necessary for the synchronization
+of repository state between Calyx and us.</p>
+
+<p>Though this trusted seed node needs a public DNS address, it doesn&#8217;t have to
+be advertised to the network. One can simply omit adding the address to
+the <code class="language-plaintext highlighter-rouge">externalAddresses</code> key in the Radicle node configuration.</p>
+
+<blockquote>
+  <p>&#128123;</p>
+
+  <p>Private repositories are not encrypted at rest, so any node that you add to
+the allow list will have visibility over the contents of your private
+repository. In the <a href="https://radicle.xyz/guides/user/#4-embracing-the-onion">Chapter 4</a> we explore a different setup that works
+over Tor and doesn&#8217;t require a trusted seed node.</p>
+</blockquote>
+
+<p>We can add both Calyx and our trusted seed node to the allow list using a single
+<code class="language-plaintext highlighter-rouge">rad id update</code> command. This command requires a <code class="language-plaintext highlighter-rouge">--title</code> for the update, along
+with each authorized DID specified with the <code class="language-plaintext highlighter-rouge">--allow</code> flag:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad id update --title "Allow Calyx and seed.darkstar.example" \
+    --allow did:key:z6Mkgom1bTxdh9fMFxFNXFMw3SbXnma6NARdsfcFuunurCap \
+    --allow did:key:z6MkqNZS9QWvC4wbZ8Vz4hQZ1FzN8q4XGj2KGmK9qNgQ8VWt
+</code></pre></div></div>
+
+<p>Once we submit the update above, it is automatically approved, as we are the
+repository&#8217;s sole delegate. If you look at the resulting diff, you see that
+both Calyx and our trusted node are being added to the <code class="language-plaintext highlighter-rouge">allow</code> list under the
+<code class="language-plaintext highlighter-rouge">visibility</code> key:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"allow"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="s2">"did:key:z6Mkgom1bTxdh9fMFxFNXFMw3SbXnma6NARdsfcFuunurCap"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"did:key:z6MkqNZS9QWvC4wbZ8Vz4hQZ1FzN8q4XGj2KGmK9qNgQ8VWt"</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<blockquote>
+  <p>&#128126;</p>
+
+  <p>It is also possible to update a repository that is currently public to become
+private, with a repository identity update:</p>
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ rad id update --title "Make private" --visibility private
+</code></pre></div>  </div>
+  <p>This won&#8217;t delete historic repository data from public seed nodes or other
+peers that previously seeded or cloned the repository, meaning users will
+still be able to clone the old version of the repository.</p>
+
+  <p>Instead, future updates to the repository, including the repository&#8217;s private
+status will be hidden to unauthorized users, only to be announced and
+accessible to those explicitly defined in the <code class="language-plaintext highlighter-rouge">allow</code> list.</p>
+</blockquote>
+
+<h3 id="replicating-to-our-seed-node">Replicating to our seed node</h3>
+
+<p>Now that we&#8217;ve set up our private repository, it&#8217;s essential to configure it
+from our trusted seed node. Since our seed node is likely configured with a
+selective seeding policy, we&#8217;ll have to tell it to seed our private repository
+with the <code class="language-plaintext highlighter-rouge">rad seed</code> command.</p>
+
+<p>Since <code class="language-plaintext highlighter-rouge">schr&#246;dingers-paradox</code> is a private repository, we also need to specify
+our (Paxel&#8217;s) Node ID using the <code class="language-plaintext highlighter-rouge">--from</code> flag to explicitly indicate a source
+node to fetch from. We therefore run the following command from within an SSH
+session on our seed node:</p>
+
+<aside><code>seed.darkstar.example</code></aside>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad seed rad:z3jEQE4VMzkR1UVeSLiN9E8AMtV6a --from z6MkvZwzK64f3GuDcAs6dEcje89ddfHkBjS1v9Dkh7aCGq3C
+</code></pre></div></div>
+
+<p>This will update darkstar&#8217;s seeding policy and attempt to fetch the repository
+from our node. For the fetching to be successful, we&#8217;ll have to be connected
+to the seed node. Check that it is indeed the case with <code class="language-plaintext highlighter-rouge">rad node status</code>,
+and use <code class="language-plaintext highlighter-rouge">rad node connect</code> or adjust your node&#8217;s configuration if it isn&#8217;t
+the case.</p>
+
+<blockquote>
+  <p>&#128126;</p>
+
+  <p>If you&#8217;re experiencing issues with repository replication, try these steps:</p>
+
+  <ol>
+    <li>Check your current connections:
+      <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad node status
+</code></pre></div>      </div>
+    </li>
+    <li>If your seed node isn&#8217;t listed, manually connect using:
+      <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad node connect &lt;address&gt;
+</code></pre></div>      </div>
+      <p>For example:</p>
+      <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad node connect z6MkqNZS9QWvC4wbZ8Vz4hQZ1FzN8q4XGj2KGmK9qNgQ8VWt@seed.darkstar.example:8776
+</code></pre></div>      </div>
+    </li>
+  </ol>
+
+  <p>To find your seed node&#8217;s address, run <code class="language-plaintext highlighter-rouge">rad node config --addresses</code> while logged in
+to the seed node.</p>
+
+  <p>For comprehensive information on setting up and managing seed nodes, refer to
+our <a href="https://radicle.xyz/guides/seeder/">Seeder&#8217;s Guide</a>.</p>
+</blockquote>
+
+<p>Once the repository is on the seed, you should be able to see it by running
+<code class="language-plaintext highlighter-rouge">rad ls --private</code> from within the SSH session. It can then serve as an always
+online reliable access point for other authorized peers. Remember, only peers
+on the repository&#8217;s allow list will be able to fetch from this seed node.</p>
+
+<h3 id="cloning-as-a-trusted-peer">Cloning as a trusted peer</h3>
+
+<p>With our repository now successfully seeded, Calyx can clone our project. Since
+<code class="language-plaintext highlighter-rouge">schr&#246;dingers-paradox</code> is a private repository, Calyx needs to specify the seed
+node to fetch from, using the <code class="language-plaintext highlighter-rouge">--seed</code> flag. In this case, Calyx specifies
+the Node ID of <code class="language-plaintext highlighter-rouge">seed.darkstar.example</code>:</p>
+
+<aside><code>Calyx</code></aside>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad clone rad:z3jEQE4VMzkR1UVeSLiN9E8AMtV6a --seed z6MkqNZS9QWvC4wbZ8Vz4hQZ1FzN8q4XGj2KGmK9qNgQ8VWt
+</code></pre></div></div>
+
+<p>Once the repository is fetched, it&#8217;s no longer necessary to specify the seed.
+Commands such as <code class="language-plaintext highlighter-rouge">rad sync</code> will automatically try to sync with our trusted
+seed.</p>
+
+<p><em>With a local copy of the repository, Calyx can now collaborate freely,
+in full secrecy.</em></p>
+
+<h3 id="removing-nodes-from-the-allow-list">Removing nodes from the <em>allow</em> list</h3>
+
+<p>In the event that our seed node became compromised, we could revoke access
+privileges to the repository from it. The same <code class="language-plaintext highlighter-rouge">rad id update</code> command is used,
+but this time with the <code class="language-plaintext highlighter-rouge">--disallow</code> flag:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad id update --title "Darkstar is compromised!" \
+    --disallow did:key:z6MkqNZS9QWvC4wbZ8Vz4hQZ1FzN8q4XGj2KGmK9qNgQ8VWt
+</code></pre></div></div>
+
+<p>Our <em>no-longer-trusted</em> seed node will now be unable to fetch updates from us
+for <code class="language-plaintext highlighter-rouge">schr&#246;dingers-paradox</code>.</p>
+
+<blockquote>
+  <p>&#128126;</p>
+
+  <p>As time goes by, you might decide that a repository no longer needs to be
+private. In such a case, you can easily change its visibility. Simply run <code class="language-plaintext highlighter-rouge">rad
+publish</code> within a repository&#8217;s working copy to transform it from private to
+public.</p>
+</blockquote>
+
+<blockquote>
+  <p>&#128123;</p>
+
+  <p>Radicle&#8217;s codebase hasn&#8217;t yet undergone formal security audits. While we&#8217;re
+confident in its security, undiscovered vulnerabilities may exist. If you
+encounter any issues, we encourage you to report them to
+<strong>security@radicle.xyz</strong>.</p>
+</blockquote>
+
+<h2 id="4-embracing-the-onion">4. Embracing the Onion</h2>
+
+<p><strong><a href="https://www.torproject.org">Tor</a></strong>, &#8220;The Onion Router&#8221;, is a decentralized network that
+anonymizes users&#8217; online activity by routing internet traffic through
+multiple encrypted relays, providing stronger anonymity compared to traditional
+VPNs.</p>
+
+<aside class="span-3"> Tor, originally developed by the U.S. Naval Research
+Laboratory in the 1990s, was designed to protect government communications. It
+was further developed by DARPA before becoming a public project. In 2006, the
+non-profit Tor Project was established to maintain and improve the network.
+Today, Tor is widely used by individuals, activists, journalists, and
+organizations seeking greater online privacy.</aside>
+
+<p>To further enhance repository and user privacy, Radicle nodes can be
+configured to run behind Tor. This allows connections to be made to <code class="language-plaintext highlighter-rouge">.onion</code>
+addresses, as well as hiding one&#8217;s IP address and exposing Radicle as a Tor
+<em>onion service</em>.</p>
+
+<p>Depending on how you configure Radicle, it offers several key advantages:</p>
+
+<ul>
+  <li><strong>Enhanced anonymity</strong>: Your node&#8217;s real IP address is hidden, making it
+difficult for others to track your online activities or determine your
+location.</li>
+  <li><strong>NAT traversal</strong>: Tor automatically handles <a href="https://en.wikipedia.org/wiki/NAT_traversal">NAT traversal</a>,
+eliminating the need for manual port forwarding or UPnP configuration. This
+means peers can directly connect with one another without a seed node, even
+behind a restrictive firewall.</li>
+  <li><strong>Censorship resistance</strong>: Repositories accessible via Tor are more resilient
+against censorship attempts, as the Tor network is designed to circumvent
+blocking.</li>
+</ul>
+
+<p>Network Address Translation (NAT) typically creates barriers for direct
+peer-to-peer communication. Devices behind NAT gateways are often isolated
+with non-routable private IP addresses, making them inaccessible from the public
+internet. This is common in most consumer internet setups.</p>
+
+<p>Tor addresses this issue by providing static <code class="language-plaintext highlighter-rouge">.onion</code> addresses &#8211; cryptographic
+identifiers representing nodes that are routable across the Tor network. This
+allows peers behind NAT to connect directly without needing to know each
+other&#8217;s public IP addresses, overcoming limitations faced by traditional
+peer-to-peer networks.</p>
+
+<p>This chapter will explore a few distinct ways to configure Radicle with Tor:</p>
+
+<ol>
+  <li><strong>Mixed Mode</strong>: Only connections to <code class="language-plaintext highlighter-rouge">.onion</code> addresses go through Tor, while
+other connections work normally.</li>
+  <li><strong>Full Proxy Mode</strong>: All traffic is routed through Tor for maximum anonymity,
+ including traffic to nodes that are <em>not</em> behind Tor.</li>
+  <li><strong>Transparent Proxy Mode</strong>: Leverages an existing fully transparent Tor proxy on
+the network.</li>
+</ol>
+
+<p>Before proceeding, ensure you have Tor installed on your system. Use your
+preferred package manager to install it (the package name is typically &#8220;tor&#8221;).
+For detailed instructions, refer to the Tor <a href="https://community.torproject.org/onion-services/setup/install/">installation guide</a>.</p>
+
+<h3 id="setting-up-a-tor-onion-service-for-radicle">Setting up a Tor Onion Service for Radicle</h3>
+
+<p>We&#8217;ve been collaborating with Calyx on the private <code class="language-plaintext highlighter-rouge">schr&#246;dingers-paradox</code>
+repository. Recently, we removed a compromised seed node from the repository&#8217;s
+<code class="language-plaintext highlighter-rouge">allow</code> list, which inadvertently cut off Calyx&#8217;s access to the repository.</p>
+
+<p>To restore Calyx&#8217;s access and enhance the security of our sensitive research,
+we&#8217;ll configure our node as a Tor Onion Service (also known as a hidden
+service). This setup will make our node accessible via a <code class="language-plaintext highlighter-rouge">.onion</code> address,
+allowing Calyx to connect directly to us without relying on any intermediaries.</p>
+
+<p>Let&#8217;s set up our Tor Onion Service. The following steps are for Linux-based
+systems, but they should be similar for other operating systems.</p>
+
+<p>First we create a new <code class="language-plaintext highlighter-rouge">radicle</code> directory for our Onion Service, ensuring it&#8217;s
+readable and writable:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo mkdir -m 700 /var/lib/tor/radicle
+</code></pre></div></div>
+
+<p>This directory will store information and cryptographic keys for our Onion
+Service.</p>
+
+<p>Then we update our Tor configuration (<code class="language-plaintext highlighter-rouge">/etc/tor/torrc</code>) by adding the following
+lines to it:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HiddenServiceDir /var/lib/tor/radicle
+HiddenServicePort 8776
+</code></pre></div></div>
+
+<p>These lines set the <code class="language-plaintext highlighter-rouge">HiddenServiceDir</code> to the path of the directory we just
+created and specify the <code class="language-plaintext highlighter-rouge">HiddenServicePort</code> as <code class="language-plaintext highlighter-rouge">8776</code>, which is the default
+Radicle node port.</p>
+
+<p>Finally, we restart our Tor daemon to apply the configuration changes:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo systemctl restart tor
+</code></pre></div></div>
+
+<p>Our <code class="language-plaintext highlighter-rouge">.onion</code> address is stored in a file under our Onion Service
+directory. Let&#8217;s take a look:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo cat /var/lib/tor/radicle/hostname
+1odmmeotgcfx65l5hn6ejkaruvai222vs7o7tmtllszqk5xbysolfdd.onion
+</code></pre></div></div>
+
+<p>We can copy this address to our clipboard, as we&#8217;ll need it to configure our
+Radicle node in the next steps.</p>
+
+<blockquote>
+  <p>&#129504;</p>
+
+  <p>If you are a <strong>macOS</strong> user, install Tor via <code class="language-plaintext highlighter-rouge">brew install tor</code> and restart
+it via <code class="language-plaintext highlighter-rouge">brew services restart tor</code>.</p>
+
+  <p>Use <code class="language-plaintext highlighter-rouge">mkdir -p -m 700 ~/.tor/radicle</code> to create your onion service directory.</p>
+
+  <p>The Tor configuration file is located at <code class="language-plaintext highlighter-rouge">/opt/homebrew/etc/tor/torrc</code> and
+your <code class="language-plaintext highlighter-rouge">.onion</code> address can be found in <code class="language-plaintext highlighter-rouge">~/.tor/radicle/hostname</code>.</p>
+
+  <p>Make sure to set the torrc HiddenServiceDir to <code class="language-plaintext highlighter-rouge">/Users/&lt;user&gt;/.tor/radicle</code>.</p>
+
+  <p>If you are a <strong>Debian</strong> user who got Tor from a Debian repo, you may need to
+change the ownership of the <code class="language-plaintext highlighter-rouge">radicle</code> directory to the <code class="language-plaintext highlighter-rouge">debian-tor</code> user and
+group after creating it:</p>
+
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo chown -R debian-tor:debian-tor /var/lib/tor/radicle
+</code></pre></div>  </div>
+</blockquote>
+
+<h4 id="configuring-radicle-in-mixed-mode">Configuring Radicle in <em>Mixed Mode</em></h4>
+
+<p>Now that we have Tor properly set up, it&#8217;s time to configure the networking on
+our Radicle node to work with it. There are several configuration options
+available, but for our use case, we&#8217;ll implement the <em>Mixed Mode</em> where only
+connections to <code class="language-plaintext highlighter-rouge">.onion</code> addresses go through Tor, while regular connections go
+through the regular internet. For our particular use-case, we&#8217;re trying to
+collaborate on a private repository, not to hide our IP address.</p>
+
+<p>This configuration offers a balance between privacy and performance:</p>
+
+<ul>
+  <li>It maintains low latency for regular public nodes.</li>
+  <li>It allows connectivity through Tor, for nodes that are exposed as an onion
+service.</li>
+</ul>
+
+<figure class="diagram">
+  <object type="image/svg+xml" data="/user-guide/tor-mixed-mode.svg"></object>
+  <figcaption>Tor <em>Mixed Mode</em>.</figcaption>
+</figure>
+
+<p>To set this up, we first ensure that our Radicle node is stopped and then edit
+our node&#8217;s configuration file:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad node stop
+$ rad config edit
+</code></pre></div></div>
+
+<p>Under the <code class="language-plaintext highlighter-rouge">node</code> key in our configuration, we define a new <code class="language-plaintext highlighter-rouge">onion</code> attribute
+as follows:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"node"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+    </span><span class="nl">"onion"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"proxy"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"127.0.0.1:9050"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>This tells Radicle that for <code class="language-plaintext highlighter-rouge">.onion</code> addresses, we want to use the specified
+Tor <em>SOCKS5</em> proxy address. This is the address on which the Tor daemon should
+be listening.</p>
+
+<p>Next, we ensure our node is listening for incoming connections on port <code class="language-plaintext highlighter-rouge">8776</code>.
+This is the port that our Tor proxy will be using to bridge connections to our
+node, and is the same as the <code class="language-plaintext highlighter-rouge">HiddenServicePort</code> in our Tor configuration.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"node"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+    </span><span class="nl">"listen"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"0.0.0.0:8776"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Finally, if we want our <code class="language-plaintext highlighter-rouge">.onion</code> address to be publicly <em>discoverable</em> on the
+network, we add it to our <code class="language-plaintext highlighter-rouge">externalAddresses</code>, including the port. This will
+configure our node to advertise its <code class="language-plaintext highlighter-rouge">.onion</code> address to peers.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"node"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+    </span><span class="nl">"externalAddresses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"1odmmeotgcfx65l5hn6ejkaruvai222vs7o7tmtllszqk5xbysolfdd.onion:8776"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<blockquote>
+  <p>&#128126; This is the <code class="language-plaintext highlighter-rouge">.onion</code> address we obtained earlier from the Tor <code class="language-plaintext highlighter-rouge">hostname</code>
+file.</p>
+</blockquote>
+
+<p>Note that this is <strong>optional</strong>: if you don&#8217;t specify it here, peers will still
+be able to connect to you if they know your <code class="language-plaintext highlighter-rouge">.onion</code> address.</p>
+
+<p>This configuration allows our node to use Tor for <code class="language-plaintext highlighter-rouge">.onion</code> connections while
+maintaining direct connections for regular traffic, balancing our privacy and
+performance needs.</p>
+
+<h4 id="making-connections">Making connections</h4>
+
+<p>Now that we have updated our configuration, we can start up our node again:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad node start
+</code></pre></div></div>
+
+<p>Since our node is online, Calyx can now continue to collaborate with us on
+<code class="language-plaintext highlighter-rouge">schr&#246;dingers-paradox</code>. He uses the <code class="language-plaintext highlighter-rouge">rad node connect</code> command to establish a
+direct connection with us:</p>
+
+<aside><code>Calyx</code></aside>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rad node connect z6Mkhp7VUnuufpvuQ3PdysShAjL86VDRUpPpkesqiysDBGs9@odmmeotgcfx65l5hn6ejkaruvai222vs7o7tmtllszqk5xbysolfdd.onion:8776
+</code></pre></div></div>
+
+<p>Notice that the connect address is a combination of the peer&#8217;s NID and its
+<code class="language-plaintext highlighter-rouge">.onion</code> address:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;nid&gt; @ &lt;onion&gt; : &lt;port&gt;
+</code></pre></div></div>
+
+<p>Tor connections can take some time to establish as a route through the network
+of relays is computed. If you want your node to maintain a persistent
+connection to a peer even after your node is restarted, simply add the above
+address to the <code class="language-plaintext highlighter-rouge">connect</code> field in your node configuration:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"node"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+    </span><span class="nl">"connect"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"z6Mkhp7VUnuufpvuQ3PdysShAjL86VDRUpPpkesqiysDBGs9@odmmeotgcfx65l5hn6ejkaruvai222vs7o7tmtllszqk5xbysolfdd.onion:8776"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>By leveraging Radicle&#8217;s private repositories and the Tor network, we protected
+our project&#8217;s confidentiality and stood resilient in the face of attacks on our
+infrastructure. When nodes are <em>Torrified</em> like ours is, it&#8217;s also easy for
+other peers to establish connections directly with us, without requiring an
+intermediary seed node.</p>
+
+<blockquote>
+  <p>&#128126;</p>
+
+  <p>Of course, Tor can also be set up on a seed node for a persistent, private
+connection. Simply follow the previous Tor configuration steps on your seed
+node, and enable it as a system service that starts automatically on boot
+using <code class="language-plaintext highlighter-rouge">sudo systemctl enable tor</code>.</p>
+</blockquote>
+
+<h3 id="alternative-tor-configurations">Alternative Tor configurations</h3>
+
+<p>While Mixed Mode allows us to connect to Tor nodes and traverse NATs, there are
+two additional configurations that offer more comprehensive network privacy
+through Tor, at the expense of network latency. These options route all Radicle
+traffic through the Tor network, including to nodes that are not configured
+with Tor.</p>
+
+<h4 id="full-proxy-mode">Full Proxy Mode</h4>
+
+<p>Full Proxy Mode routes all traffic through Tor for maximum anonymity.</p>
+
+<figure class="diagram">
+  <object type="image/svg+xml" data="/user-guide/tor-full-proxy-mode.svg"></object>
+  <figcaption>Tor <em>Full Proxy Mode</em>.</figcaption>
+</figure>
+
+<p>Instead of setting up a proxy only for <code class="language-plaintext highlighter-rouge">.onion</code> addresses, we set up a global
+proxy for all address types:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"node"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+    </span><span class="nl">"proxy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"127.0.0.1:9050"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Then, we change the <code class="language-plaintext highlighter-rouge">mode</code> for <code class="language-plaintext highlighter-rouge">.onion</code> addresses to <code class="language-plaintext highlighter-rouge">forward</code>, and remove
+the <code class="language-plaintext highlighter-rouge">proxy</code> configuration from there:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"node"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+    </span><span class="nl">"onion"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"forward"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">listen</code> and <code class="language-plaintext highlighter-rouge">externalAddresses</code> configuration doesn&#8217;t change.</p>
+
+<h4 id="transparent-proxy-mode">Transparent Proxy Mode</h4>
+
+<p>If you&#8217;ve already set up a fully transparent Tor proxy on your network, simply
+omit the global proxy configuration, and set the <code class="language-plaintext highlighter-rouge">.onion</code> configuration to
+<code class="language-plaintext highlighter-rouge">forward</code>:</p>
+
+<aside class="span-2">Configuring a transparent Tor proxy for your entire
+network is beyond the scope of this guide. If you're interested in this setup,
+consult the Tor Project documentation for detailed instructions.</aside>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"node"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+    </span><span class="nl">"onion"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"forward"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>This will configure your node to use your operating system&#8217;s DNS resolver
+to resolve <code class="language-plaintext highlighter-rouge">.onion</code> addresses.</p>
+
+<blockquote>
+  <p>&#128123;</p>
+
+  <p>Radicle&#8217;s codebase hasn&#8217;t yet undergone formal security audits. While we&#8217;re
+confident in its security, undiscovered vulnerabilities may exist. If you
+encounter any issues, we encourage you to report them to
+<strong>security@radicle.xyz</strong>.</p>
+</blockquote>

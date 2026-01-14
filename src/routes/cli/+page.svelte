@@ -131,6 +131,7 @@
 				<h2 class="text-2xl font-semibold text-primary-light dark:text-primary-dark mb-3">Run your own node</h2>
 				<p class="text-lg text-secondary-light dark:text-secondary-dark">
 					Operate your own node for censorship‑resistant collaboration and a resilient network without relying on third parties.
+					<a href="/garden" class="text-brand border-b border-brand">Learn about our always-on node.</a>
 				</p>
 			</div>
 		</section>
