@@ -28,7 +28,7 @@
 <div class="min-h-screen bg-surface-light dark:bg-surface-dark">
 	<div class="bg-brand">
 		<!-- Header -->
-		<header class="bg-black text-white">
+		<header class="bg-white text-black dark:bg-black dark:text-white">
 			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
 				<div class="flex flex-wrap items-center gap-3">
 					<div class="flex items-center gap-3 mr-auto">
@@ -38,21 +38,21 @@
 					<div class="flex items-center gap-3 text-sm font-semibold sm:gap-6 sm:ml-auto">
 						<a
 							href="https://desktop.radicle.xyz/"
-							class="px-3 py-2 rounded-sm transition btn-invert-hover btn-invert-hover-white hover:text-black"
+							class="link-highlight"
 						>
 							<span>Download Radicle</span>
 						</a>
 						<span class="hidden sm:block h-6 w-px bg-white/30" aria-hidden="true"></span>
 						<button
 							on:click={() => goto('/dashboard')}
-							class="px-3 py-2 rounded-sm transition btn-invert-hover btn-invert-hover-white hover:text-black"
+							class="link-highlight"
 						>
 							<span>Log in</span>
 						</button>
 					</div>
 					<a
 						href="/auth/signup"
-						class="bg-brand text-black px-4 py-2 rounded-sm font-semibold transition btn-invert-hover btn-invert-hover-white hover:text-black w-full sm:w-auto sm:ml-3 text-center"
+						class="bg-brand text-black px-4 py-2 rounded-sm font-semibold transition btn-invert-hover btn-invert-hover-white-dark hover:text-white dark:hover:text-black w-full sm:w-auto sm:ml-3 text-center"
 					>
 						<span>Get one for $10/month</span>
 					</a>
@@ -147,7 +147,7 @@
 		</div>
 	</section>
 
-	<section class="bg-brand/20 dark:bg-brand/30">
+	<section class="bg-brand/20 dark:bg-brand/10">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
 			<div class="grid grid-cols-1 lg:grid-cols-[1fr,2fr] gap-8 items-start">
 				<h2 class="text-4xl md:text-5xl font-semibold text-primary-light dark:text-primary-dark">Updates</h2>
