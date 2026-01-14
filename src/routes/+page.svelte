@@ -1,10 +1,9 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import Icon from '$lib/components/Icon.svelte';
-	import { onDestroy, onMount } from 'svelte';
+	import { onMount } from 'svelte';
 
 	let heroEl: HTMLElement;
-	let heroCanvas: HTMLCanvasElement;
 
 	const illustrationModules = import.meta.glob('/src/illustrations/*.{png,jpg,jpeg,webp,avif}', {
 		eager: true,
@@ -13,127 +12,12 @@
 	const illustrationUrls = Object.values(illustrationModules) as string[];
 
 	onMount(() => {
-		if (!heroCanvas || !heroEl || illustrationUrls.length === 0) {
+		if (!heroEl || illustrationUrls.length === 0) {
 			return;
 		}
 
-		const ctx = heroCanvas.getContext('2d');
-		if (!ctx) {
-			return;
-		}
-
-		const pixelCanvas = document.createElement('canvas');
-		const pixelCtx = pixelCanvas.getContext('2d');
-		if (!pixelCtx) {
-			return;
-		}
-
-		let animationFrame = 0;
-		let resizeObserver: ResizeObserver | null = null;
-		let startTime = performance.now();
-		const dissolveDurationMs = 7000;
-
-		const images: HTMLImageElement[] = [];
-		let currentIndex = Math.floor(Math.random() * illustrationUrls.length);
-		let nextIndex = (currentIndex + 1) % illustrationUrls.length;
-
-		const loadImages = illustrationUrls.map(
-			(url) =>
-				new Promise<HTMLImageElement>((resolve) => {
-					const img = new Image();
-					img.src = url;
-					img.onload = () => resolve(img);
-				})
-		);
-
-		const pickNextIndex = () => {
-			if (illustrationUrls.length <= 1) {
-				return currentIndex;
-			}
-			let candidate = currentIndex;
-			while (candidate === currentIndex) {
-				candidate = Math.floor(Math.random() * illustrationUrls.length);
-			}
-			return candidate;
-		};
-
-		const resize = () => {
-			const rect = heroEl.getBoundingClientRect();
-			heroCanvas.width = Math.max(1, Math.floor(rect.width * window.devicePixelRatio));
-			heroCanvas.height = Math.max(1, Math.floor(rect.height * window.devicePixelRatio));
-			heroCanvas.style.width = `${rect.width}px`;
-			heroCanvas.style.height = `${rect.height}px`;
-			ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
-		};
-
-		const drawCover = (context: CanvasRenderingContext2D, img: HTMLImageElement, width: number, height: number) => {
-			const scale = Math.max(width / img.width, height / img.height);
-			const sw = width / scale;
-			const sh = height / scale;
-			const sx = (img.width - sw) / 2;
-			const sy = (img.height - sh) / 2;
-			context.drawImage(img, sx, sy, sw, sh, 0, 0, width, height);
-		};
-
-		const drawPixelated = (img: HTMLImageElement, alpha: number, pixelSize: number) => {
-			const width = heroCanvas.width / window.devicePixelRatio;
-			const height = heroCanvas.height / window.devicePixelRatio;
-			const pixelWidth = Math.max(1, Math.floor(width / pixelSize));
-			const pixelHeight = Math.max(1, Math.floor(height / pixelSize));
-
-			pixelCanvas.width = pixelWidth;
-			pixelCanvas.height = pixelHeight;
-			pixelCtx.clearRect(0, 0, pixelWidth, pixelHeight);
-			pixelCtx.imageSmoothingEnabled = true;
-			drawCover(pixelCtx, img, pixelWidth, pixelHeight);
-
-			ctx.save();
-			ctx.globalAlpha = alpha;
-			ctx.imageSmoothingEnabled = false;
-			ctx.drawImage(pixelCanvas, 0, 0, pixelWidth, pixelHeight, 0, 0, width, height);
-			ctx.restore();
-		};
-
-		const animate = (time: number) => {
-			const elapsed = time - startTime;
-			const progress = Math.min(1, elapsed / dissolveDurationMs);
-			const eased = progress;
-			const pixelSize = Math.round(40 - 28 * eased);
-
-			ctx.clearRect(0, 0, heroCanvas.width, heroCanvas.height);
-			drawPixelated(images[currentIndex], 1 - eased, pixelSize);
-			drawPixelated(images[nextIndex], eased, pixelSize);
-
-			if (progress >= 1) {
-				currentIndex = nextIndex;
-				nextIndex = pickNextIndex();
-				startTime = time;
-			}
-
-			animationFrame = requestAnimationFrame(animate);
-		};
-
-		Promise.all(loadImages).then((loaded) => {
-			images.push(...loaded);
-			resize();
-
-			resizeObserver = new ResizeObserver(resize);
-			resizeObserver.observe(heroEl);
-			animationFrame = requestAnimationFrame(animate);
-		});
-
-		return () => {
-			if (animationFrame) {
-				cancelAnimationFrame(animationFrame);
-			}
-			if (resizeObserver) {
-				resizeObserver.disconnect();
-			}
-		};
-	});
-
-	onDestroy(() => {
-		// Cleanup handled by onMount return.
+		const index = Math.floor(Math.random() * illustrationUrls.length);
+		heroEl.style.setProperty('--hero-image', `url("${illustrationUrls[index]}")`);
 	});
 </script>
 
@@ -177,8 +61,11 @@
 		</header>
 
 		<!-- Hero Section -->
-		<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative overflow-hidden" bind:this={heroEl}>
-			<canvas class="absolute inset-0 h-full w-full opacity-100 pointer-events-none" bind:this={heroCanvas}></canvas>
+		<section
+			class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative overflow-hidden"
+			style="background-image: var(--hero-image); background-size: cover; background-position: center;"
+			bind:this={heroEl}
+		>
 			<div class="max-w-4xl relative z-10">
 				<h1 class="text-6xl sm:text-7xl md:text-9xl font-bold tracking-tight text-white dark:text-black mb-6 leading-none">Always-on node for your Radicle repos</h1>
 				<p class="text-2xl md:text-3xl text-secondary-light dark:text-black mb-12 leading-snug text-black">
