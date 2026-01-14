@@ -25,8 +25,8 @@
 	<title>Radicle Garden - Always On Node</title>
 </svelte:head>
 
-<div class="min-h-screen bg-surface-light dark:bg-surface-dark">
-	<div class="bg-brand">
+<div class="min-h-screen bg-white dark:bg-black">
+	<div class="bg-white dark:bg-black">
 		<!-- Header -->
 		<header class="bg-white text-black dark:bg-black dark:text-white">
 			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -61,12 +61,17 @@
 		</header>
 
 		<!-- Hero Section -->
-		<section
-			class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative overflow-hidden"
-			style="background-image: var(--hero-image); background-size: cover; background-position: center;"
-			bind:this={heroEl}
-		>
-			<div class="max-w-4xl relative z-10">
+		<section class="relative overflow-hidden" bind:this={heroEl}>
+			<div class="absolute inset-y-0 left-0 right-0 flex justify-center" aria-hidden="true">
+				<div class="w-full max-w-7xl">
+					<div
+						class="h-full w-[125%] relative left-1/2 -translate-x-1/2"
+						style="background-image: var(--hero-image); background-size: cover; background-position: center center;"
+					></div>
+				</div>
+			</div>
+			<div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+				<div class="max-w-4xl relative z-10">
 				<h1 class="text-6xl sm:text-7xl md:text-9xl font-bold tracking-tight text-white dark:text-black mb-6 leading-none">Always-on node for your Radicle repos</h1>
 				<p class="text-2xl md:text-3xl text-secondary-light dark:text-black mb-12 leading-snug text-black">
 					<span class="text-highlight">The security of Radicle with the convenience of availability.</span>
@@ -77,6 +82,7 @@
 				>
 					<span>Get one for $10/month</span>
 				</a>
+				</div>
 			</div>
 		</section>
 	</div>
@@ -147,8 +153,13 @@
 		</div>
 	</section>
 
-	<section class="bg-brand/20 dark:bg-brand/10">
-		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+	<section class="relative">
+		<div class="absolute inset-y-0 left-0 right-0 flex justify-center" aria-hidden="true">
+			<div class="w-full max-w-7xl">
+				<div class="h-full w-[125%] relative left-1/2 -translate-x-1/2 bg-brand/20 dark:bg-brand/10"></div>
+			</div>
+		</div>
+		<div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
 			<div class="grid grid-cols-1 lg:grid-cols-[1fr,2fr] gap-8 items-start">
 				<h2 class="text-4xl md:text-5xl font-semibold text-primary-light dark:text-primary-dark">Updates</h2>
 				<ul class="space-y-3 text-lg text-secondary-light dark:text-secondary-dark min-w-0 overflow-hidden">
