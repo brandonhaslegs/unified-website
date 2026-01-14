@@ -17,7 +17,7 @@
 		{#each primaryNav as item}
 			<a
 				href={item.href}
-				class={$page.url.pathname.startsWith(item.href) ? 'text-primary-light dark:text-primary-dark' : undefined}
+				class={$page.url.pathname.startsWith(item.href) ? 'site-rail-link-active' : undefined}
 				aria-current={$page.url.pathname.startsWith(item.href) ? 'page' : undefined}
 			>
 				{item.label}

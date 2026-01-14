@@ -1,5 +1,5 @@
 <footer class="site-footer">
-	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 pt-12">
+	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-6 pt-12">
 		<div class="site-footer-grid">
 			<div class="hidden md:block" aria-hidden="true"></div>
 			<div>

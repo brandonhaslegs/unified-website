@@ -22,7 +22,7 @@
 				</p>
 			</section>
 
-			<section class="space-y-10">
+			<section class="features-split">
 				<div class="feature-list">
 					<div class="feature-item">
 						<span class="feature-dot feature-dot-active" aria-hidden="true"></span>
@@ -61,6 +61,7 @@
 						</div>
 					</div>
 				</div>
+				<div class="feature-illustration" style={`background-image: url(${heroIllustration});`} aria-hidden="true"></div>
 			</section>
 		</div>
 	</div>
