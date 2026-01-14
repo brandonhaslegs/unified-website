@@ -96,15 +96,12 @@
   const desktopHeroImage = "/desktop/screenshot.png";
 
   $: if (heroEl && illustrationUrls.length > 0) {
-    const path = $page.url.pathname;
-    let hash = 0;
-    for (let i = 0; i < path.length; i += 1) {
-      hash = (hash * 31 + path.charCodeAt(i)) >>> 0;
-    }
-    const index = hash % illustrationUrls.length;
+    const heroImage =
+      illustrationUrls.find((url) => url.includes("illustration9.png")) ??
+      illustrationUrls[0];
     heroEl.style.setProperty(
       "--hero-image",
-      `url("${illustrationUrls[index]}")`
+      `url("${heroImage}")`
     );
   }
 
