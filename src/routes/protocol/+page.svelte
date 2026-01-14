@@ -30,7 +30,8 @@
 <div class="min-h-screen bg-white dark:bg-black">
 	<SiteHeader
 		showAuxLinks={false}
-		showCta={false}
+		ctaLabel="About the protocol"
+		ctaHref="/protocol/guide"
 	/>
 
 	<section class="relative overflow-hidden" bind:this={heroEl}>
@@ -50,19 +51,24 @@
 				<p class="text-2xl text-secondary-light dark:text-black mb-10 leading-snug text-black">
 					<span class="text-highlight">A local-first, peer-to-peer protocol for sovereign code collaboration—built on Git and backed by cryptographic identities.</span>
 				</p>
-				<div class="flex flex-wrap items-center gap-4">
-					<a
-						href="/protocol/guide"
-						class="inline-block px-8 py-4 rounded-sm text-lg font-semibold transition bg-white text-black dark:bg-black dark:text-white btn-invert-hover btn-invert-hover-white-dark btn-invert-hover-dark-text"
-					>
-						<span>About the protocol</span>
-					</a>
-					<a
-						href="/protocol/user-guide"
-						class="inline-block px-8 py-4 rounded-sm text-lg font-semibold transition bg-black text-white dark:bg-white dark:text-black btn-invert-hover btn-invert-hover-white btn-invert-hover-dark hover:text-black dark:hover:text-white"
-					>
-						<span>Get started as a user</span>
-					</a>
+				<div class="flex flex-col items-start gap-6">
+					<div class="flex flex-col gap-3 rounded-sm bg-white text-black dark:bg-black dark:text-white p-4 sm:p-5 w-fit max-w-full">
+						<p class="text-base font-semibold">Get started as a&#8230;</p>
+						<div class="flex flex-wrap items-center gap-5">
+							<a
+								href="/protocol/user-guide"
+								class="inline-block px-5 py-3 rounded-sm text-base font-semibold transition bg-black text-white dark:bg-white dark:text-black btn-invert-hover btn-invert-hover-brand"
+							>
+								<span>User</span>
+							</a>
+							<a
+								href="/protocol/seeder-guide"
+								class="inline-block px-5 py-3 rounded-sm text-base font-semibold transition bg-black text-white dark:bg-white dark:text-black btn-invert-hover btn-invert-hover-brand"
+							>
+								<span>Seeder</span>
+							</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

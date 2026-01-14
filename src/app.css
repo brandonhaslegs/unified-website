@@ -127,6 +127,18 @@
 		color: #000000;
 	}
 
+	.btn-invert-hover-brand::after {
+		background-color: rgb(var(--color-brand));
+	}
+
+	.btn-invert-hover-brand:hover {
+		color: #000000;
+	}
+
+	.dark .btn-invert-hover-brand::after {
+		background-color: rgb(88 230 0);
+	}
+
 	.link-highlight {
 		position: relative;
 		display: inline-block;

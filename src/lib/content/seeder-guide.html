@@ -1,0 +1,662 @@
+<h1>Radicle Seeder Guide</h1>
+      <p class="subtitle">How to run a Radicle seed node</p>
+      <ul class="toc"><li class="toc-h2"><a href="#introduction">Introduction</a><ul><li class="toc-h3"><a href="#the-need-for-seed-nodes">The need for seed nodes</a></li></ul></li><li class="toc-h2"><a href="#getting-started">Getting Started</a><ul><li class="toc-h3"><a href="#what-you-will-need">What you will need</a></li><li class="toc-h3"><a href="#server">Server</a></li><li class="toc-h3"><a href="#user-setup">User setup</a></li><li class="toc-h3"><a href="#installation">Installation</a></li><li class="toc-h3"><a href="#creating-a-profile">Creating a profile</a></li></ul></li><li class="toc-h2"><a href="#configuring-your-node">Configuring Your Node</a><ul><li class="toc-h3"><a href="#seeding-policies">Seeding policies</a><ul><li class="toc-h4"><a href="#a-permissive-seeding-policy">A <em>permissive</em> seeding policy</a></li><li class="toc-h4"><a href="#a-selective-seeding-policy">A <em>selective</em> seeding policy</a></li><li class="toc-h4"><a href="#setting-a-repositorys-seeding-policy">Setting a repository&#8217;s seeding policy</a></li><li class="toc-h4"><a href="#viewing-seeding-policies">Viewing seeding policies</a></li></ul></li><li class="toc-h3"><a href="#addressing">Addressing</a><ul><li class="toc-h4"><a href="#your-external-address">Your external address</a></li><li class="toc-h4"><a href="#your-node-address">Your node address</a></li><li class="toc-h4"><a href="#dns-based-service-discovery">DNS-Based Service Discovery</a></li></ul></li></ul></li><li class="toc-h2"><a href="#running-your-node">Running Your Node</a><ul><li class="toc-h3"><a href="#configuring-your-nodes-system-service">Configuring your node&#8217;s system service</a></li><li class="toc-h3"><a href="#checking-your-node-status">Checking your node status</a></li><li class="toc-h3"><a href="#changing-your-nodes-configuration">Changing your node&#8217;s configuration</a></li><li class="toc-h3"><a href="#securing-the-seed-user">Securing the <code class="language-plaintext highlighter-rouge">seed</code> user</a></li><li class="toc-h3"><a href="#firewalls">Firewalls</a></li></ul></li><li class="toc-h2"><a href="#running-the-http-daemon">Running the HTTP Daemon</a><ul><li class="toc-h3"><a href="#installation-1">Installation</a></li><li class="toc-h3"><a href="#configuring-your-http-daemons-system-service">Configuring your HTTP daemon&#8217;s system service</a></li><li class="toc-h3"><a href="#adding-support-for-https">Adding support for HTTPS</a></li></ul></li><li class="toc-h2"><a href="#youre-all-set">You&#8217;re All Set</a></li></ul>
+      <hr />
+      <p>To seed is to give back. By seeding repositories on the Radicle network, you
+offer bandwidth, storage, and data availability to Radicle users.</p>
+
+<p>In this guide, we&#8217;ll go through the various steps required to set up a Radicle
+<em>seed node</em> on a Linux system. Seeding only requires an internet
+connection, a public, static IP address, and modest hardware.</p>
+
+<p>We&#8217;ll cover public seed nodes with an <em>open</em> seeding policy, as well as
+community seed nodes with more <em>selective</em> policies.</p>
+
+<h2 id="introduction">Introduction</h2>
+<p>The term <em>seed node</em> originally comes from <a href="https://en.wikipedia.org/wiki/BitTorrent">BitTorrent</a>. In the
+BitTorrent protocol, nodes that possess the data for a given torrent file
+and begin uploading it to peers are called <em>seeders</em>.</p>
+
+<p>In Radicle, while all users contribute to the network by seeding data, the term
+<em>seed node</em> specifically refers to a server that is accessible through the
+internet and hosts content for peers. Seed nodes need to remain online and
+accessible to provide their service to the network.</p>
+
+<h3 id="the-need-for-seed-nodes">The need for seed nodes</h3>
+
+<p>While a peer-to-peer network without seed nodes is feasible, it is impractical.
+This is because regular &#8220;user&#8221; nodes go online and offline all the time, so
+finding a user from which to download a certain piece of content can be
+challenging, or even impossible if all users with that content are offline.</p>
+
+<p>Therefore, a healthy peer-to-peer network necessitates at least <em>some</em> highly
+available nodes that participate in the network like regular peers, but seldom
+go offline. These are called seed nodes.</p>
+
+<blockquote>
+  <p>By running a <em>permissive</em> node (see below for further explanation),
+you are contributing to the growth and resilience of
+the Radicle network, but it is important to be aware of the potential
+implications of hosting data in a permissionless network. Use your best
+judgment. If you have any concerns, consider starting with the selective
+seeding policy, described in the following section, and expanding as you
+become more comfortable with the network. Also refer to our [legal page] for
+more information.</p>
+</blockquote>
+
+<h2 id="getting-started">Getting Started</h2>
+<p>For this guide, we&#8217;ll focus on setting up a seed node using <code class="language-plaintext highlighter-rouge">systemd</code>. If
+you&#8217;re running a different service manager, you should be able to follow along
+just fine, as we&#8217;ll be explaining the steps. Using a service manager is not
+required, but highly recommended.</p>
+
+<h3 id="what-you-will-need">What you will need</h3>
+
+<p>To run a Radicle seed node, you will need a server with:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">curl</code></li>
+  <li><code class="language-plaintext highlighter-rouge">git</code></li>
+  <li><code class="language-plaintext highlighter-rouge">systemctl</code> version <code class="language-plaintext highlighter-rouge">232</code> or newer</li>
+  <li><code class="language-plaintext highlighter-rouge">sudo</code> privileges</li>
+  <li>A DNS name pointing to your server</li>
+</ul>
+
+<h3 id="server">Server</h3>
+
+<p>If you already have a VPS (Virtual Private Server) or home server running a
+Linux distribution, you should be all set. If not, any VPS will do. Between 1-2GB
+of RAM with a shared CPU and 10GB of disk space should be enough to get started.
+Once you&#8217;ve logged into your server, proceed with user setup and installation.
+For this setup process, you&#8217;ll need <code class="language-plaintext highlighter-rouge">sudo</code> capabilities.</p>
+
+<blockquote>
+  <p><strong>Tip</strong>: If you have trouble choosing a VPS, we recommend getting a small
+instance on <a href="https://www.hetzner.com/">Hetzner</a> or <a href="https://www.digitalocean.com/">Digital Ocean</a>. These are priced
+fairly and have good documentation and support.</p>
+</blockquote>
+
+<h3 id="user-setup">User setup</h3>
+
+<p>If you wish to create a new user under which to run the seed node services,
+this is the time. In this guide, we&#8217;ve chosen to run our services under a user
+called <code class="language-plaintext highlighter-rouge">seed</code>. Radicle data and configuration will be stored under this user&#8217;s
+home folder. This ensures that if your Radicle services were to be compromised,
+the attacker would have very limited access to your system.</p>
+
+<p>Here&#8217;s an example user setup with <code class="language-plaintext highlighter-rouge">seed</code> as the user and group name:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo groupadd --system seed
+sudo useradd --system --gid seed --create-home seed
+</code></pre></div></div>
+
+<p>If you&#8217;re administering your server via a non-root account, you&#8217;ll want to
+add it to the <code class="language-plaintext highlighter-rouge">seed</code> group as well:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo usermod -a -G seed $(whoami)
+</code></pre></div></div>
+
+<h3 id="installation">Installation</h3>
+
+<p>For a seed node, you will need to install at minimum the Radicle CLI (<code class="language-plaintext highlighter-rouge">rad</code>),
+and network daemon (<code class="language-plaintext highlighter-rouge">radicle-node</code>).</p>
+
+<p>To install these, head over to the <a href="https://radicle.xyz/download">download</a> page and follow the
+instructions there. You will have to download, verify and extract the binaries
+and manuals to your preferred location.</p>
+
+<p>For this guide, we recommend installing Radicle under <code class="language-plaintext highlighter-rouge">/usr/local</code>. This will
+require you to have write permissions to <code class="language-plaintext highlighter-rouge">/usr/local/bin</code> and <code class="language-plaintext highlighter-rouge">/usr/local/man</code>.
+You can give yourself these permission by changing ownership of these
+directories to the current user and group:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo chown $(whoami): /usr/local/{bin,man,man/man1}
+</code></pre></div></div>
+
+<p>You should then be able to extract the archive you downloaded and verified
+with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tar -xvJf &lt;archive&gt; --strip-components=1 -C /usr/local/
+</code></pre></div></div>
+
+<p>Finally, login as the <code class="language-plaintext highlighter-rouge">seed</code> user and proceed with installation:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo su seed
+</code></pre></div></div>
+
+<p>To check your installation, run the <code class="language-plaintext highlighter-rouge">rad</code> command, and confirm where your
+Radicle home is with the <code class="language-plaintext highlighter-rouge">rad path</code> command.</p>
+
+<p>To offer web browsing and HTTP access to your seed node, you will additionally
+need to run <code class="language-plaintext highlighter-rouge">radicle-httpd</code>, the HTTP daemon. We&#8217;ll cover this after we&#8217;ve
+set up our basic node.</p>
+
+<h3 id="creating-a-profile">Creating a profile</h3>
+
+<p>Once the Radicle binaries are installed, we can create a Radicle <em>profile</em>. This
+consists of an Ed25519 key pair and a directory under which Radicle stores user
+data.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rad auth --alias seed.radicle.example
+</code></pre></div></div>
+
+<p>The above command will create a profile with the given node <em>alias</em> in
+<code class="language-plaintext highlighter-rouge">~/.radicle</code>, or <code class="language-plaintext highlighter-rouge">$RAD_HOME</code> if set. We recommend setting your alias to the
+domain name that points to your node&#8217;s host.</p>
+
+<p>For seed nodes, it&#8217;s not generally necessary to set up a passphrase for your
+key, so you can simply skip that prompt by pressing <em>enter</em>.</p>
+
+<aside>
+Seed nodes do not typically sign any permanent artifacts with their key. It
+is mainly used for securing connections with peers.
+</aside>
+
+<blockquote>
+  <p><strong>Tip</strong>: If you wish to set a passphrase anyway, you will have to set the
+<code class="language-plaintext highlighter-rouge">RAD_PASSPHRASE</code> environment variable in your node&#8217;s <code class="language-plaintext highlighter-rouge">systemd</code> unit file.</p>
+</blockquote>
+
+<p>Once your profile is initialized, a decentralized identifier (DID) will be
+output. The part after the <code class="language-plaintext highlighter-rouge">did:key:</code> prefix is your Node ID. This is how your
+seed node will be identified on the network. The Node ID is the public part of
+the Ed25519 key pair generated above, via <code class="language-plaintext highlighter-rouge">rad auth</code>.</p>
+
+<p>You can view information about your Radicle profile by running <code class="language-plaintext highlighter-rouge">rad self</code>. The
+<code class="language-plaintext highlighter-rouge">--nid</code> and <code class="language-plaintext highlighter-rouge">--alias</code> flags can be used to return the Node ID and alias.</p>
+
+<h2 id="configuring-your-node">Configuring Your Node</h2>
+<p>There are a couple of things we need to set up a seed node.</p>
+
+<p>First, we must set the node&#8217;s default <em>seeding policy</em>.</p>
+
+<p>The seeding policy tells the node which repositories and forks to fetch
+and offer to the network. For <em>public seed nodes</em>, a <em>permissive</em> seeding policy
+is often set, such that <em>all data</em> on the network is stored and replicated.</p>
+
+<p>Second, we must set an <em>External Address</em> for the node to be reached on the
+network. This address will be advertised to peers, allowing them to connect to
+your seed node. Generally, this will be a DNS name with port <code class="language-plaintext highlighter-rouge">8776</code>, for
+example <code class="language-plaintext highlighter-rouge">seed.radicle.example:8776</code>.</p>
+
+<p>Here&#8217;s an example minimal configuration file with a permissive seeding policy
+and an external address set:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"node"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"alias"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seed.radicle.example"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"listen"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"0.0.0.0:8776"</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"externalAddresses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"seed.radicle.example:8776"</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"seedingPolicy"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"default"</span><span class="p">:</span><span class="w"> </span><span class="s2">"allow"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"all"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<blockquote>
+  <p>In the above example the server listen to any IPv4 interface. If your host
+supports only IPv6 or if you want to support both IPv4 and IPv6, replace
+<code class="language-plaintext highlighter-rouge">0.0.0.0</code> with <code class="language-plaintext highlighter-rouge">[::]</code>.</p>
+</blockquote>
+
+<p>Your node is configured with a file named <code class="language-plaintext highlighter-rouge">config.json</code> in your Radicle home
+directory. You can get the full path of the config file with the <code class="language-plaintext highlighter-rouge">rad self
+--config</code> command. Additionally, you can output the current configuration with
+<code class="language-plaintext highlighter-rouge">rad config</code>. Attributes that aren&#8217;t set in <code class="language-plaintext highlighter-rouge">config.json</code> will take on default
+values. You can open your configuration file for editing with <code class="language-plaintext highlighter-rouge">rad config
+edit</code>.</p>
+
+<p>Let&#8217;s start by configuring your seeding policy.</p>
+
+<h3 id="seeding-policies">Seeding policies</h3>
+
+<p>The most important setting when it comes to seeding is your <em>default seeding
+policy</em>. This setting will determine what content your seed node fetches and
+replicates on the network when it encounters a repository it doesn&#8217;t know or
+hasn&#8217;t been given special instructions for.</p>
+
+<p>The setting is configured under the <code class="language-plaintext highlighter-rouge">node.seedingPolicy</code> field in your
+configuration (<code class="language-plaintext highlighter-rouge">~/.radicle/config.json</code>). You can open your configuration file
+directly using the <code class="language-plaintext highlighter-rouge">rad config edit</code> command, or use your preferred editor. You
+can also enter the following command to display your current default policy:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rad config get node.seedingPolicy
+</code></pre></div></div>
+
+<p>When a seeding policy is <em>not set</em> for a specific repository or node, the
+default policy is applied, hence the importance of this setting.</p>
+
+<p>Broadly, there are two options for the default policy.</p>
+
+<h4 id="a-permissive-seeding-policy">A <em>permissive</em> seeding policy</h4>
+
+<p>A <em>permissive</em> or &#8220;open&#8221; policy is said to be <em>fully-replicating</em>, meaning your
+seed will try to have a full copy of all repository data available on the
+network.</p>
+
+<p>An example of a node with this policy is <code class="language-plaintext highlighter-rouge">iris.radicle.xyz</code>, a node operated
+by the Radicle team, for the Radicle community.</p>
+
+<p>This is a good default for seeders who want to support the network without
+having to think about it too much.</p>
+
+<p>Set <code class="language-plaintext highlighter-rouge">node.seedingPolicy.default</code> to <code class="language-plaintext highlighter-rouge">allow</code> and <code class="language-plaintext highlighter-rouge">node.seedingPolicy.scope</code> to
+<code class="language-plaintext highlighter-rouge">all</code> to configure your node this way.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"node"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+    </span><span class="nl">"seedingPolicy"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"default"</span><span class="p">:</span><span class="w"> </span><span class="s2">"allow"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"all"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h4 id="a-selective-seeding-policy">A <em>selective</em> seeding policy</h4>
+
+<p>A <em>selective</em> or &#8220;restricted&#8221; policy requires you, the operator, to <em>manually
+allow repositories to be seeded</em>. This means that the node will ignore
+all repositories, except the ones that are pre-configured to allow seeding.</p>
+
+<p>An example is the <code class="language-plaintext highlighter-rouge">seed.radicle.xyz</code> node, which only seeds Radicle team
+repositories.</p>
+
+<p>This is a good policy for communities, teams, companies and individuals who
+want to limit the data hosted by their seed, or node operators who want
+to require some form of authentication or payment for seeding.</p>
+
+<p>Set <code class="language-plaintext highlighter-rouge">node.seedingPolicy.default</code> to <code class="language-plaintext highlighter-rouge">block</code> to enable this, and call <code class="language-plaintext highlighter-rouge">rad seed</code>
+to configure <code class="language-plaintext highlighter-rouge">allow</code> policies for specific repositories you want to seed. Your
+seed node won&#8217;t seed anything until you explicitly allow it to.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"node"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+    </span><span class="nl">"seedingPolicy"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"default"</span><span class="p">:</span><span class="w"> </span><span class="s2">"block"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h4 id="setting-a-repositorys-seeding-policy">Setting a repository&#8217;s seeding policy</h4>
+
+<p>To override the default policy for a specific repository, the <code class="language-plaintext highlighter-rouge">seed</code> or
+<code class="language-plaintext highlighter-rouge">block</code> commands are used.</p>
+
+<p>For example, in the case of a <em>permissive</em> seeding policy, where the default
+is <code class="language-plaintext highlighter-rouge">allow</code>, we can explicitly <em>block</em> certain repositories from being seeded:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rad block rad:z9DV738hJpCa6aQXqvQC4SjaZvsi
+</code></pre></div></div>
+
+<p>This will override the default policy and ensure that this repository is never
+replicated on your node.</p>
+
+<p>On the other hand, in the case of a <em>selective</em> seeding policy, where the default
+policy is <code class="language-plaintext highlighter-rouge">block</code>, we can decide to <em>allow</em> a repository to be seeded by calling
+<code class="language-plaintext highlighter-rouge">rad seed</code>. For example:</p>
+
+<p>You can view your node&#8217;s <em>default policy</em> by entering <code class="language-plaintext highlighter-rouge">rad config get node.seedingPolicy</code>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rad seed rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5
+</code></pre></div></div>
+
+<p>This will override the default <code class="language-plaintext highlighter-rouge">block</code> rule for this one specific repository.</p>
+
+<p>To remove an override configured for a repository in either case, <code class="language-plaintext highlighter-rouge">unseed</code> can be used:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rad unseed rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5
+</code></pre></div></div>
+
+<p>For both cases, the default policy will apply if a seeding policy is not defined for
+a repository.</p>
+
+<h4 id="viewing-seeding-policies">Viewing seeding policies</h4>
+
+<p>You can view your node&#8217;s <em>default policy</em> by entering <code class="language-plaintext highlighter-rouge">rad config get node.seedingPolicy</code>.</p>
+
+<p>To view the policy of a specific repository, use the <code class="language-plaintext highlighter-rouge">rad inspect</code> command. For
+example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rad inspect rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5 --policy
+</code></pre></div></div>
+
+<p>This will return the default policy if you haven&#8217;t set a specific policy for
+that repository.</p>
+
+<p>Finally, to view all seeding policies that have been configured on repositories,
+simply enter <code class="language-plaintext highlighter-rouge">rad seed</code> with no options.</p>
+
+<h3 id="addressing">Addressing</h3>
+
+<p>Now that you&#8217;ve configured your seeding policy, it&#8217;s time to consider how your
+node is addressed on the network.</p>
+
+<h4 id="your-external-address">Your external address</h4>
+
+<p>You should set your node&#8217;s external address. This is a public address,
+typically a DNS name that points to your node. Though a single external address
+is sufficient, you are free to set up to 16 external addresses.</p>
+
+<p>You&#8217;ll find this setting in your configuration file, under
+<code class="language-plaintext highlighter-rouge">node.externalAddresses</code>. External addresses are JSON strings of the form
+<code class="language-plaintext highlighter-rouge">&lt;host&gt;:&lt;port&gt;</code>, for example <code class="language-plaintext highlighter-rouge">seed.radicle.example:8776</code>, where <code class="language-plaintext highlighter-rouge">&lt;host&gt;</code> is a
+DNS name, and <code class="language-plaintext highlighter-rouge">&lt;port&gt;</code> is usually <code class="language-plaintext highlighter-rouge">8776</code>.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"node"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+    </span><span class="nl">"externalAddresses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"seed.radicle.example:8776"</span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Once at least one external address is set, you&#8217;re ready to start your node
+for the first time.</p>
+
+<h4 id="your-node-address">Your node address</h4>
+
+<p>For others to be able to connect to your node directly, they need your <em>Node
+Address</em>. This is a combination of your Node ID and your External
+Address.</p>
+
+<p>If you&#8217;ve configured one or more external addresses, simply entering the
+following command from the <code class="language-plaintext highlighter-rouge">seed</code> user will output your node addresses:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rad node config --addresses
+</code></pre></div></div>
+
+<p>Share this with others, and they will be able to connect to your node using
+<code class="language-plaintext highlighter-rouge">rad node connect &lt;address&gt;</code>, or by adding your address to their configuration,
+under the <code class="language-plaintext highlighter-rouge">node.connect</code> field.</p>
+
+<h4 id="dns-based-service-discovery">DNS-Based Service Discovery</h4>
+
+<p>If you would like to facilitate discovery of your node via DNS, you can do so
+via <a href="https://datatracker.ietf.org/doc/html/rfc6763">DNS-Based Service Discovery (DNS-SD)</a>. This requires you to set
+three DNS records per node you are running.</p>
+
+<ol>
+  <li>A <code class="language-plaintext highlighter-rouge">SRV</code> record, which communicates the external address of your node
+(DNS name and TCP port number).</li>
+  <li>A <code class="language-plaintext highlighter-rouge">TXT</code> record, which communicates the Node ID of your node.</li>
+  <li>A <code class="language-plaintext highlighter-rouge">PTR</code> record, which makes the other two records discoverable.</li>
+</ol>
+
+<p>Taken together, the <code class="language-plaintext highlighter-rouge">SRV</code> and <code class="language-plaintext highlighter-rouge">TXT</code> records contain all the information
+required to reconstruct your node address.</p>
+
+<p>Suppose the node address you want others to discover is
+<code class="language-plaintext highlighter-rouge">z6MkXB&#8230;Z6sTAz@seed.radicle.example:58776</code> and the domain name you want it to
+be discovered for is <code class="language-plaintext highlighter-rouge">radicle.example</code>, then the three DNS records required are:</p>
+
+<pre><code class="language-zone">seed._radicle-node._tcp.radicle.example.  3600  IN  SRV  32767 32767 58776 seed.radicle.example.
+seed._radicle-node._tcp.radicle.example.  3600  IN  TXT  "nid=z6MkXB&#8230;Z6sTAz"
+_radicle-node._tcp.radicle.example.       3600  IN  PTR  seed._radicle-node._tcp.radicle.example.
+</code></pre>
+
+<p>With most nameservers, there are shorter versions to denote these records, like
+dropping TTL and record class, as well as abbreviating names by omitting the
+origin. The variant above is purposely verbose to avoid ambiguity. Of course,
+you may choose different values for the TTL.</p>
+
+<p>With these records set, anyone can discover your nodes from the domain name
+<code class="language-plaintext highlighter-rouge">radicle.example</code>. This method of discovery is ideal if you maintain a set of
+nodes, and want to have them discovered by a group of people, such as your
+collaborators or coworkers. It also works if your nodes addresses and/or ports
+change frequently.</p>
+
+<p>To find out more about the the interpretation of <code class="language-plaintext highlighter-rouge">SRV</code> records, refer to
+<a href="https://datatracker.ietf.org/doc/html/rfc2782">RFC 2782</a>.</p>
+
+<h2 id="running-your-node">Running Your Node</h2>
+<p>Before setting up your node as a system service, it&#8217;s a good idea to run it
+once to make sure everything is working properly. Enter the following command
+to start your node in the foreground:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rad node start --foreground
+</code></pre></div></div>
+
+<p>You should see log output as your node starts to sync with the network.
+If there are any errors or issues connecting to the network, you should see
+errors in the output.</p>
+
+<p>If the node started without problem, stop it with <code class="language-plaintext highlighter-rouge">Ctrl-C</code>, and exit the <code class="language-plaintext highlighter-rouge">seed</code>
+session by entering:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>exit
+</code></pre></div></div>
+
+<p>This should return you to the original session you opened via SSH.</p>
+
+<h3 id="configuring-your-nodes-system-service">Configuring your node&#8217;s system service</h3>
+
+<p>Though it&#8217;s possible to simply run the Radicle node as a background process,
+it&#8217;s recommended to set up a service to ensure the node is started on boot.</p>
+
+<p>In this guide, we will only cover setup using <code class="language-plaintext highlighter-rouge">systemd</code>, but the process is
+fairly similar for other service managers.</p>
+
+<p>The first thing to do is to get a copy of the <a href="https://seed.radicle.xyz/raw/rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5/570a7eb141b6ba001713c46345d79b6fead1ca15/systemd/radicle-node.service"><code class="language-plaintext highlighter-rouge">radicle-node.service</code></a>
+unit file. Place it in <code class="language-plaintext highlighter-rouge">/etc/systemd/system/radicle-node.service</code> for it to
+be found by <code class="language-plaintext highlighter-rouge">systemctl</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -sSL https://seed.radicle.xyz/raw/rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5/570a7eb141b6ba001713c46345d79b6fead1ca15/systemd/radicle-node.service -o /etc/systemd/system/radicle-node.service
+</code></pre></div></div>
+
+<p>Make sure it fits your needs by editing the file directly, or creating an
+override using <code class="language-plaintext highlighter-rouge">systemctl edit</code>.</p>
+
+<blockquote>
+  <p>The downloaded <code class="language-plaintext highlighter-rouge">systemd</code> unit file is configured to run your node process as
+the <code class="language-plaintext highlighter-rouge">seed</code> user and group, for security reasons. If you set up a different
+user or group name, or set a passphrase during <code class="language-plaintext highlighter-rouge">rad auth</code>, or if you want to
+listen on an IPv6 interface, you will have to make edits to this file before
+proceeding.</p>
+</blockquote>
+
+<p>When you&#8217;re ready, you can <strong>enable</strong> and <strong>run</strong> the service:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl enable --now radicle-node
+</code></pre></div></div>
+
+<h3 id="checking-your-node-status">Checking your node status</h3>
+
+<p>To check the service status of your node, run:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl status radicle-node
+</code></pre></div></div>
+
+<p>Besides using <code class="language-plaintext highlighter-rouge">systemctl status</code>, you can also check your node&#8217;s status using
+<code class="language-plaintext highlighter-rouge">rad node status</code>. This will give you information on the peers connected to
+your node. You&#8217;ll have to run this as the <code class="language-plaintext highlighter-rouge">seed</code> user, like so:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo -u seed -- rad node status
+</code></pre></div></div>
+
+<p>To tail your node&#8217;s logs, use:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>journalctl --unit radicle-node --follow
+</code></pre></div></div>
+
+<h3 id="changing-your-nodes-configuration">Changing your node&#8217;s configuration</h3>
+
+<p>If you change your node&#8217;s configuration while the node is running, you&#8217;ll
+need to restart your node for the changes to take effect.</p>
+
+<p>First, verify that the new configuration is valid by running <code class="language-plaintext highlighter-rouge">rad config</code>, then
+restart your node with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl restart radicle-node
+</code></pre></div></div>
+
+<h3 id="securing-the-seed-user">Securing the <code class="language-plaintext highlighter-rouge">seed</code> user</h3>
+
+<p>Now that your node is configured and working, you can secure the <code class="language-plaintext highlighter-rouge">seed</code> user by
+disabling shell access. This is optional, though recommended.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chsh -s /usr/sbin/nologin seed
+</code></pre></div></div>
+
+<p>This will prevent anyone from logging in as the <code class="language-plaintext highlighter-rouge">seed</code> user. Note that from
+this point onwards, if you chose to disable the <code class="language-plaintext highlighter-rouge">seed</code> user&#8217;s shell, you&#8217;ll
+have to run all commands via <code class="language-plaintext highlighter-rouge">sudo</code>, like we&#8217;ve been doing so far.</p>
+
+<blockquote>
+  <p>To facilitate running commands as the <code class="language-plaintext highlighter-rouge">seed</code> user by simply using <code class="language-plaintext highlighter-rouge">rad</code> as
+usual, add this alias to your admin shell&#8217;s init scripts:</p>
+
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>alias rad='sudo -u seed -- rad'
+</code></pre></div>  </div>
+</blockquote>
+
+<h3 id="firewalls">Firewalls</h3>
+
+<p>If you are running a firewall, ensure that port <code class="language-plaintext highlighter-rouge">8776</code> is open for TCP
+connections. This will allow inbound connections to your node.</p>
+
+<blockquote>
+  <p>It&#8217;s recommended to run a basic firewall to further lock down your server,
+using something like <code class="language-plaintext highlighter-rouge">iptables</code>, though this is out of scope for this guide.</p>
+</blockquote>
+
+<h2 id="running-the-http-daemon">Running the HTTP Daemon</h2>
+<p>In the prior sections, we set up <code class="language-plaintext highlighter-rouge">radicle-node</code>, a background process that
+actively and continuously discovers and replicates repositories on the network,
+based on your seeding policy. This node allows users to collaborate, host,
+share, and publish repositories on the network via the Radicle CLI or any
+compatible application. However, at this stage, the repositories on your seed
+node cannot be browsed or viewed without cloning them first, using the Radicle CLI.
+To enable web browsing of the content of your seed node, the Radicle HTTP Daemon
+<code class="language-plaintext highlighter-rouge">radicle-httpd</code> needs to be deployed alongside <code class="language-plaintext highlighter-rouge">radicle-node</code>.</p>
+
+<p>The HTTP Daemon is a background process that functions as a <em>gateway</em> between
+the Radicle protocol and the HTTP protocol. It is configured to have direct
+read-only access to the node&#8217;s storage and database and expose this data via an
+HTTP JSON API. For seed nodes, the HTTP Daemon is always configured as a
+<em>read-only</em> service over the node&#8217;s state.</p>
+
+<h3 id="installation-1">Installation</h3>
+
+<p>Head over to the <a href="https://radicle.xyz/download">download</a> page, and follow the instructions there. The
+process is the same as for the Radicle Node. You will have to download, verify
+and extract the binary (<code class="language-plaintext highlighter-rouge">radicle-httpd</code>) and manuals to your preferred
+location.</p>
+
+<p>We recommend installing the daemon under <code class="language-plaintext highlighter-rouge">/usr/local</code>, just as we did for the
+node.</p>
+
+<h3 id="configuring-your-http-daemons-system-service">Configuring your HTTP daemon&#8217;s system service</h3>
+
+<p>As with <code class="language-plaintext highlighter-rouge">radicle-node</code>, we can start by downloading an example <code class="language-plaintext highlighter-rouge">systemd</code> unit
+file for the daemon:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -sSL https://seed.radicle.xyz/raw/rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5/570a7eb141b6ba001713c46345d79b6fead1ca15/systemd/radicle-httpd.service -o /etc/systemd/system/radicle-httpd.service
+</code></pre></div></div>
+
+<p>Make sure it fits your needs by editing the file directly, or creating an
+override using <code class="language-plaintext highlighter-rouge">systemctl edit</code>.</p>
+
+<blockquote>
+  <p>In this guide, all <code class="language-plaintext highlighter-rouge">systemd</code> unit files are configured to run the process as
+the <code class="language-plaintext highlighter-rouge">seed</code> user and group, for security reasons. If you set up a different
+user or group name, you will have to make edits to these files before running
+the services.</p>
+</blockquote>
+
+<p>Then, <strong>enable</strong> and <strong>run</strong> the service:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl enable --now radicle-httpd
+</code></pre></div></div>
+
+<p>You can check that your node service is running with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl status radicle-httpd
+</code></pre></div></div>
+
+<p>You can query the API with <code class="language-plaintext highlighter-rouge">curl</code> to ensure everything is working properly:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl http://127.0.0.1:8080/api/v1
+</code></pre></div></div>
+
+<h3 id="adding-support-for-https">Adding support for HTTPS</h3>
+
+<p>For your HTTP Daemon to be accessible from a frontend such as
+<a href="https://app.radicle.xyz">https://app.radicle.xyz</a>, it needs to respond to HTTPS requests. To do this,
+we recommend using <a href="https://caddyserver.com/">Caddy</a>.</p>
+
+<p>Start by installing <code class="language-plaintext highlighter-rouge">caddy</code>; most Linux distributions have a package you can
+install. If you are using Debian or Ubuntu, you can run:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get install caddy
+</code></pre></div></div>
+
+<p>If you&#8217;re having trouble installing Caddy, check the <a href="https://caddyserver.com/docs/install">installation
+guide</a>. Once installed, run <code class="language-plaintext highlighter-rouge">caddy version</code> to ensure that
+everything was installed correctly.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>caddy version
+v2.6.4 h1:2hwYqiRwk1tf3VruhMpLcYTg+11fCdr8S3jhNAdnPy8=
+</code></pre></div></div>
+
+<p>Then, download the <code class="language-plaintext highlighter-rouge">caddy</code> unit file from Caddy&#8217;s GitHub repository:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl https://raw.githubusercontent.com/caddyserver/dist/master/init/caddy.service -o /etc/systemd/system/caddy.service
+</code></pre></div></div>
+
+<p>Edit the file and change the <code class="language-plaintext highlighter-rouge">User</code> and <code class="language-plaintext highlighter-rouge">Group</code> attributes to <code class="language-plaintext highlighter-rouge">seed</code>, as we
+have for the other services. Also ensure that <code class="language-plaintext highlighter-rouge">ExecStart</code> and <code class="language-plaintext highlighter-rouge">ExecReload</code>
+are set to the correct path. You can find the path under which <code class="language-plaintext highlighter-rouge">caddy</code> is
+installed by running the <code class="language-plaintext highlighter-rouge">which caddy</code> command.</p>
+
+<p>Finally, edit or create the <code class="language-plaintext highlighter-rouge">Caddyfile</code> at <code class="language-plaintext highlighter-rouge">/etc/caddy/Caddyfile</code>, and <em>replace</em>
+its contents with the following configuration, using the correct domain name
+for your seed:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>seed.radicle.example {
+    reverse_proxy 127.0.0.1:8080
+}
+</code></pre></div></div>
+
+<p>This will proxy all HTTPS requests from port <code class="language-plaintext highlighter-rouge">443</code> to your HTTP daemon running
+on port <code class="language-plaintext highlighter-rouge">8080</code>. Make sure your firewall has port <code class="language-plaintext highlighter-rouge">443</code> open for incomning TCP
+connections.</p>
+
+<p>Finally, enable and start the Caddy service:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl enable --now caddy
+</code></pre></div></div>
+
+<p>If you encounter issues setting up Caddy, you can try following their
+<a href="https://caddyserver.com/docs/running#linux-service">guide</a> instead.</p>
+
+<p>If everything worked, you should now have HTTPS support for your daemon. To
+check, run the following command, replacing <code class="language-plaintext highlighter-rouge">seed.radicle.example</code> with your
+seed&#8217;s domain:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl https://seed.radicle.example/api/v1
+</code></pre></div></div>
+
+<p>You should now be able to visit your seed node via any Radicle web frontend as
+well. For example, <a href="https://app.radicle.xyz/nodes/seed.radicle.example">https://app.radicle.xyz/nodes/seed.radicle.example</a>.</p>
+
+<blockquote>
+  <p>On some distributions, installing <code class="language-plaintext highlighter-rouge">caddy</code> will start the system service
+automatically. If you&#8217;re not able to connect to your HTTP daemon from the
+outside, try running <code class="language-plaintext highlighter-rouge">systemctl reload caddy</code> after you&#8217;ve updated the
+configuration.</p>
+</blockquote>
+
+<h2 id="youre-all-set">You&#8217;re All Set</h2>
+<p>If you got this far, congratulations, you now have a Radicle seed node up
+and running!</p>
+
+<p>Come join us on our community chat and tell us about your seed node on the
+<a href="https://radicle.zulipchat.com/#narrow/stream/384534-seeds">#seeds</a> channel.</p>
+
+<p>&#127882;&#128126;</p>
