@@ -1,6 +1,6 @@
-# Radicle Garden Always On Node Management UI
+# Radicle Unified Website
 
-A modern web application for managing Radicle Garden's Always On Node service.
+A unified design for Radicle's products, replacing `radicle.xyz`, `desktop.radicle.xyz`, and the CLI landing page, while also including the Garden Always On Node offering and an app to manage your Garden node in the same website.
 
 ## Tech Stack
 
@@ -56,6 +56,9 @@ src/
 
 ## Features
 
+- ✅ Unified marketing + product surface for Radicle
+- ✅ Dedicated pages for Desktop and CLI
+- ✅ Garden Always On Node offering and management app
 - ✅ User authentication (signup, login, email verification, password reset)
 - ✅ Dashboard with node status and subscription management
 - ✅ Repository seeding and management
@@ -107,4 +110,3 @@ See [DEPLOY.md](./DEPLOY.md) for detailed deployment instructions.
 2. Run: `vercel`
 3. Follow the prompts
 4. Deploy to production: `vercel --prod`
-
