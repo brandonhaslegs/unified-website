@@ -13,7 +13,7 @@
 		signOut();
 		user.set(null);
 		isAuthenticated.set(false);
-		goto('/auth/login');
+		goto('/garden');
 	}
 
 	function handleClickOutside(event: MouseEvent) {
