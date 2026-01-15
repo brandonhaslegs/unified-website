@@ -45,7 +45,7 @@
 	<div class="site-body">
 		<SiteRail />
 		<div class="space-y-16">
-			<SiteContentHeader ctaLabel="Install the CLI" ctaCopyText="curl -sSLf https://radicle.xyz/install | sh" />
+			<SiteContentHeader showCta={false} />
 			<section class="site-hero" bind:this={heroEl}>
 				<div class="space-y-6">
 					<h1 class="hero-title">Command-line control for Radicle</h1>

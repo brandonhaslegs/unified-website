@@ -35,7 +35,7 @@
 	<div class="site-body">
 		<SiteRail />
 		<div class="space-y-16">
-			<SiteContentHeader ctaLabel="About the protocol" ctaHref="/protocol/guide" />
+			<SiteContentHeader showCta={false} />
 			<section class="site-hero" bind:this={heroEl}>
 				<div class="space-y-6">
 					<h1 class="hero-title">A local-first protocol for peer-to-peer code</h1>
