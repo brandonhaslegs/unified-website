@@ -1,79 +1,30 @@
 # Radicle Unified Website
 
-A unified design for Radicle's products, replacing `radicle.xyz`, `desktop.radicle.xyz`, and the CLI landing page, while also including the Garden Always On Node offering and an app to manage your Garden node in the same website.
+A unified design for Radicle's products, replacing `radicle.xyz`, `desktop.radicle.xyz`, and the CLI landing page, while also including the Garden Always On Node offering and an app to manage your Garden node in one unified experience.
 
-## Tech Stack
-
-- **SvelteKit** - Full-stack framework
-- **TypeScript** - Type safety
-- **Tailwind CSS** - Styling
-- **Stripe** - Payment processing
-- **Supabase** (optional) - Authentication
+💡 This should be viewed as a prototype.
 
 ## Getting Started
 
 1. Install dependencies:
+
 ```bash
 npm install
 ```
 
 2. Copy `.env.example` to `.env` and fill in your environment variables:
+
 ```bash
 cp .env.example .env
 ```
 
 3. Start the development server:
+
 ```bash
 npm run dev
 ```
 
 4. Open [http://localhost:5173](http://localhost:5173)
-
-## Project Structure
-
-```
-src/
-├── lib/
-│   ├── components/       # Reusable UI components
-│   │   ├── dashboard/    # Dashboard-specific components
-│   │   ├── Modal.svelte
-│   │   └── Toast.svelte
-│   ├── stores/          # Svelte stores (auth, toast, etc.)
-│   └── utils/           # Utility functions (API, auth, formatting)
-├── routes/
-│   ├── auth/            # Authentication pages
-│   │   ├── login/
-│   │   ├── signup/
-│   │   ├── verify-email/
-│   │   ├── forgot-password/
-│   │   └── reset-password/
-│   ├── dashboard/       # Protected dashboard pages
-│   │   ├── checkout/    # Stripe checkout flow
-│   │   ├── receipts/    # Billing history
-│   │   └── settings/    # Account settings
-│   └── +page.svelte     # Landing page
-```
-
-## Features
-
-- ✅ Unified marketing + product surface for Radicle
-- ✅ Dedicated pages for Desktop and CLI
-- ✅ Garden Always On Node offering and management app
-- ✅ User authentication (signup, login, email verification, password reset)
-- ✅ Dashboard with node status and subscription management
-- ✅ Repository seeding and management
-- ✅ Billing history and receipts
-- ✅ Account settings
-- ✅ Toast notifications
-- ✅ Modal dialogs
-- ✅ Responsive design
-- ✅ Protected routes
-
-## Environment Variables
-
-- `VITE_API_URL` - Backend API URL
-- `VITE_STRIPE_PUBLIC_KEY` - Stripe public key
-- `VITE_RADICLE_EXPLORER_URL` - Radicle explorer URL
 
 ## TODO
 
@@ -99,10 +50,6 @@ npm run preview
 # Type checking
 npm run check
 ```
-
-## Deployment
-
-See [DEPLOY.md](./DEPLOY.md) for detailed deployment instructions.
 
 ### Quick Deploy to Vercel
 
