@@ -374,6 +374,160 @@
     margin-bottom: 0;
   }
 
+  .guides-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 12rem;
+  }
+
+  .guides-intro {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  .guides-intro .content-topbar {
+    margin-bottom: 0;
+  }
+
+  .install-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 12rem;
+  }
+
+  .install-hero {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 640px;
+  }
+
+  .install-command {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: #f2f4f6;
+    border-radius: 0.25rem;
+    padding: 0.75rem 1rem;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 14px;
+    color: #1a1a1a;
+  }
+
+  .install-command-small {
+    margin-top: 1rem;
+  }
+
+  .install-command-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 520px;
+  }
+
+  .install-command-copy {
+    border: none;
+    background: #e3e7ec;
+    color: #1a1a1a;
+    border-radius: 0.25rem;
+    padding: 0.35rem 0.45rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .install-feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem;
+  }
+
+  .install-feature-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .install-feature-card h3 {
+    font-size: 18px;
+    margin: 0;
+  }
+
+  .install-feature-card p {
+    font-size: 16px;
+    margin: 0;
+    color: rgba(var(--color-ink-muted) / 0.9);
+  }
+
+  .install-feature-media {
+    background: #e9edf1;
+    border-radius: 0.25rem;
+    height: 170px;
+  }
+
+  .install-split-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 3rem;
+  }
+
+  .install-compact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+  }
+
+  .install-compact-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 120px;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    border-radius: 0.25rem;
+    background: #f5f6f7;
+  }
+
+  .install-compact-card h3 {
+    margin: 0 0 0.5rem;
+    font-size: 18px;
+  }
+
+  .install-compact-card p {
+    margin: 0 0 1rem;
+    font-size: 16px;
+    color: rgba(var(--color-ink-muted) / 0.9);
+  }
+
+  .install-compact-media {
+    border-radius: 0.25rem;
+    background: #1c77ff;
+  }
+
+  .install-compact-media-alt {
+    background: #b8e245;
+  }
+
+  .install-downloads {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+    gap: 3rem;
+    align-items: start;
+  }
+
+  @media (max-width: 1024px) {
+    .install-feature-grid,
+    .install-split-links,
+    .install-compact-grid,
+    .install-downloads {
+      grid-template-columns: 1fr;
+    }
+
+    .install-compact-card {
+      grid-template-columns: 1fr;
+    }
+  }
+
   .home-hero-block {
     display: grid;
     gap: 0;

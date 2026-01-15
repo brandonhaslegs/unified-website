@@ -2,9 +2,7 @@
 	import SiteFooter from '$lib/components/SiteFooter.svelte';
 	import SiteRail from '$lib/components/SiteRail.svelte';
 	import SiteContentHeader from '$lib/components/SiteContentHeader.svelte';
-	import illustration1 from '$lib/../illustrations/Illustration 1.png';
-	import illustration2 from '$lib/../illustrations/Illustration 2.png';
-	import illustration3 from '$lib/../illustrations/Illustration 3.png';
+	import GuideCards from '$lib/components/GuideCards.svelte';
 	import { onMount } from 'svelte';
 
 	let heroEl: HTMLElement;
@@ -46,35 +44,7 @@
 			</section>
 
 			<section class="space-y-10">
-				<div class="guide-card-grid">
-					<a class="guide-card" href="/guides">
-						<div
-							class="guide-card-art"
-							style={`background-image: url(${illustration1});`}
-							aria-hidden="true"
-						></div>
-						<div class="guide-card-title">User guide →</div>
-						<div class="guide-card-subtitle">Your introduction to using Radicle</div>
-					</a>
-					<a class="guide-card" href="/guides">
-						<div
-							class="guide-card-art"
-							style={`background-image: url(${illustration2});`}
-							aria-hidden="true"
-						></div>
-						<div class="guide-card-title">Protocol guide →</div>
-						<div class="guide-card-subtitle">How Radicle works under the hood</div>
-					</a>
-					<a class="guide-card" href="/guides">
-						<div
-							class="guide-card-art"
-							style={`background-image: url(${illustration3});`}
-							aria-hidden="true"
-						></div>
-						<div class="guide-card-title">Seeder guide →</div>
-						<div class="guide-card-subtitle">How to run a Radicle seed node</div>
-					</a>
-				</div>
+				<GuideCards />
 			</section>
 
 			<section class="space-y-10">
