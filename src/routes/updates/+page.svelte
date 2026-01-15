@@ -12,7 +12,7 @@
 	<div class="site-body">
 		<SiteRail />
 		<div class="space-y-16">
-			<SiteContentHeader showCta={false} />
+			<SiteContentHeader />
 			<section class="space-y-6">
 				<h1 class="hero-title">Updates</h1>
 				<p class="hero-subtitle">Latest releases and announcements from the Radicle team.</p>

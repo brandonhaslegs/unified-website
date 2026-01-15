@@ -56,8 +56,8 @@
 	{#if showAuxLinks}
 		<div class="site-header-row">
 			<div class="site-header-actions">
-				<a href="/desktop" class="link-highlight">
-					<span>Download Radicle</span>
+				<a href="/install" class="link-highlight">
+					<span>Install Radicle</span>
 				</a>
 				<button on:click={() => goto('/dashboard')} class="link-highlight">
 					<span>Log in</span>

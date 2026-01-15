@@ -3,7 +3,7 @@
 
 	export let tagline = 'Stop building the future on borrowed ground';
 	export let ctaLabel = 'Install Radicle 1.5.0';
-	export let ctaHref = '/cli';
+	export let ctaHref = '/install';
 	export let showCta = true;
 	export let ctaCopyText: string | null = null;
 	let ctaCopied = false;

@@ -2,12 +2,9 @@
   <div class="max-w-7xl mx-auto">
     <div class="site-footer-grid">
       <div>
-        <h2 class="site-footer-heading">Guides</h2>
-        <a class="site-footer-link" href="/protocol/user-guide">User guide</a>
-        <a class="site-footer-link" href="/protocol/guide">Protocol guide</a>
-        <a class="site-footer-link" href="/protocol/seeder-guide"
-          >Seeder guide</a
-        >
+        <h2 class="site-footer-heading">Guides &amp; Support</h2>
+        <a class="site-footer-link" href="/guides">Guides overview</a>
+        <a class="site-footer-link" href="/install">Install Radicle</a>
         <p class="site-footer-copy">© 2025 The Radicle Team</p>
       </div>
       <div>

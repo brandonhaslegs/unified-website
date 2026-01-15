@@ -18,7 +18,7 @@
     <SiteRail />
     <div class="home-sections">
       <div class="home-hero-block">
-        <SiteContentHeader ctaLabel="Install Radicle 1.5.0" ctaHref="/cli" />
+        <SiteContentHeader ctaLabel="Install Radicle 1.5.0" ctaHref="/install" />
         <section class="site-hero">
           <h1 class="hero-title">
             A privacy-preserving, censorship-resistant network for code
@@ -114,7 +114,7 @@
               Lightweight, scriptable, and built for developers who love the
               command line.
             </p>
-            <a class="stack-link" href="/cli">Install Radicle 1.5.0 →</a>
+            <a class="stack-link" href="/install">Install Radicle 1.5.0 →</a>
           </div>
           <div class="stack-card">
             <div
@@ -128,7 +128,7 @@
               way to discover projects and contribute without touching the
               terminal.
             </p>
-            <a class="stack-link" href="/desktop">Download app →</a>
+            <a class="stack-link" href="/install">Download app →</a>
           </div>
         </div>
       </section>
@@ -139,7 +139,7 @@
           Git for data transfer, and a custom gossip protocol to share repository
           metadata between peers.
         </p>
-        <a class="stack-link" href="/protocol">Get started with guides →</a>
+        <a class="stack-link" href="/guides">Get started with guides →</a>
       </section>
 
       <section class="updates-section">
@@ -179,7 +179,7 @@
             </p>
             <div class="contribute-links">
               <div class="contribute-link">
-                <a href="/protocol">Contribute →</a>
+                <a href="/guides">Contribute →</a>
                 <p>Get involved by contributing code.</p>
               </div>
               <div class="contribute-link">

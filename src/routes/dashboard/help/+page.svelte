@@ -24,7 +24,7 @@
 
 <div class="app-content">
 	<div class="help-cards">
-		<a class="help-card" href="/protocol">
+		<a class="help-card" href="/guides">
 			<h2>Guides</h2>
 			<p>Comprehensive guides for users, protocol internals, and seeders.</p>
 			<span>Read guides →</span>

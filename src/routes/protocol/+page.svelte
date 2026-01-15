@@ -47,7 +47,7 @@
 
 			<section class="space-y-10">
 				<div class="guide-card-grid">
-					<a class="guide-card" href="/protocol/user-guide">
+					<a class="guide-card" href="/guides">
 						<div
 							class="guide-card-art"
 							style={`background-image: url(${illustration1});`}
@@ -56,7 +56,7 @@
 						<div class="guide-card-title">User guide →</div>
 						<div class="guide-card-subtitle">Your introduction to using Radicle</div>
 					</a>
-					<a class="guide-card" href="/protocol/guide">
+					<a class="guide-card" href="/guides">
 						<div
 							class="guide-card-art"
 							style={`background-image: url(${illustration2});`}
@@ -65,7 +65,7 @@
 						<div class="guide-card-title">Protocol guide →</div>
 						<div class="guide-card-subtitle">How Radicle works under the hood</div>
 					</a>
-					<a class="guide-card" href="/protocol/seeder-guide">
+					<a class="guide-card" href="/guides">
 						<div
 							class="guide-card-art"
 							style={`background-image: url(${illustration3});`}

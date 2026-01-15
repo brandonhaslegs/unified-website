@@ -7,9 +7,9 @@
 	export let activeHref: string | null = null;
 
 	const primaryNav = [
-		{ label: 'Protocol', href: '/protocol' },
-		{ label: 'CLI', href: '/cli' },
-		{ label: 'Desktop', href: '/desktop' },
+		{ label: 'About', href: '/' },
+		{ label: 'Guides & Support', href: '/guides' },
+		{ label: 'Install', href: '/install' },
 		{ label: 'Garden', href: '/garden' }
 	];
 
@@ -34,13 +34,22 @@
 	</a>
 	<div role="group" aria-label="Primary links">
 		{#each primaryNav as item}
-			{@const isActive = activeHref ? activeHref === item.href : $page.url.pathname.startsWith(item.href)}
+			{@const isActive =
+				activeHref
+					? activeHref === item.href
+					: item.href === '/'
+						? $page.url.pathname === '/'
+						: $page.url.pathname.startsWith(item.href)}
 			<a
 				href={item.href}
-				class={isActive ? 'site-rail-link-active' : undefined}
+				class="site-rail-link"
+				class:site-rail-link-active={isActive}
 				aria-current={isActive ? 'page' : undefined}
 			>
 				{item.label}
+				{#if item.href === '/garden'}
+					<span class="site-rail-badge">New</span>
+				{/if}
 			</a>
 			{#if item.href === '/garden' && $isAuthenticated}
 				<div class="site-rail-subnav" role="group" aria-label="Garden">
@@ -65,13 +74,12 @@
 		{/each}
 	</div>
 	<div class="site-rail-footer" role="group" aria-label="Secondary links">
-		<a href="/protocol/guide">Guides &amp; Support</a>
+		<a href="/updates">Updates</a>
 		<a
 			href="/faq"
 			aria-current={$page.url.pathname === '/faq' ? 'page' : undefined}
 		>
 			FAQ
 		</a>
-		<a href="/updates">Updates</a>
 	</div>
 </nav>

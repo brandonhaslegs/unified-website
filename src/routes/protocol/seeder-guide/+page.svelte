@@ -41,7 +41,7 @@
       <section class="site-hero" bind:this={heroEl}>
         <div class="space-y-5">
           <a
-            href="/protocol"
+            href="/guides"
             class="cta-button cta-button-outline cta-button-small w-fit"
           >
             <Icon name="ArrowLeft" size={14} className="icon-text" />
