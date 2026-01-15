@@ -21,9 +21,9 @@
 			errors.password = 'Password must be at least 8 characters';
 		}
 
-		if (password !== confirmPassword) {
-			errors.confirmPassword = 'Passwords do not match';
-		}
+	if (password !== confirmPassword) {
+		errors.confirmPassword = 'Those passwords don’t match';
+	}
 
 		return Object.keys(errors).length === 0;
 	}
@@ -60,80 +60,62 @@
 
 <div class="app-shell">
 	<div class="site-body">
-		<SiteRail />
+		<SiteRail activeHref="/garden" />
 		<div class="app-content">
-			<div class="max-w-md w-full space-y-8">
-		<div>
-			<h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-gray-100">Set new password</h2>
-		</div>
+			<section class="auth-flow">
+				<header class="auth-header">
+					<h1 class="auth-title">Set new password</h1>
+				</header>
 
-		{#if !token}
-			<div class="text-center">
-				<p class="text-red-600 dark:text-red-400">Invalid or missing reset token</p>
-				<a href="/auth/forgot-password" class="text-green-600 dark:text-green-400 hover:text-green-500 dark:hover:text-green-300 mt-4 inline-block">
-					Request a new reset link
-				</a>
-			</div>
-		{:else}
-			<form class="mt-8 space-y-6" on:submit|preventDefault={handleSubmit}>
-				<div class="space-y-4">
-					<div>
-						<label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-							New Password
-						</label>
-						<input
-							id="password"
-							name="password"
-							type="password"
-							required
-							bind:value={password}
-							class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm {errors.password
-								? 'border-red-500 dark:border-red-500'
-								: ''}"
-							placeholder="••••••••"
-						/>
-						{#if errors.password}
-							<p class="mt-1 text-sm text-red-600 dark:text-red-400">{errors.password}</p>
-						{/if}
+				{#if !token}
+					<div class="auth-actions">
+						<p class="auth-error">Invalid or missing reset token</p>
+						<a href="/auth/forgot-password" class="auth-link">Request a new reset link</a>
 					</div>
+				{:else}
+					<form class="auth-form" on:submit|preventDefault={handleSubmit}>
+						<div class="auth-field">
+							<label for="password" class="auth-label">New Password</label>
+							<input
+								id="password"
+								name="password"
+								type="password"
+								required
+								bind:value={password}
+								class={`auth-input${errors.password ? ' auth-input-error' : ''}`}
+								placeholder="••••••••"
+							/>
+							{#if errors.password}
+								<p class="auth-error">{errors.password}</p>
+							{/if}
+						</div>
 
-					<div>
-						<label for="confirmPassword" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-							Confirm New Password
-						</label>
-						<input
-							id="confirmPassword"
-							name="confirmPassword"
-							type="password"
-							required
-							bind:value={confirmPassword}
-							class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm {errors.confirmPassword
-								? 'border-red-500 dark:border-red-500'
-								: ''}"
-							placeholder="••••••••"
-						/>
-						{#if errors.confirmPassword}
-							<p class="mt-1 text-sm text-red-600 dark:text-red-400">{errors.confirmPassword}</p>
+						<div class="auth-field">
+							<label for="confirmPassword" class="auth-label">Confirm New Password</label>
+							<input
+								id="confirmPassword"
+								name="confirmPassword"
+								type="password"
+								required
+								bind:value={confirmPassword}
+								class={`auth-input${errors.confirmPassword ? ' auth-input-error' : ''}`}
+								placeholder="••••••••"
+							/>
+							{#if errors.confirmPassword}
+								<p class="auth-error">{errors.confirmPassword}</p>
+							{/if}
+						</div>
+
+						{#if errors.submit}
+							<p class="auth-error">{errors.submit}</p>
 						{/if}
-					</div>
-				</div>
 
-				{#if errors.submit}
-					<p class="text-sm text-red-600 dark:text-red-400 text-center">{errors.submit}</p>
+						<button type="submit" disabled={loading} class="cta-button auth-submit">
+							{loading ? 'Resetting...' : 'Reset password'}
+						</button>
+					</form>
 				{/if}
-
-				<div>
-					<button
-						type="submit"
-						disabled={loading}
-						class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
-					>
-						{loading ? 'Resetting...' : 'Reset password'}
-					</button>
-				</div>
-			</form>
-		{/if}
-			</div>
+			</section>
 		</div>
 	</div>
 </div>

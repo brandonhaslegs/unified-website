@@ -1,25 +1,20 @@
 <script lang="ts">
 	import { toasts, removeToast } from '../stores/toast';
-
-	const typeStyles = {
-		success: 'bg-green-50 border-green-200 text-green-800',
-		error: 'bg-red-50 border-red-200 text-red-800',
-		info: 'bg-blue-50 border-blue-200 text-blue-800',
-		warning: 'bg-yellow-50 border-yellow-200 text-yellow-800'
-	};
+	import { fly } from 'svelte/transition';
 </script>
 
-<div class="fixed top-4 right-4 z-50 space-y-2">
+<div class="toast-stack">
 	{#each $toasts as toast (toast.id)}
 		<div
-			class="min-w-[300px] p-4 rounded-lg border shadow-lg {typeStyles[toast.type]} transition-all duration-300"
+			class="toast-item"
+			transition:fly={{ y: 24, duration: 200 }}
 			role="alert"
 		>
-			<div class="flex items-center justify-between">
-				<p class="text-sm font-medium">{toast.message}</p>
+			<div class="toast-content">
+				<p class="toast-message">{toast.message}</p>
 				<button
 					on:click={() => removeToast(toast.id)}
-					class="ml-4 text-gray-400 hover:text-gray-600"
+					class="toast-close"
 					aria-label="Close"
 				>
 					×
@@ -28,4 +23,3 @@
 		</div>
 	{/each}
 </div>
-

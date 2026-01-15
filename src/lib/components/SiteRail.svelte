@@ -1,5 +1,10 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
+	import { user, isAuthenticated } from '$lib/stores/auth';
+	import { signOut } from '$lib/utils/auth';
+
+	export let activeHref: string | null = null;
 
 	const primaryNav = [
 		{ label: 'Protocol', href: '/protocol' },
@@ -7,6 +12,20 @@
 		{ label: 'Desktop', href: '/desktop' },
 		{ label: 'Garden', href: '/garden' }
 	];
+
+	const gardenSubnav = [
+		{ label: 'Dashboard', href: '/dashboard' },
+		{ label: 'Account Settings', href: '/dashboard/settings' },
+		{ label: 'Billing History', href: '/dashboard/receipts' },
+		{ label: 'Help', href: '/dashboard/help' }
+	];
+
+	function handleSignOut() {
+		signOut();
+		user.set(null);
+		isAuthenticated.set(false);
+		goto('/auth/login');
+	}
 </script>
 
 <nav class="site-rail" aria-label="Primary site navigation">
@@ -15,18 +34,44 @@
 	</a>
 	<div role="group" aria-label="Primary links">
 		{#each primaryNav as item}
+			{@const isActive = activeHref ? activeHref === item.href : $page.url.pathname.startsWith(item.href)}
 			<a
 				href={item.href}
-				class={$page.url.pathname.startsWith(item.href) ? 'site-rail-link-active' : undefined}
-				aria-current={$page.url.pathname.startsWith(item.href) ? 'page' : undefined}
+				class={isActive ? 'site-rail-link-active' : undefined}
+				aria-current={isActive ? 'page' : undefined}
 			>
 				{item.label}
 			</a>
+			{#if item.href === '/garden' && $isAuthenticated}
+				<div class="site-rail-subnav" role="group" aria-label="Garden">
+					{#each gardenSubnav as subitem}
+						{@const subActive =
+							subitem.href === '/dashboard'
+								? $page.url.pathname === subitem.href
+								: $page.url.pathname.startsWith(subitem.href)}
+						<a
+							href={subitem.href}
+							class={subActive ? 'site-rail-link-active' : undefined}
+							aria-current={subActive ? 'page' : undefined}
+						>
+							{subitem.label}
+						</a>
+					{/each}
+					<button type="button" class="site-rail-logout" on:click={handleSignOut}>
+						Log out
+					</button>
+				</div>
+			{/if}
 		{/each}
 	</div>
 	<div class="site-rail-footer" role="group" aria-label="Secondary links">
 		<a href="/protocol/guide">Guides &amp; Support</a>
-		<a href="/protocol/user-guide">FAQ</a>
+		<a
+			href="/faq"
+			aria-current={$page.url.pathname === '/faq' ? 'page' : undefined}
+		>
+			FAQ
+		</a>
 		<a href="/updates">Updates</a>
 	</div>
 </nav>

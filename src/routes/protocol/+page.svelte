@@ -126,7 +126,6 @@
 				</div>
 			</section>
 		</div>
+		<SiteFooter currentProduct="protocol" />
 	</div>
-
-	<SiteFooter currentProduct="protocol" />
 </div>

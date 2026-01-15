@@ -83,58 +83,46 @@
 
 <div class="app-shell">
 	<div class="site-body">
-		<SiteRail />
+		<SiteRail activeHref="/garden" />
 		<div class="app-content">
-			<div class="max-w-md w-full space-y-8 text-center">
-		{#if verified}
-			<div>
-				<div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 dark:bg-green-900/30">
-					<svg class="h-6 w-6 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-					</svg>
-				</div>
-				<h2 class="mt-6 text-3xl font-extrabold text-gray-900 dark:text-gray-100">Email Verified!</h2>
-				<p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Redirecting to checkout...</p>
-			</div>
-		{:else if verifying}
-			<div>
-				<div class="mx-auto animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 dark:border-green-400"></div>
-				<h2 class="mt-6 text-3xl font-extrabold text-gray-900 dark:text-gray-100">Verifying...</h2>
-				<p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Please wait while we verify your email</p>
-			</div>
-		{:else}
-			<div>
-				<h2 class="text-3xl font-extrabold text-gray-900 dark:text-gray-100">Check your email</h2>
-				<p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
-					We've sent a verification link to <strong class="text-gray-900 dark:text-gray-100">{email}</strong>
-				</p>
-				<p class="mt-4 text-sm text-gray-500 dark:text-gray-400">
-					Click the link in the email to verify your account. If you don't see it, check your spam
-					folder.
-				</p>
-				<div class="mt-6 space-y-4">
-					<div>
-						<button
-							on:click={resendEmail}
-							disabled={resending}
-							class="text-green-600 dark:text-green-400 hover:text-green-500 dark:hover:text-green-300 font-medium text-sm disabled:opacity-50"
-						>
-							{resending ? 'Sending...' : "Didn't receive it? Resend"}
-						</button>
+			<section class="auth-flow">
+				{#if verified}
+					<div class="auth-header">
+						<img src="/icons/Checkmark.svg" alt="" class="auth-icon" />
+						<h1 class="auth-title">Email verified</h1>
+						<p class="auth-subtitle">Redirecting to checkout.</p>
 					</div>
-					<div class="pt-4 border-t border-gray-200 dark:border-gray-700">
-						<p class="text-xs text-gray-400 dark:text-gray-500 mb-3">Development Mode</p>
-						<button
-							on:click={skipVerification}
-							class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-						>
-							Skip Verification (Continue to Payment)
-						</button>
+				{:else if verifying}
+					<div class="auth-header">
+						<h1 class="auth-title">Verifying</h1>
+						<p class="auth-subtitle">Please wait while we verify your email.</p>
 					</div>
-				</div>
-			</div>
-		{/if}
-			</div>
+				{:else}
+					<div class="auth-header">
+						<h1 class="auth-title">Check your email</h1>
+						<p class="auth-subtitle">
+							We&apos;ve sent a verification link to <strong class="auth-strong">{email}</strong>
+						</p>
+						<p class="auth-text">
+							Click the link in the email to verify your account. If you don&apos;t see it, check your spam
+							folder.
+						</p>
+					</div>
+					<div class="auth-actions">
+						<p class="auth-text">
+							Didn&apos;t receive it?
+							<button on:click={resendEmail} disabled={resending} class="auth-link-button auth-link-inline">
+								{resending ? 'Sending...' : 'Resend'}
+							</button>
+						</p>
+						<div class="auth-actions">
+							<button on:click={skipVerification} class="cta-button cta-button-outline auth-submit">
+								Skip Verification (Continue to Payment)
+							</button>
+						</div>
+					</div>
+				{/if}
+			</section>
 		</div>
 	</div>
 </div>

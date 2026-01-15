@@ -1,16 +1,13 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { getNodeStatus, getSubscription, getRepositories } from '$lib/utils/api';
+	import { getNodeStatus, getRepositories } from '$lib/utils/api';
 	import NodeStatusCard from '$lib/components/dashboard/NodeStatusCard.svelte';
-	import SubscriptionCard from '$lib/components/dashboard/SubscriptionCard.svelte';
 	import RepositoriesList from '$lib/components/dashboard/RepositoriesList.svelte';
 	import SeedRepositoryForm from '$lib/components/dashboard/SeedRepositoryForm.svelte';
-	import HelpCards from '$lib/components/dashboard/HelpCards.svelte';
 	import Modal from '$lib/components/Modal.svelte';
-	import type { NodeStatus, Subscription, Repository } from '$lib/utils/api';
+	import type { NodeStatus, Repository } from '$lib/utils/api';
 
 	let nodeStatus: NodeStatus | null = null;
-	let subscription: Subscription | null = null;
 	let repositories: Repository[] = [];
 	let loading = true;
 	let seedModalOpen = false;
@@ -18,9 +15,8 @@
 
 	onMount(async () => {
 		try {
-			[nodeStatus, subscription, repositories] = await Promise.all([
+			[nodeStatus, repositories] = await Promise.all([
 				getNodeStatus(),
-				getSubscription(),
 				getRepositories()
 			]);
 		} catch (error) {
@@ -47,43 +43,35 @@
 	{#if loading}
 		<div class="space-y-6 app-meta">Loading...</div>
 	{:else}
-		<div class="space-y-16">
-			<!-- Status Cards -->
-			<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+			<div class="space-y-16">
 				{#if nodeStatus}
-					<NodeStatusCard {nodeStatus} />
+					<NodeStatusCard {nodeStatus} repoCount={repositories.length} />
 				{/if}
-				{#if subscription}
-					<SubscriptionCard {subscription} />
-				{/if}
-			</div>
 
 			<!-- Repositories Section -->
 			<div class="app-panel">
-				<div class="flex items-center justify-between mb-6">
+				<div class="mb-6">
 					<h2 class="section-heading">Seeded Repositories</h2>
-					<div class="flex items-center gap-3">
-						{#if repositories.length > 0}
-							<input
-								type="text"
-								placeholder="Search repositories..."
-								bind:value={searchQuery}
-								class="app-input"
-							/>
-						{/if}
-						<button
-							on:click={() => (seedModalOpen = true)}
-							class="cta-button"
-						>
-							Seed new repo
-						</button>
-					</div>
+				</div>
+				<div class="repo-actions">
+					{#if repositories.length > 0}
+						<input
+							type="text"
+							placeholder="Search repositories..."
+							bind:value={searchQuery}
+							class="app-input"
+						/>
+					{/if}
+					<button
+						on:click={() => (seedModalOpen = true)}
+						class="cta-button"
+					>
+						Seed
+					</button>
 				</div>
 				<RepositoriesList {repositories} {searchQuery} />
 			</div>
 
-			<!-- Help Section -->
-			<HelpCards nodeId={nodeStatus?.nodeId || ''} />
 		</div>
 	{/if}
 </div>

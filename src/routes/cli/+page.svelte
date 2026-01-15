@@ -118,14 +118,13 @@
 							<h3 class="feature-title">Run your own node</h3>
 							<p class="feature-text">
 								Operate your own node for censorship‑resistant collaboration and a resilient network without relying on third parties.
-								<a href="/garden" class="text-brand border-b border-brand ml-1">Learn about our always-on node.</a>
 							</p>
+							<a class="cli-node-link" href="/garden">Learn about our always on node →</a>
 						</div>
 					</div>
 				</div>
 			</section>
 		</div>
+		<SiteFooter currentProduct="cli" />
 	</div>
-
-	<SiteFooter currentProduct="cli" />
 </div>

@@ -3,6 +3,7 @@
 	import SiteRail from '$lib/components/SiteRail.svelte';
 	import SiteContentHeader from '$lib/components/SiteContentHeader.svelte';
 	import { page } from '$app/stores';
+	import featureIllustration from '$lib/../illustrations/Illustration 2.png';
 
 	let heroEl: HTMLElement;
 
@@ -31,11 +32,15 @@
 	<div class="site-body">
 		<SiteRail />
 		<div class="space-y-16">
-			<SiteContentHeader ctaLabel="Get one for $10/month" ctaHref="/auth/signup" />
+			<SiteContentHeader showCta={false} />
 			<section class="site-hero" bind:this={heroEl}>
 				<div class="space-y-6">
 					<h1 class="hero-title">Always-on node for your Radicle repos</h1>
 					<p class="hero-subtitle">The security of Radicle with the convenience of availability.</p>
+					<div class="hero-actions">
+						<a href="/auth/signup" class="cta-button">Get one for $10/month</a>
+						<a href="/auth/login" class="cta-button cta-button-outline">Log in</a>
+					</div>
 				</div>
 				<div
 					class="hero-art"
@@ -46,53 +51,55 @@
 			<section class="space-y-10">
 				<h2 class="section-heading">Why run an always‑on node?</h2>
 				<p class="hero-subtitle">Stay online, stay replicated, stay in control.</p>
-				<div class="feature-list">
-					<div class="feature-item">
-						<span class="feature-dot" aria-hidden="true"></span>
-						<div>
-							<h3 class="feature-title">24/7 Repository Availability</h3>
-							<p class="feature-text">Your repositories are always accessible, even when your local machine is offline.</p>
+				<div class="features-split">
+					<div class="feature-list">
+						<div class="feature-item">
+							<span class="feature-dot" aria-hidden="true"></span>
+							<div>
+								<h3 class="feature-title">24/7 Repository Availability</h3>
+								<p class="feature-text">Your repositories are always accessible, even when your local machine is offline.</p>
+							</div>
+						</div>
+						<div class="feature-item">
+							<span class="feature-dot" aria-hidden="true"></span>
+							<div>
+								<h3 class="feature-title">No Local Resource Usage</h3>
+								<p class="feature-text">Keep your repositories seeded without using your own bandwidth or storage.</p>
+							</div>
+						</div>
+						<div class="feature-item">
+							<span class="feature-dot" aria-hidden="true"></span>
+							<div>
+								<h3 class="feature-title">Automatic Syncing</h3>
+								<p class="feature-text">Your repositories stay up-to-date automatically with all the latest changes.</p>
+							</div>
+						</div>
+						<div class="feature-item">
+							<span class="feature-dot" aria-hidden="true"></span>
+							<div>
+								<h3 class="feature-title">Easy Team Sharing</h3>
+								<p class="feature-text">Share your repositories with team members without requiring them to run their own nodes.</p>
+							</div>
+						</div>
+						<div class="feature-item">
+							<span class="feature-dot" aria-hidden="true"></span>
+							<div>
+								<h3 class="feature-title">Reliable Infrastructure</h3>
+								<p class="feature-text">Built on Radicle's decentralized network for maximum reliability and uptime.</p>
+							</div>
+						</div>
+						<div class="feature-item">
+							<span class="feature-dot" aria-hidden="true"></span>
+							<div>
+								<h3 class="feature-title">Simple Setup</h3>
+								<p class="feature-text">Get started in minutes with no complex configuration or hardware requirements.</p>
+							</div>
 						</div>
 					</div>
-					<div class="feature-item">
-						<span class="feature-dot" aria-hidden="true"></span>
-						<div>
-							<h3 class="feature-title">No Local Resource Usage</h3>
-							<p class="feature-text">Keep your repositories seeded without using your own bandwidth or storage.</p>
-						</div>
-					</div>
-					<div class="feature-item">
-						<span class="feature-dot" aria-hidden="true"></span>
-						<div>
-							<h3 class="feature-title">Automatic Syncing</h3>
-							<p class="feature-text">Your repositories stay up-to-date automatically with all the latest changes.</p>
-						</div>
-					</div>
-					<div class="feature-item">
-						<span class="feature-dot" aria-hidden="true"></span>
-						<div>
-							<h3 class="feature-title">Easy Team Sharing</h3>
-							<p class="feature-text">Share your repositories with team members without requiring them to run their own nodes.</p>
-						</div>
-					</div>
-					<div class="feature-item">
-						<span class="feature-dot" aria-hidden="true"></span>
-						<div>
-							<h3 class="feature-title">Reliable Infrastructure</h3>
-							<p class="feature-text">Built on Radicle's decentralized network for maximum reliability and uptime.</p>
-						</div>
-					</div>
-					<div class="feature-item">
-						<span class="feature-dot" aria-hidden="true"></span>
-						<div>
-							<h3 class="feature-title">Simple Setup</h3>
-							<p class="feature-text">Get started in minutes with no complex configuration or hardware requirements.</p>
-						</div>
-					</div>
+					<div class="feature-illustration" style={`background-image: url(${featureIllustration});`} aria-hidden="true"></div>
 				</div>
 			</section>
 		</div>
+		<SiteFooter currentProduct="garden" />
 	</div>
-
-	<SiteFooter currentProduct="garden" />
 </div>

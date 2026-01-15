@@ -2,18 +2,19 @@
   import SiteFooter from "$lib/components/SiteFooter.svelte";
   import SiteRail from "$lib/components/SiteRail.svelte";
   import SiteContentHeader from "$lib/components/SiteContentHeader.svelte";
-  import HoverDropdown from "$lib/components/HoverDropdown.svelte";
   import Icon from "$lib/components/Icon.svelte";
   import { page } from "$app/stores";
 
   let heroEl: HTMLElement;
-  let copied = false;
+  let copiedCommand: string | null = null;
   let copyTimeout: ReturnType<typeof setTimeout> | null = null;
 
   const installOptions = [
     {
       label: "Apple Silicon",
       value: "apple",
+      description:
+        "Run the command in your terminal to download and open the DMG file. Then drag the Radicle app to your Applications folder.",
       commands: [
         {
           label: "Download and open",
@@ -24,6 +25,8 @@
     {
       label: "Linux AppImage",
       value: "appimage",
+      description:
+        "Download the AppImage, make it executable, and run it from your terminal.",
       commands: [
         {
           label: "Download AppImage",
@@ -34,6 +37,8 @@
     {
       label: "Debian/Ubuntu",
       value: "debian",
+      description:
+        "Install the keyring, add the Radicle apt source, then install the desktop package.",
       commands: [
         {
           label: "Install keyring",
@@ -52,6 +57,7 @@
     {
       label: "Arch Linux",
       value: "arch",
+      description: "Install the desktop app with yay.",
       commands: [
         {
           label: "Install with yay",
@@ -62,6 +68,7 @@
     {
       label: "NixOS",
       value: "nix",
+      description: "Run Radicle Desktop directly with nix.",
       commands: [
         {
           label: "Run with nix",
@@ -72,6 +79,8 @@
     {
       label: "Windows WSL2",
       value: "wsl2",
+      description:
+        "Use WSL2 with any of the Linux install options to run Radicle Desktop on Windows.",
       commands: [
         {
           label: "Use Linux install",
@@ -80,18 +89,12 @@
       ],
     },
   ];
-  let selectedInstallValue = installOptions[0].value;
-  $: selectedInstall =
-    installOptions.find((option) => option.value === selectedInstallValue) ??
-    installOptions[0];
+  let expandedInstall = installOptions[0].value;
 
-  const illustrationModules = import.meta.glob(
-    "/src/illustrations/*.png",
-    {
-      eager: true,
-      import: "default",
-    }
-  );
+  const illustrationModules = import.meta.glob("/src/illustrations/*.png", {
+    eager: true,
+    import: "default",
+  });
   const illustrationUrls = Object.values(illustrationModules) as string[];
 
   const desktopHeroImage = "/desktop/screenshot.png";
@@ -100,21 +103,22 @@
     const heroImage =
       illustrationUrls.find((url) => url.includes("illustration9.png")) ??
       illustrationUrls[0];
-    heroEl.style.setProperty(
-      "--hero-image",
-      `url("${heroImage}")`
-    );
+    heroEl.style.setProperty("--hero-image", `url("${heroImage}")`);
   }
 
   function handleCopy(text: string) {
     navigator.clipboard.writeText(text);
-    copied = true;
+    copiedCommand = text;
     if (copyTimeout) {
       clearTimeout(copyTimeout);
     }
     copyTimeout = setTimeout(() => {
-      copied = false;
+      copiedCommand = null;
     }, 3000);
+  }
+
+  function toggleInstall(value: string) {
+    expandedInstall = expandedInstall === value ? value : value;
   }
 </script>
 
@@ -130,85 +134,88 @@
   <div class="site-body">
     <SiteRail />
     <div class="space-y-16">
-      <SiteContentHeader
-        ctaLabel="Install the desktop app"
-        ctaCopyText={selectedInstall.commands
-          .map((command) => command.text)
-          .join("\n\n")}
-      />
+      <SiteContentHeader showCta={false} />
       <section class="site-hero" bind:this={heroEl}>
         <div class="space-y-6">
-          <h1 class="hero-title">Radicle collaboration, now on desktop</h1>
+          <h1 class="hero-title">Download Radicle Desktop</h1>
           <p class="hero-subtitle">
-            A simple, intuitive desktop app that makes contributing to the
-            Radicle network easier than ever.
+            Contribute to the network effortlessly with an intuitive visual interface.
           </p>
-          <div class="feature-card space-y-4">
-            <div class="flex flex-wrap items-center gap-2">
-              <p class="text-secondary-light dark:text-secondary-dark">
-                Install the desktop app on
-              </p>
-              <HoverDropdown
-                items={installOptions}
-                value={selectedInstallValue}
-                label={selectedInstall.label}
-                ariaLabel="Platform"
-                buttonClass="inline-flex items-center gap-1 font-semibold px-3 pr-5 py-0"
-                menuClass="absolute left-0 top-full w-max rounded-sm bg-white text-black shadow-lg p-2 z-20"
-                itemClass="block w-full text-left px-3 py-2 font-semibold rounded-sm hover:bg-black/5"
-                activeClass="bg-black/10"
-                chevronClass="icon-text"
-                immediateClose={true}
-                on:change={(event) => (selectedInstallValue = event.detail)}
-              />
+          <a class="stack-link desktop-availability" href="#install">
+            Available on macOS, Linux and Windows ↓
+          </a>
+          <div class="install-grid" id="install">
+            <div class="install-intro">
+              <h2 class="section-heading">
+                To download Radicle Desktop, select your OS and follow the
+                instructions
+              </h2>
             </div>
-            <div class="flex flex-col gap-3">
-              {#if selectedInstall.value === "wsl2"}
-                <p class="text-secondary-light dark:text-secondary-dark max-w-2xl">
-                  {selectedInstall.commands[0].text}
-                </p>
-              {:else}
-                {#each selectedInstall.commands as command}
-                  <div class="space-y-2">
-                    {#if selectedInstall.value === "debian"}
-                      <p class="text-secondary-light dark:text-secondary-dark">{command.label}</p>
-                    {/if}
-                    <div
-                      class="inline-flex items-start gap-3 bg-black text-white rounded-sm px-4 py-3 font-mono max-w-[520px] w-auto"
-                    >
-                      <pre
-                        class="truncate whitespace-nowrap overflow-hidden text-ellipsis min-w-0 flex-1">
-											{command.text}
-										</pre>
-                      <button
-                        type="button"
-                        class="p-1 rounded-sm bg-white/10 text-white relative overflow-hidden flex items-center justify-center flex-shrink-0"
-                        aria-label={`Copy ${command.label}`}
-                        on:click={() => handleCopy(command.text)}
-                      >
-                        <span
-                          class="relative block h-4 w-4 flex items-center justify-center overflow-hidden"
-                        >
-                          <Icon
-                            name="Copy"
-                            size={14}
-                            className={`icon-terminal absolute left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-200 ease-out ${copied ? "top-[120%] opacity-0" : "top-1/2 opacity-100"}`}
-                          />
-                          <Icon
-                            name="Checkmark"
-                            size={14}
-                            className={`icon-terminal absolute left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-200 ease-out ${copied ? "top-1/2 opacity-100" : "top-[-60%] opacity-0"}`}
-                          />
-                        </span>
-                      </button>
+            <div class="install-list">
+              {#each installOptions as option}
+                <div class="install-item">
+                  <button
+                    class="install-trigger"
+                    type="button"
+                    on:click={() => toggleInstall(option.value)}
+                  >
+                    <span>{option.label}</span>
+                    <Icon
+                      name="ChevronDown"
+                      size={16}
+                      className={`icon-current ${expandedInstall === option.value ? "install-open" : ""}`}
+                    />
+                  </button>
+                  {#if expandedInstall === option.value}
+                    <div class="install-body">
+                      <p class="app-meta">{option.description}</p>
+                      {#if option.value === "wsl2"}
+                        <p class="app-meta">{option.commands[0].text}</p>
+                      {:else}
+                        {#each option.commands as command}
+                          <div class="install-command">
+                            {#if option.value === "debian"}
+                              <p class="app-meta">{command.label}</p>
+                            {/if}
+                            <div class="install-code">
+                              <code>{command.text}</code>
+                              <button
+                                type="button"
+                                class="install-copy"
+                                aria-label={`Copy ${command.label}`}
+                                on:click={() => handleCopy(command.text)}
+                              >
+                                {#if copiedCommand === command.text}
+                                  <Icon
+                                    name="Checkmark"
+                                    size={14}
+                                    className="icon-current"
+                                  />
+                                {:else}
+                                  <Icon
+                                    name="Copy"
+                                    size={14}
+                                    className="icon-current"
+                                  />
+                                {/if}
+                              </button>
+                            </div>
+                          </div>
+                        {/each}
+                        <p class="app-meta">
+                          Or check out the <a
+                            href="https://seed.radicle.xyz/radicle/radicle-desktop"
+                            class="stack-link">source code</a
+                          >.
+                        </p>
+                      {/if}
                     </div>
-                  </div>
-                {/each}
-              {/if}
+                  {/if}
+                </div>
+              {/each}
             </div>
           </div>
         </div>
-        <div class="hero-art" style="background-image: var(--hero-image);"></div>
       </section>
 
       <section class="space-y-10">
@@ -220,7 +227,10 @@
         />
         <div class="space-y-6">
           <h2 class="section-heading">What’s in the box?</h2>
-          <p class="hero-subtitle">Radicle’s desktop app focuses on the essentials for collaborative code review.</p>
+          <p class="hero-subtitle">
+            Radicle’s desktop app focuses on the essentials for collaborative
+            code review.
+          </p>
           <div class="feature-list">
             <div class="feature-item">
               <span class="feature-dot" aria-hidden="true"></span>
@@ -237,8 +247,8 @@
               <div>
                 <h3 class="feature-title">Patches</h3>
                 <p class="feature-text">
-                  Propose code changes with patches and review your teammates’ work
-                  using a familiar workflow.
+                  Propose code changes with patches and review your teammates’
+                  work using a familiar workflow.
                 </p>
               </div>
             </div>
@@ -247,8 +257,8 @@
               <div>
                 <h3 class="feature-title">Rich text &amp; embeds</h3>
                 <p class="feature-text">
-                  Embed screenshots, videos, and other artifacts with Markdown support
-                  and reactions.
+                  Embed screenshots, videos, and other artifacts with Markdown
+                  support and reactions.
                 </p>
               </div>
             </div>
@@ -257,7 +267,8 @@
               <div>
                 <h3 class="feature-title">Issues</h3>
                 <p class="feature-text">
-                  Join discussions and manage work through issues directly in the app.
+                  Join discussions and manage work through issues directly in
+                  the app.
                 </p>
               </div>
             </div>
@@ -266,8 +277,8 @@
               <div>
                 <h3 class="feature-title">Works offline</h3>
                 <p class="feature-text">
-                  Write and review code offline, then sync with your team when you’re
-                  back online.
+                  Write and review code offline, then sync with your team when
+                  you’re back online.
                 </p>
               </div>
             </div>
@@ -284,7 +295,6 @@
         </div>
       </section>
     </div>
+    <SiteFooter currentProduct="desktop" />
   </div>
-
-  <SiteFooter currentProduct="desktop" />
 </div>

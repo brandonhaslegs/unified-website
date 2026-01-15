@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { getReceipts } from '$lib/utils/api';
 	import { formatDate, formatCurrency } from '$lib/utils/format';
+	import Icon from '$lib/components/Icon.svelte';
 
 	interface Receipt {
 		id: string;
@@ -14,6 +15,7 @@
 
 	let receipts: Receipt[] = [];
 	let loading = true;
+	let downloadedReceiptId: string | null = null;
 
 	onMount(async () => {
 		try {
@@ -27,6 +29,10 @@
 
 	function getStatusBadgeColor(status: string) {
 		return status === 'paid' ? 'text-green-600' : 'text-red-600';
+	}
+
+	function handleDownload(id: string) {
+		downloadedReceiptId = id;
 	}
 </script>
 
@@ -81,9 +87,17 @@
 									href={receipt.invoiceUrl}
 									target="_blank"
 									rel="noopener noreferrer"
-									class="link-highlight"
+									class={`link-highlight download-link ${downloadedReceiptId === receipt.id ? 'is-downloaded' : ''}`}
+									on:click={() => handleDownload(receipt.id)}
 								>
 									<span>Download PDF</span>
+									<span class="download-icon" aria-hidden="true">
+										{#if downloadedReceiptId === receipt.id}
+											<Icon name="Checkmark" size={14} className="icon-current" />
+										{:else}
+											<Icon name="ArrowDown" size={14} className="icon-current" />
+										{/if}
+									</span>
 								</a>
 							</td>
 						</tr>

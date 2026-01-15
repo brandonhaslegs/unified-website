@@ -112,7 +112,6 @@
 				</ul>
 			</section>
 		</div>
+		<SiteFooter />
 	</div>
-
-	<SiteFooter />
 </div>
