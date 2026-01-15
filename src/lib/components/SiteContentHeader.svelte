@@ -35,5 +35,7 @@
 				<span>{ctaLabel}</span>
 			</a>
 		{/if}
+	{:else}
+		<div class="content-topbar-right" aria-hidden="true"></div>
 	{/if}
 </div>

@@ -3,6 +3,7 @@
   import SiteRail from "$lib/components/SiteRail.svelte";
   import SiteContentHeader from "$lib/components/SiteContentHeader.svelte";
   import GuideCards from "$lib/components/GuideCards.svelte";
+  import UpdatesSection from "$lib/components/UpdatesSection.svelte";
 </script>
 
 <svelte:head>
@@ -15,7 +16,7 @@
     <div class="guides-sections">
       <div class="guides-intro">
         <SiteContentHeader />
-        <section class="space-y-6">
+        <section class="guides-heading">
           <p class="hero-subtitle text-secondary-light dark:text-secondary-dark">
             Guides &amp; support
           </p>
@@ -27,7 +28,7 @@
         </section>
       </div>
 
-      <section class="space-y-8">
+      <section class="guides-faq">
         <h2 class="section-heading">FAQ</h2>
         <div class="faq-list">
           <div class="faq-item">What is Radicle? How is it different from Git/GitHub?</div>
@@ -39,30 +40,16 @@
         <a class="stack-link faq-link" href="/faq">All FAQ →</a>
       </section>
 
-      <section class="updates-section">
-        <div class="updates-header">
-          <h2 class="section-heading">Recent updates</h2>
-          <a class="stack-link updates-link" href="/updates">See all updates →</a>
-        </div>
-        <div class="updates-list">
-          <div class="updates-row">
-            <span class="updates-time">4d ago</span>
-            <span class="updates-title">Radicle 1.4.0 released</span>
-          </div>
-          <div class="updates-row">
-            <span class="updates-time">2w ago</span>
-            <span class="updates-title">Radicle 1.3.0 released</span>
-          </div>
-          <div class="updates-row">
-            <span class="updates-time">13.06.25</span>
-            <span class="updates-title">Radicle Desktop released</span>
-          </div>
-          <div class="updates-row">
-            <span class="updates-time">10.09.24</span>
-            <span class="updates-title">Radicle makes it to the top of hacker news</span>
-          </div>
-        </div>
-      </section>
+      <UpdatesSection
+        title="Recent updates"
+        linkLabel="See all updates →"
+        items={[
+          { time: "4d ago", title: "Radicle 1.4.0 released" },
+          { time: "2w ago", title: "Radicle 1.3.0 released" },
+          { time: "13.06.25", title: "Radicle Desktop released" },
+          { time: "10.09.24", title: "Radicle makes it to the top of hacker news" }
+        ]}
+      />
 
       <section class="help-cards">
         <a class="help-card" href="https://radicle.zulipchat.com/" target="_blank" rel="noreferrer">

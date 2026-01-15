@@ -115,17 +115,19 @@
   <div class="site-body">
     <SiteRail />
     <div class="install-sections">
-      <SiteContentHeader />
-      <section class="install-hero">
-        <div class="space-y-4">
-          <h1 class="hero-title">Install Radicle CLI 1.5.0</h1>
-          <p class="hero-subtitle">
-            Manage your projects, remotes, and identities directly from your
-            terminal.
-          </p>
-        </div>
-        <CliInstallBlock command={cliInstallCommand} />
-      </section>
+      <div class="install-page-intro">
+        <SiteContentHeader />
+        <section class="install-hero">
+          <div class="space-y-4">
+            <h1 class="hero-title">Install Radicle CLI 1.5.0</h1>
+            <p class="hero-subtitle">
+              Manage your projects, remotes, and identities directly from your
+              terminal.
+            </p>
+          </div>
+          <CliInstallBlock command={cliInstallCommand} />
+        </section>
+      </div>
 
       <section class="install-feature-grid">
         <div class="install-feature-card">

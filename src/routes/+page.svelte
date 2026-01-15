@@ -7,6 +7,7 @@
   import featuresIllustration from "$lib/../illustrations/home-page-features.png";
   import cliIllustration from "$lib/../illustrations/Illustration 1.png";
   import desktopIllustration from "$lib/../illustrations/Illustration 3.png";
+  import UpdatesSection from "$lib/components/UpdatesSection.svelte";
 </script>
 
 <svelte:head>
@@ -30,7 +31,7 @@
             aria-hidden="true"
           ></div>
           <p class="hero-subtitle">
-            <span style="color: #FFFFFF;"
+            <span class="text-primary-light dark:text-white"
               >Radicle is a peer-to-peer code collaboration stack built on Git.</span
             > No central servers. No middlemen. Just cryptographic sovereignty and
             full control over your data, identity, and workflow.
@@ -142,32 +143,16 @@
         <a class="stack-link" href="/guides">Get started with guides →</a>
       </section>
 
-      <section class="updates-section">
-        <div class="updates-header">
-          <h2 class="section-heading">Recent updates</h2>
-          <a class="stack-link updates-link" href="/updates">All updates →</a>
-        </div>
-        <div class="updates-list">
-          <div class="updates-row">
-            <span class="updates-time">4d ago</span>
-            <span class="updates-title">Radicle 1.4.0 released</span>
-          </div>
-          <div class="updates-row">
-            <span class="updates-time">2w ago</span>
-            <span class="updates-title">Radicle 1.3.0 released</span>
-          </div>
-          <div class="updates-row">
-            <span class="updates-time">13.06.25</span>
-            <span class="updates-title">Radicle Desktop released</span>
-          </div>
-          <div class="updates-row">
-            <span class="updates-time">10.09.24</span>
-            <span class="updates-title"
-              >Radicle makes it to the top of hacker news</span
-            >
-          </div>
-        </div>
-      </section>
+      <UpdatesSection
+        title="Recent updates"
+        linkLabel="All updates →"
+        items={[
+          { time: "4d ago", title: "Radicle 1.4.0 released" },
+          { time: "2w ago", title: "Radicle 1.3.0 released" },
+          { time: "13.06.25", title: "Radicle Desktop released" },
+          { time: "10.09.24", title: "Radicle makes it to the top of hacker news" }
+        ]}
+      />
 
       <section class="contribute-section">
         <div class="contribute-grid">

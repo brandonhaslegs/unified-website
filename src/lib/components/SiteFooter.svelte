@@ -5,7 +5,6 @@
         <h2 class="site-footer-heading">Guides &amp; Support</h2>
         <a class="site-footer-link" href="/guides">Guides overview</a>
         <a class="site-footer-link" href="/install">Install Radicle</a>
-        <p class="site-footer-copy">© 2025 The Radicle Team</p>
       </div>
       <div>
         <h2 class="site-footer-heading">Resources</h2>
@@ -55,5 +54,6 @@
         >
       </div>
     </div>
+    <p class="site-footer-copy">© 2025 The Radicle Team</p>
   </div>
 </footer>

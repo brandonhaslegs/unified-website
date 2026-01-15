@@ -8,6 +8,7 @@
 	import mobileArtGuides from '$lib/../illustrations/Illustration 4.png';
 	import mobileArtInstall from '$lib/../illustrations/Illustration 1.png';
 	import mobileArtGarden from '$lib/../illustrations/Illustration 7.png';
+	import { fade, fly } from 'svelte/transition';
 
 	export let activeHref: string | null = null;
 	let mobileNavOpen = false;
@@ -87,7 +88,13 @@
 </div>
 
 {#if mobileNavOpen}
-	<div class="mobile-nav-overlay" id="mobile-site-nav" role="dialog" aria-modal="true">
+	<div
+		class="mobile-nav-overlay"
+		id="mobile-site-nav"
+		role="dialog"
+		aria-modal="true"
+		transition:fade={{ duration: 180 }}
+	>
 		<div class="site-rail-mobile">
 			<a class="site-rail-mobile-brand" href="/" on:click={closeMobileNav}>
 				<img src="/icons/Logo.svg" alt="radicle" class="site-logo-full" />
@@ -104,8 +111,14 @@
 			</button>
 		</div>
 		<nav class="mobile-nav-cards" aria-label="Mobile primary navigation">
-			{#each mobileCards as card}
-				<a class={`mobile-nav-card ${card.className}`} href={card.href} on:click={closeMobileNav}>
+			{#each mobileCards as card, index}
+				<a
+					class={`mobile-nav-card ${card.className}`}
+					href={card.href}
+					on:click={closeMobileNav}
+					in:fly={{ y: 14, duration: 160, delay: 30 * index, opacity: 0 }}
+					out:fly={{ y: 10, duration: 140, delay: 20 * index, opacity: 0 }}
+				>
 					<div>
 						<div class="mobile-nav-title">
 							<span>{card.label}</span>
@@ -123,18 +136,18 @@
 				</a>
 			{/each}
 		</nav>
-		<div class="mobile-nav-footer">
+		<div class="mobile-nav-footer" transition:fly={{ y: 10, duration: 200 }}>
 			<div>
-				<p class="mobile-nav-heading">Resources</p>
-				<a href="/faq" on:click={closeMobileNav}>FAQ</a>
-				<a href="/updates" on:click={closeMobileNav}>Updates</a>
-				<a href="https://radicle.xyz/blog" target="_blank" rel="noreferrer">Blog</a>
+				<h2 class="site-footer-heading">Resources</h2>
+				<a class="site-footer-link" href="/faq" on:click={closeMobileNav}>FAQ</a>
+				<a class="site-footer-link" href="/updates" on:click={closeMobileNav}>Updates</a>
+				<a class="site-footer-link" href="https://radicle.xyz/blog" target="_blank" rel="noreferrer">Blog</a>
 			</div>
 			<div>
-				<p class="mobile-nav-heading">Social</p>
-				<a href="https://bsky.app/profile/radicle.xyz" target="_blank" rel="noreferrer">Bluesky</a>
-				<a href="https://x.com/radicle" target="_blank" rel="noreferrer">Twitter</a>
-				<a href="https://joinmastodon.org/" target="_blank" rel="noreferrer">Mastodon</a>
+				<h2 class="site-footer-heading">Social</h2>
+				<a class="site-footer-link" href="https://bsky.app/profile/radicle.xyz" target="_blank" rel="noreferrer">Bluesky</a>
+				<a class="site-footer-link" href="https://x.com/radicle" target="_blank" rel="noreferrer">Twitter</a>
+				<a class="site-footer-link" href="https://joinmastodon.org/" target="_blank" rel="noreferrer">Mastodon</a>
 			</div>
 		</div>
 	</div>

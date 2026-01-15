@@ -31,7 +31,7 @@
 <div class="site-shell">
 	<div class="site-body">
 		<SiteRail />
-		<div class="space-y-16">
+		<div class="garden-sections">
 			<SiteContentHeader showCta={false} />
 			<section class="site-hero" bind:this={heroEl}>
 				<div class="space-y-6">
