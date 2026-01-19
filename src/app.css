@@ -184,8 +184,8 @@
     gap: 0.75rem;
   }
 
-.site-rail-mobile-toggle {
-    background: #eef0f3;
+  .site-rail-mobile-toggle {
+    background: #1c1f26;
     border: none;
     border-radius: 0.25rem;
     width: 44px;
@@ -194,13 +194,13 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    color: #111111;
-}
-
-.dark .site-rail-mobile-toggle {
-    background: #1c1f26;
     color: #ffffff;
-}
+  }
+
+  .dark .site-rail-mobile-toggle {
+    background: #000000;
+    color: #ffffff;
+  }
 
   .site-rail-mobile-toggle .icon-current {
     transition: transform 0.2s ease;
@@ -237,6 +237,11 @@
     padding: 1.5rem 1.5rem 2.5rem;
   }
 
+  .dark .mobile-nav-overlay {
+    background: #000000;
+    color: #ffffff;
+  }
+
   .mobile-nav-cards {
     display: grid;
     gap: 1rem;
@@ -249,15 +254,23 @@
     padding: 0.5rem 0;
   }
 
-  .mobile-nav-link {
-    text-decoration: none;
-    font-size: 20px;
-    font-weight: 600;
-    color: rgb(var(--color-ink));
-  }
+.mobile-nav-link {
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 600;
+  color: rgb(var(--color-ink));
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
 
   .mobile-nav-link-active {
     color: rgb(var(--color-ink));
+  }
+
+  .dark .mobile-nav-link,
+  .dark .mobile-nav-link-active {
+    color: #ffffff;
   }
 
   .mobile-nav-card {
@@ -329,6 +342,11 @@
     color: rgb(var(--color-ink));
     margin-top: 0.75rem;
     font-size: 16px;
+  }
+
+  .dark .mobile-nav-footer,
+  .dark .mobile-nav-footer a {
+    color: #ffffff;
   }
 
   .mobile-nav-heading {
@@ -411,6 +429,9 @@
     font: inherit;
     color: inherit;
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
   }
 
   @media (min-width: 1024px) {
@@ -542,7 +563,7 @@
   }
 
   .subscription-title {
-    margin-bottom: 1.5rem;
+    margin-bottom: 4.1rem;
   }
 
   .subscription-row {
@@ -550,6 +571,21 @@
     grid-template-columns: repeat(2, minmax(0, 1fr)) auto;
     gap: 2rem;
     align-items: start;
+  }
+
+  @media (max-width: 768px) {
+    .subscription-row {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .subscription-actions {
+      justify-content: flex-start;
+    }
+
+    .subscription-actions .cta-button {
+      width: 100%;
+    }
   }
 
   .subscription-col {
@@ -563,6 +599,28 @@
     display: flex;
     align-items: flex-start;
     justify-content: flex-end;
+  }
+
+  .subscription-receipts {
+    background-color: #0f0f0f;
+    color: #ffffff;
+    border-color: #0f0f0f;
+  }
+
+  .subscription-receipts:hover {
+    background-color: #0f0f0f;
+    color: #ffffff;
+  }
+
+  .dark .subscription-receipts {
+    background-color: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
+  }
+
+  .dark .subscription-receipts:hover {
+    background-color: #ffffff;
+    color: #000000;
   }
 
   .danger-title {
@@ -628,6 +686,59 @@
   .garden-sections {
     display: flex;
     flex-direction: column;
+  }
+
+  .garden-access {
+    margin-top: 8rem;
+    display: grid;
+    gap: 3rem;
+  }
+
+  .garden-access-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4rem;
+  }
+
+  .garden-access-card {
+    display: grid;
+    gap: 1.75rem;
+  }
+
+  .garden-access-media {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 0.125rem;
+  }
+
+  .garden-access-media-cli {
+    background: #8b6cf4;
+  }
+
+  .garden-access-media-desktop {
+    background: #1f78ff;
+  }
+
+  .garden-access-body h3 {
+    margin: 0 0 0.75rem;
+    font-size: 22px;
+  }
+
+  .garden-access-body p {
+    margin: 0 0 1.25rem;
+    font-size: 18px;
+    color: rgba(var(--color-ink-muted) / 0.95);
+  }
+
+  .garden-access-link {
+    color: #1f78ff;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .garden-access-link:hover {
+    text-decoration: underline;
   }
 
   .install-sections {
@@ -761,6 +872,11 @@
   }
 
   @media (max-width: 1024px) {
+    .garden-access-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
     .install-feature-grid,
     .install-split-links,
     .install-compact-grid,
@@ -1223,12 +1339,14 @@
     letter-spacing: 0.01em;
     line-height: 1;
     white-space: nowrap;
-    transition: transform 200ms ease, box-shadow 200ms ease;
+    transition:
+      transform 200ms ease,
+      box-shadow 200ms ease;
   }
 
   .cta-button:disabled {
     opacity: 0.5;
-    cursor: default;
+    cursor: not-allowed;
   }
 
   .cta-button:hover {
@@ -1323,6 +1441,25 @@
     color: #ffffff;
   }
 
+  .cta-button-outline.cta-button-danger-hover:hover,
+  .cta-button-danger-hover:hover {
+    background-color: #ff3b30;
+    color: #ffffff;
+    border-color: #ff3b30;
+  }
+
+  .cta-button-ghost {
+    background-color: transparent;
+    color: inherit;
+    border: 1px solid transparent;
+  }
+
+  .cta-button-ghost:hover {
+    background-color: #0f0f0f;
+    color: #ffffff;
+    border-color: transparent;
+  }
+
   .dark .cta-button.cta-button-outline {
     background-color: transparent;
     color: #ffffff;
@@ -1332,6 +1469,25 @@
   .dark .cta-button.cta-button-outline:hover {
     background-color: #ffffff;
     color: #000000;
+  }
+
+  .dark .cta-button.cta-button-outline.cta-button-danger-hover:hover,
+  .dark .cta-button-danger-hover:hover {
+    background-color: #ff3b30;
+    color: #ffffff;
+    border-color: #ff3b30;
+  }
+
+  .dark .cta-button-ghost {
+    background-color: transparent;
+    color: inherit;
+    border: 1px solid transparent;
+  }
+
+  .dark .cta-button-ghost:hover {
+    background-color: #ffffff;
+    color: #000000;
+    border-color: transparent;
   }
 
   .dark .cta-button-outline {
@@ -1448,6 +1604,10 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+  }
+
+  .download-link::after {
+    display: none;
   }
 
   .download-icon {
@@ -1598,7 +1758,7 @@
   .app-content {
     width: 100%;
     padding-top: 2.5rem;
-    max-width: none;
+    max-width: 1080px;
     margin: 0;
   }
 
@@ -1611,7 +1771,42 @@
     justify-content: space-between;
     align-items: center;
     gap: 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .node-status-heading {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .node-status-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    font-size: 16px;
+    font-weight: 600;
+    background: rgba(0, 0, 0, 0.08);
+    color: rgb(var(--color-ink));
+  }
+
+  .app-shell .node-status-pill {
+    font-size: 16px;
+  }
+
+  .node-status-pill .node-status-dot {
+    margin-right: 0.5rem;
+  }
+
+  .node-status-pill.is-live {
+    background: rgba(88, 230, 0, 0.18);
+    color: rgb(var(--color-ink));
+  }
+
+  .node-status-pill.is-down {
+    background: rgba(255, 59, 48, 0.18);
+    color: rgb(var(--color-ink));
   }
 
   .node-status-title {
@@ -1677,7 +1872,7 @@
 
   .node-status-bar {
     width: 100%;
-    height: 18px;
+    height: 48px;
     display: flex;
     gap: 8px;
   }
@@ -1703,22 +1898,36 @@
 
   .disk-segment-repos {
     background-color: #1d9bf0;
+    background-image: url("/src/illustrations/Illustration 5.png");
+    background-size: cover;
+    background-position: center;
   }
 
   .disk-segment-images {
     background-color: #f5c400;
+    background-image: url("/src/illustrations/Illustration 2.png");
+    background-size: cover;
+    background-position: center;
   }
 
   .disk-segment-indexes {
     background-color: #58e600;
+    background-image: url("/src/illustrations/Illustration 3.png");
+    background-size: cover;
+    background-position: center;
   }
 
   .disk-segment-other {
     background-color: #ff3b30;
+    background-image: url("/src/illustrations/Illustration 4.png");
+    background-size: cover;
+    background-position: center;
   }
 
   .disk-segment-empty {
-    background-color: #c6c6c6;
+    background-color: #e5e7eb;
+    background-size: cover;
+    background-position: center;
   }
 
   .dark .disk-segment-repos {
@@ -1738,7 +1947,7 @@
   }
 
   .dark .disk-segment-empty {
-    background-color: #3a3a3a;
+    background-color: #2a2f36;
   }
 
   .disk-breakdown {
@@ -1771,7 +1980,7 @@
   .node-status-breakdown {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.5rem 2rem;
+    gap: 0;
     font-size: 16px;
   }
 
@@ -1785,6 +1994,27 @@
   .node-status-breakdown-value {
     color: rgb(var(--color-ink));
     font-size: 48px;
+  }
+
+  .app-shell .node-status-breakdown {
+    border-left: 1px solid #e9ebef;
+    border-top: 1px solid #e9ebef;
+  }
+
+  .app-shell .node-status-cell {
+    padding: 1rem 1.25rem;
+    border-right: 1px solid #e9ebef;
+    border-bottom: 1px solid #e9ebef;
+  }
+
+  .dark .app-shell .node-status-breakdown {
+    border-left-color: #1f242c;
+    border-top-color: #1f242c;
+  }
+
+  .dark .app-shell .node-status-cell {
+    border-right-color: #1f242c;
+    border-bottom-color: #1f242c;
   }
 
   .repo-actions {
@@ -1855,8 +2085,14 @@
   .help-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 2rem;
+    gap: 1.5rem;
     margin-bottom: 4rem;
+  }
+
+  .app-shell .help-cards {
+    margin: 0;
+    padding: 1.5rem;
+    padding-bottom: 1.5rem;
   }
 
   .help-card {
@@ -1888,7 +2124,7 @@
 
   .help-card span {
     font-size: 16px;
-    color: rgb(var(--color-ink));
+    color: #1d9bf0;
     margin-top: auto;
   }
 
@@ -1929,8 +2165,9 @@
   }
 
   .toast-item {
-    min-width: 220px;
-    max-width: 420px;
+    min-width: 0;
+    max-width: none;
+    width: fit-content;
     padding: 0.5rem 0.75rem;
     border-radius: 0.25rem;
     background-color: #000000;
@@ -1946,10 +2183,7 @@
   }
 
   .toast-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
+    display: block;
   }
 
   .toast-message {
@@ -1964,6 +2198,7 @@
     font-size: 16px;
     padding: 0;
     line-height: 1;
+    display: none;
   }
 
   @keyframes node-status-pulse {
@@ -2045,7 +2280,7 @@
 
   .app-input {
     width: 100%;
-    height: 32px;
+    height: 40px;
     padding: 0 12px;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 0.125rem;
@@ -2155,6 +2390,10 @@
     margin: 0;
   }
 
+  .app-shell .auth-error {
+    font-size: 16px;
+  }
+
   .auth-link {
     color: rgb(var(--color-ink));
     text-decoration: underline;
@@ -2198,12 +2437,20 @@
 
   .auth-link-button:disabled {
     opacity: 0.5;
-    cursor: default;
+    cursor: not-allowed;
   }
 
   .auth-meta {
     font-size: 16px;
     color: rgba(var(--color-ink-muted) / 0.95);
+  }
+
+  .app-shell .auth-meta {
+    font-size: 16px;
+  }
+
+  .app-shell .disk-breakdown {
+    font-size: 16px;
   }
 
   .auth-submit {
@@ -2611,6 +2858,22 @@
       hue-rotate(169deg) brightness(90%) contrast(90%);
   }
 
+  .status-icon {
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+  }
+
+  .status-icon-spin {
+    animation: status-icon-spin 1s linear infinite;
+  }
+
+  @keyframes status-icon-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
   .icon-black {
     filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%)
       hue-rotate(180deg) brightness(90%) contrast(100%);
@@ -2667,6 +2930,152 @@
     font-size: 16px;
   }
 
+  .app-shell .cta-button {
+    background-color: rgb(var(--color-brand));
+    color: #000000;
+    border: 1px solid rgb(var(--color-brand));
+  }
+
+  .app-shell .subscription-receipts {
+    background-color: #0f0f0f;
+    color: #ffffff;
+    border-color: #0f0f0f;
+  }
+
+  .app-shell .subscription-receipts:hover {
+    background-color: #0f0f0f;
+    color: #ffffff;
+  }
+
+  .dark .app-shell .subscription-receipts {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border-color: #ffffff !important;
+  }
+
+  .dark .app-shell .subscription-receipts:disabled {
+    color: #000000 !important;
+  }
+
+  .dark .app-shell .subscription-receipts:hover {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  .app-shell .cta-button:hover {
+    background-color: rgb(var(--color-brand-emphasised));
+    color: #000000;
+  }
+
+  .app-shell .cta-button.subscription-receipts:hover {
+    background-color: #0f0f0f;
+    color: #ffffff;
+  }
+
+  .dark .app-shell .cta-button.subscription-receipts:hover {
+    background-color: #ffffff;
+    color: #000000;
+  }
+
+  .dark .app-shell .cta-button {
+    color: #ffffff;
+  }
+
+  .dark .app-shell .cta-button:hover {
+    color: #ffffff;
+  }
+
+  .app-shell .cta-button.cta-button-danger {
+    background-color: transparent;
+    color: #000000;
+    border-color: #ff3b30;
+  }
+
+  .dark .app-shell .cta-button.cta-button-danger {
+    background-color: transparent;
+    color: #ffffff;
+    border-color: #ff3b30;
+  }
+
+  .app-shell .cta-button.cta-button-danger:hover {
+    background-color: #ff3b30;
+    color: #f8f9fa;
+  }
+
+  .dark .app-shell .cta-button.cta-button-danger:hover {
+    background-color: #ff3b30;
+    color: #0a1018;
+  }
+
+  .app-shell .cta-button-ghost {
+    background-color: transparent;
+    color: inherit;
+    border: 1px solid transparent;
+  }
+
+  .app-shell .cta-button-ghost:hover {
+    background-color: #0f0f0f;
+    color: #ffffff;
+    border-color: transparent;
+  }
+
+  .dark .app-shell .cta-button-ghost:hover {
+    background-color: #ffffff;
+    color: #000000;
+    border-color: transparent;
+  }
+
+  .app-shell .cta-button-outline {
+    background-color: transparent;
+    color: rgb(var(--color-ink));
+    border-color: #0f0f0f;
+  }
+
+  .app-shell .cta-button.cta-button-outline {
+    background-color: transparent;
+    color: rgb(var(--color-ink));
+    border-color: #0f0f0f;
+  }
+
+  .app-shell .cta-button-outline:hover {
+    background-color: #0f0f0f;
+    color: #ffffff;
+    border-color: #0f0f0f;
+  }
+
+  .app-shell .cta-button-outline.cta-button-danger-hover:hover,
+  .app-shell .cta-button.cta-button-outline.cta-button-danger-hover:hover {
+    background-color: #ff3b30;
+    color: #ffffff;
+    border-color: #ff3b30;
+  }
+
+  .dark .app-shell .cta-button-outline {
+    background-color: transparent;
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .dark .app-shell .cta-button.cta-button-outline {
+    background-color: transparent;
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .dark .app-shell .cta-button-outline:hover {
+    background-color: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
+  }
+
+  .app-shell .cta-button-danger-hover:hover {
+    color: #f8f9fa;
+  }
+
+  .dark .app-shell .cta-button-danger-hover:hover {
+    color: #0a1018;
+  }
+
   .app-shell .auth-subtitle,
   .app-shell .auth-text {
     font-size: 16px;
@@ -2678,6 +3087,68 @@
 
   .app-shell .auth-link {
     font-size: 16px;
+  }
+
+  .app-shell .auth-label {
+    font-size: 16px;
+    color: rgba(var(--color-ink-muted) / 0.95);
+  }
+
+  .app-shell .change-password-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .app-shell .change-password-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .app-shell .change-password-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .app-shell .email-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  @media (max-width: 640px) {
+    .app-shell .email-row {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+  }
+
+  .app-shell .danger-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 640px) {
+    .app-shell .danger-row {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+  }
+
+  .app-shell .change-password-actions {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    width: 100%;
+  }
+
+  .app-shell .change-password-actions .cta-button {
+    width: 100%;
   }
 
   .app-shell .site-rail-link,
@@ -2695,9 +3166,53 @@
     font-size: 16px;
   }
 
+  @media (max-width: 640px) {
+    .app-shell .repo-actions .app-input {
+      height: 40px;
+      padding: 0 12px;
+      line-height: 1.2;
+      box-sizing: border-box;
+    }
+
+    .app-shell .repo-actions select.app-input {
+      height: 40px;
+      line-height: 1.2;
+    }
+  }
+
   .app-shell .repo-card-rid code,
   .app-shell .repo-card-rid button {
     font-size: 16px;
+  }
+
+  .app-shell .repo-card-value {
+    font-size: 16px;
+    color: rgba(var(--color-ink-muted) / 0.95);
+  }
+
+  .app-shell .repo-card-value.text-red-600 {
+    color: #ff3b30;
+  }
+
+  .app-shell .repo-card-value.text-yellow-600 {
+    color: #f5c400;
+  }
+
+  .app-shell .repo-card-size {
+    color: rgb(var(--color-ink));
+  }
+
+  .app-shell .repo-highlight {
+    background: rgba(var(--color-brand) / 0.2);
+    color: inherit;
+    border-radius: 0.2rem;
+    padding: 0 0.1rem;
+  }
+
+  .app-shell .repo-card-updated {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .app-shell .app-meta {
@@ -2761,7 +3276,363 @@
 
   .app-shell .app-panel,
   .app-shell .node-status-meter {
-    padding: 1.75rem;
+    padding: 1.2rem;
+  }
+
+  .app-shell .app-panel-plain {
+    padding: 0;
+  }
+
+  .app-shell .repo-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .app-shell .repo-actions-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    padding: 0.75rem 0;
+  }
+
+  .app-shell .repo-actions-sentinel {
+    height: 1px;
+  }
+
+  .dark .app-shell .repo-actions-sticky {
+    background: transparent;
+  }
+
+  .app-shell .repo-actions-sticky-active {
+    background: #ffffff;
+    border-bottom: 1px solid #e9ebef;
+  }
+
+  .dark .app-shell .repo-actions-sticky-active {
+    background: #0a1018;
+    border-bottom-color: #1f242c;
+  }
+
+  .app-shell .repo-actions .repo-sort-label {
+    white-space: nowrap;
+  }
+
+  .app-shell .repo-search {
+    flex: 1 1 auto;
+  }
+
+  .app-shell .repo-search-wrap {
+    position: relative;
+    width: 100%;
+    flex: 1 1 auto;
+  }
+
+  .app-shell .repo-search-wrap .repo-search {
+    padding-right: 2.25rem;
+  }
+
+  .app-shell .repo-search-clear {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    color: rgba(var(--color-ink-muted) / 0.9);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .app-shell .repo-search-clear:hover {
+    color: rgb(var(--color-ink));
+  }
+
+  .app-shell .repo-sort {
+    flex: 0 0 auto;
+    min-width: 0;
+    padding-right: 2.25rem;
+  }
+
+  .app-shell .repo-sort-label {
+    font-size: 16px !important;
+    color: rgba(var(--color-ink-muted) / 0.95);
+  }
+
+  .app-shell .repo-actions-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .app-shell .repo-actions-row-inline {
+    justify-content: flex-start;
+    width: max-content;
+  }
+
+  .app-shell .repo-actions-row-inline .repo-sort {
+    flex: 0 0 auto;
+    min-width: 0;
+  }
+
+  .app-shell .repo-input-compact {
+    height: 40px;
+    padding: 0 12px;
+    line-height: 1.2;
+    box-sizing: border-box;
+  }
+
+  @media (min-width: 768px) {
+    .app-shell .repo-actions {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .app-shell .repo-actions-row {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .app-shell .repo-actions-row-inline {
+      flex: 0 0 auto;
+      gap: 0.5rem;
+      margin-left: auto;
+      width: max-content;
+    }
+
+    .app-shell .repo-sort {
+      width: auto !important;
+      flex: 0 0 auto;
+      min-width: 0;
+      max-width: none;
+      display: inline-block;
+    }
+
+    .app-shell .repo-search {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+  }
+
+  .app-shell .repo-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .app-shell .repo-panel-header-compact {
+    margin-bottom: 0;
+  }
+
+  .app-shell .help-cards {
+    padding: 1.5rem;
+  }
+
+  .app-shell .terminal-command {
+    display: inline-flex;
+    font-size: 16px;
+  }
+
+  .app-shell .terminal-command-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    max-width: 100%;
+  }
+
+  .app-shell .terminal-command code,
+  .app-shell .terminal-command span {
+    white-space: nowrap;
+  }
+
+  @media (max-width: 640px) {
+    .node-status-header {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1rem;
+    }
+
+    .node-status-heading {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .node-status-indicator {
+      width: 100%;
+      justify-content: flex-start;
+    }
+
+    .node-status-indicator .cta-button {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .repo-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .app-shell .repo-search {
+      width: 100%;
+    }
+
+    .app-shell .repo-sort-label {
+      width: auto;
+    }
+
+    .app-shell .repo-sort {
+      width: 100%;
+    }
+
+    .app-shell .repo-card {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .app-shell .repo-cards {
+      width: 100%;
+    }
+
+    .app-shell .repo-card-title,
+    .app-shell .repo-card-rid,
+    .app-shell .repo-card-value {
+      min-width: 0;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+    }
+
+    .app-shell .repo-card-rid,
+    .app-shell .repo-card-rid * {
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .app-shell .repo-card-rid {
+      overflow: hidden;
+    }
+
+    .app-shell .repo-card-header {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1rem;
+    }
+
+    .app-shell .repo-card-header > div {
+      min-width: 0;
+      width: 100%;
+    }
+
+    .app-shell .repo-card-actions {
+      width: 100%;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .app-shell .repo-card-actions .cta-button {
+      max-width: 100%;
+    }
+
+    .app-shell .repo-card {
+      box-sizing: border-box;
+    }
+
+    .app-shell .repo-card-actions,
+    .app-shell .repo-card-rid,
+    .app-shell .repo-card-meta {
+      min-width: 0;
+    }
+
+    .app-shell .repo-card-actions .cta-button {
+      width: 100%;
+    }
+
+    .app-shell .repo-card-actions .cta-button + .cta-button {
+      margin-left: 0;
+    }
+
+    .app-shell .repo-card-rid {
+      width: 100%;
+      min-width: 0;
+      display: block;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .app-shell .repo-card-rid code {
+      display: block;
+      width: 100%;
+      flex: 1 1 auto;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      max-width: 100%;
+      min-width: 0;
+    }
+
+    .app-shell .repo-card-rid button {
+      flex: 0 0 auto;
+    }
+
+    .app-shell .repo-card-meta {
+      grid-template-columns: 1fr;
+    }
+
+    .app-shell .repo-card-updated-row {
+      width: 100%;
+      grid-column: 1 / -1;
+      margin-top: -0.25rem;
+    }
+
+    .app-shell .repo-actions-row-inline {
+      width: 100% !important;
+      margin-left: 0 !important;
+      justify-content: flex-start;
+    }
+
+    .app-shell .repo-actions-row-inline .repo-sort {
+      flex: 1 1 auto !important;
+      width: 100% !important;
+    }
+
+    .app-shell .repo-sort-label {
+      margin-right: 0.5rem;
+    }
+
+    .app-shell .terminal-command {
+      max-width: 100%;
+    }
+
+    .app-shell .terminal-command-row {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .app-shell .terminal-command code {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .app-shell .seed-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .app-shell .seed-command {
+    padding: 0.25rem 0.5rem;
   }
 
   .app-shell .auth-flow {
@@ -2775,11 +3646,17 @@
   .app-shell .repo-card {
     padding: 1.5rem;
     border-bottom: none;
+    border: 1px solid #e9ebef;
   }
 
   .app-shell .repo-card-meta {
     border-top: 1px solid #e9ebef;
     padding-top: 1rem;
+    grid-template-columns: max-content max-content max-content minmax(0, 1fr);
+  }
+
+  .dark .app-shell .repo-card {
+    border-color: #1f242c;
   }
 
   .app-shell .space-y-16 > :not([hidden]) ~ :not([hidden]) {
@@ -2825,7 +3702,16 @@
 
   .app-shell .app-table td,
   .app-shell .app-table th {
+    width: 25%;
+  }
+
+  .app-shell .app-table td,
+  .app-shell .app-table th {
     padding: 0.75rem 1rem;
+  }
+
+  .app-shell .app-table-padded {
+    margin-top: 4.2rem;
   }
 
   .app-shell .app-table tbody td:first-child {
@@ -2836,6 +3722,10 @@
   .app-shell .app-table tbody td:last-child {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+  }
+
+  .app-shell .billing-history {
+    font-size: 16px;
   }
 
   @media (min-width: 1024px) {

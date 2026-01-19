@@ -102,6 +102,7 @@
               type="submit"
               disabled={loading}
               class="cta-button auth-submit"
+              title={loading ? "Sending reset email..." : undefined}
             >
               {loading ? "Sending..." : "Send reset link"}
             </button>

@@ -111,7 +111,12 @@
 					<div class="auth-actions">
 						<p class="auth-text">
 							Didn&apos;t receive it?
-							<button on:click={resendEmail} disabled={resending} class="auth-link-button auth-link-inline">
+							<button
+								on:click={resendEmail}
+								disabled={resending}
+								class="auth-link-button auth-link-inline"
+								title={resending ? 'Resending verification email...' : undefined}
+							>
 								{resending ? 'Sending...' : 'Resend'}
 							</button>
 						</p>

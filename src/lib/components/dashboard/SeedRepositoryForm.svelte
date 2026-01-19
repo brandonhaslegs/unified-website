@@ -2,17 +2,22 @@
   import { createEventDispatcher } from "svelte";
   import { seedRepository } from "$lib/utils/api";
   import { showToast } from "$lib/stores/toast";
+  import Icon from "$lib/components/Icon.svelte";
 
   const dispatch = createEventDispatcher();
 
-  let rid = "";
+  export let rid = "";
   let loading = false;
   let error = "";
+  let copied = false;
+  let copyTimeout: ReturnType<typeof setTimeout> | null = null;
 
   function validateRid(rid: string): boolean {
     // Basic RID format validation (rad:git:...)
     return /^rad:git:[a-zA-Z0-9]+$/.test(rid.trim());
   }
+
+  $: canSubmit = validateRid(rid) && !loading;
 
   async function handleSubmit() {
     error = "";
@@ -30,7 +35,7 @@
     loading = true;
     try {
       await seedRepository(rid.trim());
-      showToast("Repo seeded", "success");
+      showToast(`Seeded ${rid.trim()}`, "success");
       rid = "";
       dispatch("success");
     } catch (err: any) {
@@ -39,6 +44,18 @@
     } finally {
       loading = false;
     }
+  }
+
+  function copyCommand() {
+    navigator.clipboard.writeText("rad get repo ID");
+    showToast("Copied to clipboard", "success");
+    copied = true;
+    if (copyTimeout) {
+      clearTimeout(copyTimeout);
+    }
+    copyTimeout = setTimeout(() => {
+      copied = false;
+    }, 2000);
   }
 </script>
 
@@ -55,12 +72,24 @@
     {#if error}
       <p class="auth-error">{error}</p>
     {/if}
-    <p class="app-meta">
-      Enter the full RID of the repository you want to seed (e.g.,
-      rad:git:hynmyfz3hqj7wzr8t5k9s2m4p6x8y0z)
-    </p>
+    <div class="app-meta seed-inline">
+      <span>To get your Repo ID, run</span>
+      <span class="terminal-command border border-black/10 dark:border-white/10 rounded-sm p-3 font-mono seed-command">
+        <span class="terminal-command-row">
+          <code>rad get repo ID</code>
+          <button type="button" on:click={copyCommand} class="ml-2 app-meta" title="Copy">
+            <Icon name={copied ? "Checkmark" : "Copy"} size={14} className="icon-current" />
+          </button>
+        </span>
+      </span>
+    </div>
   </div>
-  <button type="submit" disabled={loading} class="cta-button">
+  <button
+    type="submit"
+    disabled={!canSubmit}
+    class="cta-button"
+    title={canSubmit ? undefined : "Enter a valid rad:git: RID to seed"}
+  >
     {loading ? "Seeding..." : "Seed Repository"}
   </button>
 </form>

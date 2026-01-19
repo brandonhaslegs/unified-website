@@ -26,9 +26,9 @@
   }
 
   $: diskData = [
-    { label: "Repo data", value: "8.2 GB", className: "disk-segment-repos" },
-    { label: "Images", value: "127 MB", className: "disk-segment-images" },
-    { label: "Indexes", value: "420 MB", className: "disk-segment-indexes" },
+    { label: "Repo data", value: "6.4 GB", className: "disk-segment-repos" },
+    { label: "Images", value: "2.1 GB", className: "disk-segment-images" },
+    { label: "Indexes", value: "820 MB", className: "disk-segment-indexes" },
   ];
 
   $: usedBySegments = diskData.reduce(
@@ -64,20 +64,25 @@
   $: diskSegments = [...nonFreeSegments, freeSegment];
 </script>
 
-<div class="app-panel node-status-panel">
-  <div class="node-status-header">
-    <h3 class="node-status-title">Node Status</h3>
-    <div class="node-status-indicator">
-      <span class="node-status-dot {nodeStatus.running ? 'is-live' : 'is-down'}"
-      ></span>
-      <span class="node-status-state"
-        >{nodeStatus.running ? "Running" : "Stopped"}</span
+  <div class="app-panel node-status-panel">
+    <div class="node-status-header">
+    <div class="node-status-heading">
+      <h3 class="node-status-title">Node Status</h3>
+      <span
+        class={`node-status-pill ${nodeStatus.running ? "is-live" : "is-down"}`}
       >
+        <span
+          class="node-status-dot {nodeStatus.running ? 'is-live' : 'is-down'}"
+        ></span>
+        {nodeStatus.running ? "Running" : "Stopped"}
+      </span>
+    </div>
+    <div class="node-status-indicator">
       <a
         href="https://app.radicle.xyz/nodes/{nodeStatus.nodeId}"
         target="_blank"
         rel="noopener noreferrer"
-        class="cta-button cta-button-outline"
+        class="cta-button cta-button-ghost"
       >
         <span>View Node Details</span>
         <Icon name="OpenExternal" size={14} className="icon-current" />
@@ -122,7 +127,7 @@
   <div class="node-status-meter-label">Stats</div>
   <div class="node-status-breakdown">
     {#each storageBreakdown as item}
-      <div>
+      <div class="node-status-cell">
         <span class="node-status-breakdown-value">{item.value}</span>
         <span class="node-status-breakdown-label">{item.label}</span>
       </div>

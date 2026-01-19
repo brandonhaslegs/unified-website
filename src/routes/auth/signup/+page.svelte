@@ -167,7 +167,12 @@
 						<p class="auth-error">{errors.terms}</p>
 					{/if}
 
-					<button type="submit" disabled={loading} class="cta-button auth-submit">
+					<button
+						type="submit"
+						disabled={loading}
+						class="cta-button auth-submit"
+						title={loading ? 'Creating account...' : undefined}
+					>
 						{loading ? 'Creating account...' : 'Sign up'}
 					</button>
 				</form>

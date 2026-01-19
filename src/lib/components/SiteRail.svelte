@@ -22,10 +22,13 @@
 	];
 
 	const appNav = [
-		{ label: 'Dashboard', href: '/dashboard' },
-		{ label: 'Account Settings', href: '/dashboard/settings' },
-		{ label: 'Billing History', href: '/dashboard/receipts' },
-		{ label: 'Help', href: '/dashboard/help' }
+		{ label: 'Dashboard', href: '/dashboard', icon: 'Dashboard' },
+		{ label: 'Account Settings', href: '/dashboard/settings', icon: 'Settings' },
+		{ label: 'Billing History', href: '/dashboard/receipts', icon: 'Document' }
+	];
+
+	const appFooterNav = [
+		{ label: 'Help', href: '/dashboard/help', icon: 'Help' }
 	];
 
 	const mobileCards = [
@@ -141,13 +144,30 @@
 						in:fly={{ y: 10, duration: 140, opacity: 0 }}
 						out:fly={{ y: 10, duration: 120, opacity: 0 }}
 					>
+						<Icon name={item.icon} size={14} className="icon-current" />
 						{item.label}
 					</a>
 				{/each}
 			</nav>
 			<div class="mobile-nav-footer" transition:fly={{ y: 10, duration: 200 }}>
 				{#if $isAuthenticated}
+					{#each appFooterNav as item}
+						{@const isActive =
+							item.href === '/dashboard'
+								? $page.url.pathname === item.href
+								: $page.url.pathname.startsWith(item.href)}
+						<a
+							href={item.href}
+							class={`site-rail-link ${isActive ? 'site-rail-link-active' : ''}`}
+							aria-current={isActive ? 'page' : undefined}
+							on:click={closeMobileNav}
+						>
+							<Icon name={item.icon} size={14} className="icon-current" />
+							{item.label}
+						</a>
+					{/each}
 					<button type="button" class="site-rail-logout" on:click={handleSignOut}>
+						<Icon name="Disconnect" size={14} className="icon-current" />
 						Log out
 					</button>
 				{/if}
@@ -218,6 +238,7 @@
 					class:site-rail-link-active={isActive}
 					aria-current={isActive ? 'page' : undefined}
 				>
+					<Icon name={item.icon} size={14} className="icon-current" />
 					{item.label}
 				</a>
 			{/each}
@@ -245,7 +266,22 @@
 	</div>
 	<div class="site-rail-footer" role="group" aria-label="Secondary links">
 		{#if showAppNav && $isAuthenticated}
+			{#each appFooterNav as item}
+				{@const isActive =
+					item.href === '/dashboard'
+						? $page.url.pathname === item.href
+						: $page.url.pathname.startsWith(item.href)}
+						<a
+							href={item.href}
+							class={`site-rail-link ${isActive ? 'site-rail-link-active' : ''}`}
+							aria-current={isActive ? 'page' : undefined}
+						>
+							<Icon name={item.icon} size={14} className="icon-current" />
+							{item.label}
+						</a>
+			{/each}
 			<button type="button" class="site-rail-logout" on:click={handleSignOut}>
+				<Icon name="Disconnect" size={14} className="icon-current" />
 				Log out
 			</button>
 		{:else if !isAppContext}

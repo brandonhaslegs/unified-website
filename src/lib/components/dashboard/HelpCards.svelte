@@ -1,11 +1,22 @@
 <script lang="ts">
   import Icon from "$lib/components/Icon.svelte";
+  import { showToast } from "$lib/stores/toast";
 
   export let nodeId: string;
 
+  let copiedKey = "";
+  let copyTimeout: ReturnType<typeof setTimeout> | null = null;
+
   function copyToClipboard(text: string) {
     navigator.clipboard.writeText(text);
-    alert("Copied to clipboard");
+    showToast("Copied to clipboard", "success");
+    copiedKey = text;
+    if (copyTimeout) {
+      clearTimeout(copyTimeout);
+    }
+    copyTimeout = setTimeout(() => {
+      copiedKey = "";
+    }, 2000);
   }
 </script>
 
@@ -21,25 +32,31 @@
       <div>
         <p class="app-meta mb-2">1. Get your node ID:</p>
         <div
-          class="border border-black/10 dark:border-white/10 rounded-sm p-3 font-mono flex items-center justify-between"
+          class="terminal-command border border-black/10 dark:border-white/10 rounded-sm p-3 font-mono"
         >
-          <span>{nodeId || "Your node ID will appear here"}</span>
-          <button
-            on:click={() => copyToClipboard(nodeId)}
-            class="ml-2 app-meta"
-            title="Copy"
-          >
-            <Icon name="Copy" size={14} className="icon-current" />
+          <div class="terminal-command-row">
+            <span>{nodeId || "Your node ID will appear here"}</span>
+            <button
+              on:click={() => copyToClipboard(nodeId)}
+              class="ml-2 app-meta"
+              title="Copy"
+            >
+            <Icon
+              name={copiedKey === nodeId ? "Checkmark" : "Copy"}
+              size={14}
+              className="icon-current"
+            />
           </button>
+          </div>
         </div>
       </div>
 
       <div>
         <p class="app-meta mb-2">2. Add to repository allowlist:</p>
         <div
-          class="border border-black/10 dark:border-white/10 rounded-sm p-3 font-mono"
+          class="terminal-command border border-black/10 dark:border-white/10 rounded-sm p-3 font-mono"
         >
-          <div class="flex items-center justify-between">
+          <div class="terminal-command-row">
             <code>rad remote add --allow hynmyfz3hqj7wzr8t5k9s2m4p6x8y0z</code>
             <button
               on:click={() =>
@@ -47,7 +64,15 @@
               class="ml-2 app-meta"
               title="Copy"
             >
-              <Icon name="Copy" size={14} className="icon-current" />
+              <Icon
+                name={
+                  copiedKey === `rad remote add --allow ${nodeId}`
+                    ? "Checkmark"
+                    : "Copy"
+                }
+                size={14}
+                className="icon-current"
+              />
             </button>
           </div>
         </div>
@@ -56,16 +81,20 @@
       <div>
         <p class="app-meta mb-2">3. Push changes:</p>
         <div
-          class="border border-black/10 dark:border-white/10 rounded-sm p-3 font-mono"
+          class="terminal-command border border-black/10 dark:border-white/10 rounded-sm p-3 font-mono"
         >
-          <div class="flex items-center justify-between">
+          <div class="terminal-command-row">
             <code>rad push</code>
             <button
               on:click={() => copyToClipboard("rad push")}
               class="ml-2 app-meta"
               title="Copy"
             >
-              <Icon name="Copy" size={14} className="icon-current" />
+              <Icon
+                name={copiedKey === "rad push" ? "Checkmark" : "Copy"}
+                size={14}
+                className="icon-current"
+              />
             </button>
           </div>
         </div>
@@ -84,9 +113,9 @@
       <div>
         <p class="app-meta mb-2">Add preferred seed:</p>
         <div
-          class="border border-black/10 dark:border-white/10 rounded-sm p-3 font-mono"
+          class="terminal-command border border-black/10 dark:border-white/10 rounded-sm p-3 font-mono"
         >
-          <div class="flex items-center justify-between">
+          <div class="terminal-command-row">
             <code>rad remote add --seed hynmyfz3hqj7wzr8t5k9s2m4p6x8y0z</code>
             <button
               on:click={() =>
@@ -94,7 +123,15 @@
               class="ml-2 app-meta"
               title="Copy"
             >
-              <Icon name="Copy" size={14} className="icon-current" />
+              <Icon
+                name={
+                  copiedKey === `rad remote add --seed ${nodeId}`
+                    ? "Checkmark"
+                    : "Copy"
+                }
+                size={14}
+                className="icon-current"
+              />
             </button>
           </div>
         </div>

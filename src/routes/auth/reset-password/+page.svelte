@@ -110,7 +110,12 @@
 							<p class="auth-error">{errors.submit}</p>
 						{/if}
 
-						<button type="submit" disabled={loading} class="cta-button auth-submit">
+						<button
+							type="submit"
+							disabled={loading}
+							class="cta-button auth-submit"
+							title={loading ? "Resetting password..." : undefined}
+						>
 							{loading ? 'Resetting...' : 'Reset password'}
 						</button>
 					</form>

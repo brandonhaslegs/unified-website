@@ -46,8 +46,8 @@
 	{:else if receipts.length === 0}
 		<p class="app-meta">No receipts found</p>
 	{:else}
-		<div class="app-panel">
-			<table class="app-table">
+		<div class="app-panel app-panel-plain billing-history">
+			<table class="app-table app-table-padded">
 				<thead>
 					<tr>
 						<th class="pr-6">

@@ -25,7 +25,13 @@
 
 		<div class="auth-actions">
 			<a href="/dashboard/settings" class="cta-button cta-button-outline auth-submit">Keep account</a>
-			<button type="button" class="cta-button cta-button-danger auth-submit" disabled={loading} on:click={handleDelete}>
+			<button
+				type="button"
+				class="cta-button cta-button-danger auth-submit"
+				disabled={loading}
+				on:click={handleDelete}
+				title={loading ? 'Submitting deletion...' : undefined}
+			>
 				{loading ? 'Deleting...' : 'Delete account'}
 			</button>
 		</div>

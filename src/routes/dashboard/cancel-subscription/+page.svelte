@@ -25,7 +25,13 @@
 
 		<div class="auth-actions">
 			<a href="/dashboard/settings" class="cta-button cta-button-outline auth-submit">Keep subscription</a>
-			<button type="button" class="cta-button cta-button-danger auth-submit" disabled={loading} on:click={handleCancel}>
+			<button
+				type="button"
+				class="cta-button cta-button-danger auth-submit"
+				disabled={loading}
+				on:click={handleCancel}
+				title={loading ? 'Submitting cancellation...' : undefined}
+			>
 				{loading ? 'Cancelling...' : 'Cancel subscription'}
 			</button>
 		</div>

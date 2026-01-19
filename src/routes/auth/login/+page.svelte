@@ -117,6 +117,7 @@
             type="submit"
             disabled={loading}
             class="cta-button auth-submit"
+            title={loading ? "Signing in..." : undefined}
           >
             {loading ? "Signing in..." : "Sign in"}
           </button>

@@ -99,6 +99,34 @@
 					<div class="feature-illustration" style={`background-image: url(${featureIllustration});`} aria-hidden="true"></div>
 				</div>
 			</section>
+
+			<section class="garden-access">
+				<h2 class="section-heading">More ways to access Radicle</h2>
+				<div class="garden-access-grid">
+					<article class="garden-access-card">
+						<div class="garden-access-media garden-access-media-cli" aria-hidden="true"></div>
+						<div class="garden-access-body">
+							<h3>Radicle CLI</h3>
+							<p>
+								Work directly from your terminal with Git-native commands. Lightweight,
+								scriptable, and built for developers who love the command line.
+							</p>
+							<a class="garden-access-link" href="/cli">Install 1.4.0 <span aria-hidden="true">→</span></a>
+						</div>
+					</article>
+					<article class="garden-access-card">
+						<div class="garden-access-media garden-access-media-desktop" aria-hidden="true"></div>
+						<div class="garden-access-body">
+							<h3>Desktop</h3>
+							<p>
+								Browse, publish, and collaborate through a simple app. A visual way to
+								discover projects and contribute without touching the terminal.
+							</p>
+							<a class="garden-access-link" href="/desktop">Download app <span aria-hidden="true">→</span></a>
+						</div>
+					</article>
+				</div>
+			</section>
 		</div>
 		<SiteFooter currentProduct="garden" />
 	</div>
