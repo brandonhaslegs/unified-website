@@ -26,15 +26,6 @@ npm run dev
 
 4. Open [http://localhost:5173](http://localhost:5173)
 
-## TODO
-
-- [ ] Integrate real authentication backend
-- [ ] Implement Stripe checkout session creation
-- [ ] Connect to actual Radicle node API
-- [ ] Add email notification system
-- [ ] Implement real-time updates
-- [ ] Add analytics events
-
 ## Development
 
 ```bash
