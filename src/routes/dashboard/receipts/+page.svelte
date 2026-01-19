@@ -41,8 +41,6 @@
 </svelte:head>
 
 <div class="app-content">
-	<h1 class="section-heading">Billing History</h1>
-
 	{#if loading}
 		<div class="app-meta">Loading...</div>
 	{:else if receipts.length === 0}

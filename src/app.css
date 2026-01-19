@@ -125,14 +125,20 @@
   }
 
   .site-logo-full {
-    width: 120px;
-    height: auto;
+    height: 18px;
+    width: auto;
     display: block;
     filter: invert(1);
   }
 
   .dark .site-logo-full {
     filter: invert(0);
+  }
+
+  .app-logo {
+    height: 18px;
+    width: auto;
+    display: block;
   }
 
   .site-header-tagline {
@@ -235,6 +241,23 @@
     display: grid;
     gap: 1rem;
     padding: 0;
+  }
+
+  .mobile-nav-links {
+    display: grid;
+    gap: 0.85rem;
+    padding: 0.5rem 0;
+  }
+
+  .mobile-nav-link {
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 600;
+    color: rgb(var(--color-ink));
+  }
+
+  .mobile-nav-link-active {
+    color: rgb(var(--color-ink));
   }
 
   .mobile-nav-card {
@@ -1251,6 +1274,18 @@
     color: #ffffff;
   }
 
+  .dark .app-shell .cta-button-danger:hover {
+    background-color: #ff3b30;
+  }
+
+  .app-shell .cta-button-danger:hover {
+    color: #f8f9fa;
+  }
+
+  .dark .app-shell .cta-button-danger:hover {
+    color: #0a1018;
+  }
+
   .dark .cta-button-danger:hover .icon-current {
     filter: brightness(0) saturate(100%) invert(100%);
   }
@@ -1531,12 +1566,12 @@
 
   .app-shell {
     min-height: 100vh;
-    background-color: #ffffff;
+    background-color: #f8f9fa;
     color: rgb(var(--color-ink));
   }
 
   .dark .app-shell {
-    background-color: #000000;
+    background-color: #0a1018;
     color: rgb(var(--color-ink));
   }
 
@@ -1563,6 +1598,8 @@
   .app-content {
     width: 100%;
     padding-top: 2.5rem;
+    max-width: none;
+    margin: 0;
   }
 
   .node-status-panel {
@@ -1742,6 +1779,7 @@
     display: block;
     color: rgba(var(--color-ink-muted) / 0.95);
     margin-top: 0.5rem;
+    font-size: 16px;
   }
 
   .node-status-breakdown-value {
@@ -2011,7 +2049,7 @@
     padding: 0 12px;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 0.125rem;
-    background-color: #ffffff;
+    background-color: transparent;
     color: rgb(var(--color-ink));
     font-size: 16px;
     outline: none;
@@ -2022,7 +2060,6 @@
   }
 
   .dark .app-input {
-    background-color: #000000;
     border-color: rgba(255, 255, 255, 0.2);
     color: rgb(var(--color-ink));
   }
@@ -2616,5 +2653,202 @@
 
   .dark .text-secondary-dark {
     color: #b8babc !important;
+  }
+
+  .app-shell {
+    font-size: 20px;
+  }
+
+  .app-shell * {
+    font-size: inherit;
+  }
+
+  .app-shell .cta-button {
+    font-size: 16px;
+  }
+
+  .app-shell .auth-subtitle,
+  .app-shell .auth-text {
+    font-size: 16px;
+  }
+
+  .app-shell .auth-checkbox-row {
+    font-size: 16px;
+  }
+
+  .app-shell .auth-link {
+    font-size: 16px;
+  }
+
+  .app-shell .site-rail-link,
+  .app-shell .mobile-nav-link,
+  .app-shell .site-rail-footer,
+  .app-shell .site-rail-logout {
+    font-size: 16px;
+  }
+
+  .app-shell .auth-input {
+    font-size: 16px;
+  }
+
+  .app-shell .app-input {
+    font-size: 16px;
+  }
+
+  .app-shell .repo-card-rid code,
+  .app-shell .repo-card-rid button {
+    font-size: 16px;
+  }
+
+  .app-shell .app-meta {
+    font-size: 16px;
+  }
+
+  .app-shell .danger-label {
+    color: rgb(var(--color-ink));
+  }
+
+  .app-shell .node-status-breakdown-label {
+    font-size: 16px;
+  }
+
+  .app-shell .site-rail {
+    border-right: 1px solid #e9ebef;
+    padding-right: 1.25rem;
+  }
+
+  .app-shell .site-body {
+    padding: 0;
+    gap: 0;
+    max-width: none;
+    margin: 0;
+  }
+
+  .app-shell .app-content {
+    padding-top: 0;
+  }
+
+  .app-shell .app-panel,
+  .app-shell .auth-flow,
+  .app-shell .node-status-meter,
+  .app-shell .repo-card {
+    background: #ffffff;
+    border: 1px solid #e9ebef;
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+  }
+
+  .dark .app-shell .app-panel,
+  .dark .app-shell .auth-flow,
+  .dark .app-shell .node-status-meter,
+  .dark .app-shell .repo-card {
+    background: #0a1018;
+    border-color: #1f242c;
+  }
+
+  .dark .app-shell .site-rail {
+    border-right-color: #1f242c;
+  }
+
+  .dark .app-shell .repo-card-meta {
+    border-top-color: #1f242c;
+  }
+
+  .dark .app-shell .app-table tbody tr {
+    box-shadow: inset 0 0 0 1px #1f242c;
+  }
+
+  .app-shell .app-panel,
+  .app-shell .node-status-meter {
+    padding: 1.75rem;
+  }
+
+  .app-shell .auth-flow {
+    padding: 2rem;
+  }
+
+  .app-shell .repo-cards {
+    gap: 1rem;
+  }
+
+  .app-shell .repo-card {
+    padding: 1.5rem;
+    border-bottom: none;
+  }
+
+  .app-shell .repo-card-meta {
+    border-top: 1px solid #e9ebef;
+    padding-top: 1rem;
+  }
+
+  .app-shell .space-y-16 > :not([hidden]) ~ :not([hidden]) {
+    margin-top: 0;
+  }
+
+  .app-shell .space-y-16 > .app-panel,
+  .app-shell .space-y-16 > .node-status-meter {
+    border-radius: 0;
+  }
+
+  .app-shell .space-y-16 > .app-panel:first-child,
+  .app-shell .space-y-16 > .node-status-meter:first-child {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  .app-shell .space-y-16 > .app-panel:last-child,
+  .app-shell .space-y-16 > .node-status-meter:last-child {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .app-shell .space-y-16 > .app-panel:not(:first-child),
+  .app-shell .space-y-16 > .node-status-meter:not(:first-child) {
+    border-top: 0;
+  }
+
+  .app-shell .node-status-panel .node-status-meter {
+    background: transparent;
+    border: 0;
+    padding: 0;
+  }
+
+  .app-shell .app-table {
+    border-spacing: 0;
+  }
+
+  .app-shell .app-table tbody tr {
+    background: rgba(var(--color-ink) / 0.02);
+    box-shadow: inset 0 0 0 1px #e9ebef;
+  }
+
+  .app-shell .app-table td,
+  .app-shell .app-table th {
+    padding: 0.75rem 1rem;
+  }
+
+  .app-shell .app-table tbody td:first-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .app-shell .app-table tbody td:last-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  @media (min-width: 1024px) {
+    .app-shell .site-body {
+      padding-left: calc(max(1.5rem, (100vw - 1200px) / 2) + 200px);
+    }
+  }
+
+  .app-shell .app-logo {
+    color: #000000;
+  }
+
+  .dark .app-shell .app-logo {
+    color: #ffffff;
   }
 }

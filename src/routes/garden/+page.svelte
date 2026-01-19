@@ -38,8 +38,8 @@
 					<h1 class="hero-title">Always-on node for your Radicle repos</h1>
 					<p class="hero-subtitle">The security of Radicle with the convenience of availability.</p>
 					<div class="hero-actions">
-						<a href="/auth/signup" class="cta-button">Get one for $10/month</a>
-						<a href="/auth/login" class="cta-button cta-button-outline">Log in</a>
+						<a href="/auth/signup" class="cta-button" target="_blank" rel="noreferrer">Get one for $10/month</a>
+						<a href="/auth/login" class="cta-button cta-button-outline" target="_blank" rel="noreferrer">Log in</a>
 					</div>
 				</div>
 				<div

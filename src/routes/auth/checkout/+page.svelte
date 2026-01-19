@@ -83,10 +83,6 @@
 						<span>Billed monthly</span>
 						<span>Starting today</span>
 					</div>
-					<div class="checkout-row checkout-total">
-						<span class="section-heading">Total</span>
-						<span class="checkout-total-value">$10.00</span>
-					</div>
 				</div>
 
 				<hr class="auth-divider" />

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import Icon from '$lib/components/Icon.svelte';
 
 	export let ctaLabel = 'Get one for $10/month';
@@ -43,7 +42,7 @@
 						<span>{ctaLabel}</span>
 					</button>
 				{:else}
-					<a href={ctaHref} class="cta-button">
+					<a href={ctaHref} class="cta-button" target="_blank" rel="noreferrer">
 						{#if ctaIcon}
 							<Icon name={ctaIcon} size={14} className="icon-terminal" />
 						{/if}
@@ -59,9 +58,9 @@
 				<a href="/install" class="link-highlight">
 					<span>Install Radicle</span>
 				</a>
-				<button on:click={() => goto('/dashboard')} class="link-highlight">
+				<a href="/dashboard" class="link-highlight" target="_blank" rel="noreferrer">
 					<span>Log in</span>
-				</button>
+				</a>
 			</div>
 		</div>
 	{:else if auxLinkLabel && auxLinkHref}

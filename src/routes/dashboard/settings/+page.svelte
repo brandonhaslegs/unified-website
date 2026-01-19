@@ -62,6 +62,12 @@
       subscriptionLoading = false;
     }
   });
+
+  $: canSubmitPasswordChange =
+    currentPassword.trim().length > 0 &&
+    newPassword.trim().length > 0 &&
+    confirmPassword.trim().length > 0 &&
+    !changePasswordLoading;
 </script>
 
 <svelte:head>
@@ -136,7 +142,7 @@
 
         <button
           type="submit"
-          disabled={changePasswordLoading}
+          disabled={!canSubmitPasswordChange}
           class="cta-button"
         >
           {changePasswordLoading ? "Changing..." : "Change Password"}

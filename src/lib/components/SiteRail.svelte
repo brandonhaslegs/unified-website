@@ -4,6 +4,7 @@
 	import { user, isAuthenticated } from '$lib/stores/auth';
 	import { signOut } from '$lib/utils/auth';
 	import Icon from '$lib/components/Icon.svelte';
+	import AppLogo from '$lib/components/AppLogo.svelte';
 	import mobileArtAbout from '$lib/../illustrations/Illustration 9.png';
 	import mobileArtGuides from '$lib/../illustrations/Illustration 4.png';
 	import mobileArtInstall from '$lib/../illustrations/Illustration 1.png';
@@ -18,6 +19,13 @@
 		{ label: 'Guides & Support', href: '/guides' },
 		{ label: 'Install', href: '/install' },
 		{ label: 'Garden', href: '/garden' }
+	];
+
+	const appNav = [
+		{ label: 'Dashboard', href: '/dashboard' },
+		{ label: 'Account Settings', href: '/dashboard/settings' },
+		{ label: 'Billing History', href: '/dashboard/receipts' },
+		{ label: 'Help', href: '/dashboard/help' }
 	];
 
 	const mobileCards = [
@@ -52,13 +60,6 @@
 		}
 	];
 
-	const gardenSubnav = [
-		{ label: 'Dashboard', href: '/dashboard' },
-		{ label: 'Account Settings', href: '/dashboard/settings' },
-		{ label: 'Billing History', href: '/dashboard/receipts' },
-		{ label: 'Help', href: '/dashboard/help' }
-	];
-
 	function handleSignOut() {
 		signOut();
 		user.set(null);
@@ -69,11 +70,21 @@
 	function closeMobileNav() {
 		mobileNavOpen = false;
 	}
+
+	$: isAppContext =
+		$page.url.pathname.startsWith('/dashboard') ||
+		$page.url.pathname.startsWith('/auth');
+	$: isAuthPage = $page.url.pathname.startsWith('/auth');
+	$: showAppNav = isAppContext && !isAuthPage;
 </script>
 
 <div class="site-rail-mobile">
 	<a class="site-rail-mobile-brand" href="/" on:click={closeMobileNav}>
-		<img src="/icons/Logo.svg" alt="radicle" class="site-logo-full" />
+		{#if isAppContext}
+			<AppLogo />
+		{:else}
+			<img src="/icons/Logo.svg" alt="radicle" class="site-logo-full" />
+		{/if}
 	</a>
 	<button
 		type="button"
@@ -97,7 +108,11 @@
 	>
 		<div class="site-rail-mobile">
 			<a class="site-rail-mobile-brand" href="/" on:click={closeMobileNav}>
-				<img src="/icons/Logo.svg" alt="radicle" class="site-logo-full" />
+				{#if isAppContext}
+					<AppLogo />
+				{:else}
+					<img src="/icons/Logo.svg" alt="radicle" class="site-logo-full" />
+				{/if}
 			</a>
 			<button
 				type="button"
@@ -110,101 +125,137 @@
 				<Icon name="MenuDots" size={18} className="icon-current" />
 			</button>
 		</div>
-		<nav class="mobile-nav-cards" aria-label="Mobile primary navigation">
-			{#each mobileCards as card, index}
-				<a
-					class={`mobile-nav-card ${card.className}`}
-					href={card.href}
-					on:click={closeMobileNav}
-					in:fly={{ y: 14, duration: 160, delay: 30 * index, opacity: 0 }}
-					out:fly={{ y: 10, duration: 140, delay: 20 * index, opacity: 0 }}
-				>
-					<div>
-						<div class="mobile-nav-title">
-							<span>{card.label}</span>
-							{#if card.isNew}
-								<span class="site-rail-badge">New</span>
-							{/if}
+		{#if showAppNav}
+			<nav class="mobile-nav-links" aria-label="Mobile app navigation">
+				{#each appNav as item}
+					{@const isActive =
+						item.href === '/dashboard'
+							? $page.url.pathname === item.href
+							: $page.url.pathname.startsWith(item.href)}
+					<a
+						href={item.href}
+						class="mobile-nav-link"
+						class:mobile-nav-link-active={isActive}
+						aria-current={isActive ? 'page' : undefined}
+						on:click={closeMobileNav}
+						in:fly={{ y: 10, duration: 140, opacity: 0 }}
+						out:fly={{ y: 10, duration: 120, opacity: 0 }}
+					>
+						{item.label}
+					</a>
+				{/each}
+			</nav>
+			<div class="mobile-nav-footer" transition:fly={{ y: 10, duration: 200 }}>
+				{#if $isAuthenticated}
+					<button type="button" class="site-rail-logout" on:click={handleSignOut}>
+						Log out
+					</button>
+				{/if}
+			</div>
+		{:else if !isAppContext}
+			<nav class="mobile-nav-cards" aria-label="Mobile primary navigation">
+				{#each mobileCards as card, index}
+					<a
+						class={`mobile-nav-card ${card.className}`}
+						href={card.href}
+						on:click={closeMobileNav}
+						in:fly={{ y: 14, duration: 160, delay: 30 * index, opacity: 0 }}
+						out:fly={{ y: 10, duration: 140, delay: 20 * index, opacity: 0 }}
+					>
+						<div>
+							<div class="mobile-nav-title">
+								<span>{card.label}</span>
+								{#if card.isNew}
+									<span class="site-rail-badge">New</span>
+								{/if}
+							</div>
+							<p>{card.description}</p>
 						</div>
-						<p>{card.description}</p>
-					</div>
-					<div
-						class="mobile-nav-art"
-						style={`background-image: url(${card.art});`}
-						aria-hidden="true"
-					></div>
-				</a>
-			{/each}
-		</nav>
-		<div class="mobile-nav-footer" transition:fly={{ y: 10, duration: 200 }}>
-			<div>
-				<h2 class="site-footer-heading">Resources</h2>
-				<a class="site-footer-link" href="/faq" on:click={closeMobileNav}>FAQ</a>
-				<a class="site-footer-link" href="/updates" on:click={closeMobileNav}>Updates</a>
-				<a class="site-footer-link" href="https://radicle.xyz/blog" target="_blank" rel="noreferrer">Blog</a>
+						<div
+							class="mobile-nav-art"
+							style={`background-image: url(${card.art});`}
+							aria-hidden="true"
+						></div>
+					</a>
+				{/each}
+			</nav>
+			<div class="mobile-nav-footer" transition:fly={{ y: 10, duration: 200 }}>
+				<div>
+					<h2 class="site-footer-heading">Resources</h2>
+					<a class="site-footer-link" href="/faq" on:click={closeMobileNav}>FAQ</a>
+					<a class="site-footer-link" href="/updates" on:click={closeMobileNav}>Updates</a>
+					<a class="site-footer-link" href="https://radicle.xyz/blog" target="_blank" rel="noreferrer">Blog</a>
+				</div>
+				<div>
+					<h2 class="site-footer-heading">Social</h2>
+					<a class="site-footer-link" href="https://bsky.app/profile/radicle.xyz" target="_blank" rel="noreferrer">Bluesky</a>
+					<a class="site-footer-link" href="https://x.com/radicle" target="_blank" rel="noreferrer">Twitter</a>
+					<a class="site-footer-link" href="https://joinmastodon.org/" target="_blank" rel="noreferrer">Mastodon</a>
+				</div>
 			</div>
-			<div>
-				<h2 class="site-footer-heading">Social</h2>
-				<a class="site-footer-link" href="https://bsky.app/profile/radicle.xyz" target="_blank" rel="noreferrer">Bluesky</a>
-				<a class="site-footer-link" href="https://x.com/radicle" target="_blank" rel="noreferrer">Twitter</a>
-				<a class="site-footer-link" href="https://joinmastodon.org/" target="_blank" rel="noreferrer">Mastodon</a>
-			</div>
-		</div>
+		{/if}
 	</div>
 {/if}
 
 <nav class="site-rail" aria-label="Primary site navigation">
 	<a class="site-rail-logo" href="/">
-		<img src="/icons/Logo.svg" alt="radicle" class="site-logo-full" />
+		{#if isAppContext}
+			<AppLogo />
+		{:else}
+			<img src="/icons/Logo.svg" alt="radicle" class="site-logo-full" />
+		{/if}
 	</a>
 	<div role="group" aria-label="Primary links">
-		{#each primaryNav as item}
-			{@const isActive =
-				activeHref
-					? activeHref === item.href
-					: item.href === '/'
-						? $page.url.pathname === '/'
+		{#if showAppNav}
+			{#each appNav as item}
+				{@const isActive =
+					item.href === '/dashboard'
+						? $page.url.pathname === item.href
 						: $page.url.pathname.startsWith(item.href)}
-			<a
-				href={item.href}
-				class="site-rail-link"
-				class:site-rail-link-active={isActive}
-				aria-current={isActive ? 'page' : undefined}
-			>
-				{item.label}
-				{#if item.href === '/garden'}
-					<span class="site-rail-badge">New</span>
-				{/if}
-			</a>
-			{#if item.href === '/garden' && $isAuthenticated}
-				<div class="site-rail-subnav" role="group" aria-label="Garden">
-					{#each gardenSubnav as subitem}
-						{@const subActive =
-							subitem.href === '/dashboard'
-								? $page.url.pathname === subitem.href
-								: $page.url.pathname.startsWith(subitem.href)}
-						<a
-							href={subitem.href}
-							class={subActive ? 'site-rail-link-active' : undefined}
-							aria-current={subActive ? 'page' : undefined}
-						>
-							{subitem.label}
-						</a>
-					{/each}
-					<button type="button" class="site-rail-logout" on:click={handleSignOut}>
-						Log out
-					</button>
-				</div>
-			{/if}
-		{/each}
+				<a
+					href={item.href}
+					class="site-rail-link"
+					class:site-rail-link-active={isActive}
+					aria-current={isActive ? 'page' : undefined}
+				>
+					{item.label}
+				</a>
+			{/each}
+		{:else if !isAppContext}
+			{#each primaryNav as item}
+				{@const isActive =
+					activeHref
+						? activeHref === item.href
+						: item.href === '/'
+							? $page.url.pathname === '/'
+							: $page.url.pathname.startsWith(item.href)}
+				<a
+					href={item.href}
+					class="site-rail-link"
+					class:site-rail-link-active={isActive}
+					aria-current={isActive ? 'page' : undefined}
+				>
+					{item.label}
+					{#if item.href === '/garden'}
+						<span class="site-rail-badge">New</span>
+					{/if}
+				</a>
+			{/each}
+		{/if}
 	</div>
 	<div class="site-rail-footer" role="group" aria-label="Secondary links">
-		<a href="/updates">Updates</a>
-		<a
-			href="/faq"
-			aria-current={$page.url.pathname === '/faq' ? 'page' : undefined}
-		>
-			FAQ
-		</a>
+		{#if showAppNav && $isAuthenticated}
+			<button type="button" class="site-rail-logout" on:click={handleSignOut}>
+				Log out
+			</button>
+		{:else if !isAppContext}
+			<a href="/updates">Updates</a>
+			<a
+				href="/faq"
+				aria-current={$page.url.pathname === '/faq' ? 'page' : undefined}
+			>
+				FAQ
+			</a>
+		{/if}
 	</div>
 </nav>
