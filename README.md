@@ -10,6 +10,7 @@ A unified design for Radicle's products, replacing `radicle.xyz`, `desktop.radic
 - [ ] maybe make buttons smaller (match design system)
 - [ ] maybe make fonts smaller (match design system)
 - [ ] public private icon should be lock on private, nothing on public repos
+- [ ] change `rad get repo id` to `rad .`
 
 ## Getting Started
 
