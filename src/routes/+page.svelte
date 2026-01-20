@@ -1,26 +1,8 @@
 <script lang="ts">
 	import SiteFooter from '$lib/components/SiteFooter.svelte';
 	import AppLogo from '$lib/components/AppLogo.svelte';
-	import { page } from '$app/stores';
-	import featureIllustration from '$lib/../illustrations/Illustration 2.png';
-
-	let heroEl: HTMLElement;
-
-	const illustrationModules = import.meta.glob('/src/illustrations/*.png', {
-		eager: true,
-		import: 'default'
-	});
-	const illustrationUrls = Object.values(illustrationModules) as string[];
-
-	$: if (heroEl && illustrationUrls.length > 0) {
-		const path = $page.url.pathname;
-		let hash = 0;
-		for (let i = 0; i < path.length; i += 1) {
-			hash = (hash * 31 + path.charCodeAt(i)) >>> 0;
-		}
-		const index = hash % illustrationUrls.length;
-		heroEl.style.setProperty('--hero-image', `url("${illustrationUrls[index]}")`);
-	}
+	import heroIllustration from '$lib/../illustrations/Illustration 7.png';
+	import featureIllustration from '$lib/../illustrations/home-page-features.png';
 </script>
 
 <svelte:head>
@@ -30,7 +12,7 @@
 <div class="site-shell">
 	<div class="garden-landing">
 		<div class="garden-landing-inner">
-			<section class="site-hero" bind:this={heroEl}>
+			<section class="site-hero">
 				<div>
 					<AppLogo class="app-logo garden-hero-logo" />
 					<div class="hero-title-stack">
@@ -46,7 +28,7 @@
 				</div>
 				<div
 					class="hero-art"
-					style="background-image: var(--hero-image);"
+					style={`background-image: url(${heroIllustration});`}
 				></div>
 			</section>
 
