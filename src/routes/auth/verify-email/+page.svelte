@@ -122,7 +122,7 @@
 						</p>
 						<div class="auth-actions">
 							<button on:click={skipVerification} class="cta-button cta-button-outline auth-submit">
-								Skip Verification (Continue to Payment)
+								Skip verification (Continue to payment)
 							</button>
 						</div>
 					</div>

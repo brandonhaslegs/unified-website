@@ -22,7 +22,7 @@
 
 <div class="space-y-16">
   <section class="app-panel">
-    <h3 class="section-heading">Seeding Private Repositories</h3>
+    <h3 class="section-heading">Seeding private repositories</h3>
     <div class="mt-6 space-y-6 app-meta">
       <p>
         To seed a private repository, you need to add your Always On Node to the
@@ -43,7 +43,7 @@
             >
             <Icon
               name={copiedKey === nodeId ? "Checkmark" : "Copy"}
-              size={14}
+              size={20}
               className="icon-current"
             />
           </button>
@@ -70,7 +70,7 @@
                     ? "Checkmark"
                     : "Copy"
                 }
-                size={14}
+                size={20}
                 className="icon-current"
               />
             </button>
@@ -92,7 +92,7 @@
             >
               <Icon
                 name={copiedKey === "rad push" ? "Checkmark" : "Copy"}
-                size={14}
+                size={20}
                 className="icon-current"
               />
             </button>
@@ -103,7 +103,7 @@
   </section>
 
   <section class="app-panel">
-    <h3 class="section-heading">Configure Local Node</h3>
+    <h3 class="section-heading">Configure local node</h3>
     <div class="mt-6 space-y-6 app-meta">
       <p>
         Add your Always On Node as a preferred seed for faster access to your
@@ -129,7 +129,7 @@
                     ? "Checkmark"
                     : "Copy"
                 }
-                size={14}
+                size={20}
                 className="icon-current"
               />
             </button>

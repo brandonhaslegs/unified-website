@@ -28,7 +28,7 @@
 		{#if ctaCopyText}
 			<button type="button" class="cta-button" on:click={handleCtaCopy}>
 				<span>{ctaCopied ? 'Copied' : ctaLabel}</span>
-				<Icon name="Copy" size={14} className="icon-current" />
+				<Icon name="Copy" size={20} className="icon-current" />
 			</button>
 		{:else}
 			<a href={ctaHref} class="cta-button">

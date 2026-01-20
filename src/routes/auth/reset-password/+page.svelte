@@ -75,7 +75,7 @@
 				{:else}
 					<form class="auth-form" on:submit|preventDefault={handleSubmit}>
 						<div class="auth-field">
-							<label for="password" class="auth-label">New Password</label>
+							<label for="password" class="auth-label">New password</label>
 							<input
 								id="password"
 								name="password"
@@ -91,7 +91,7 @@
 						</div>
 
 						<div class="auth-field">
-							<label for="confirmPassword" class="auth-label">Confirm New Password</label>
+							<label for="confirmPassword" class="auth-label">Confirm new password</label>
 							<input
 								id="confirmPassword"
 								name="confirmPassword"

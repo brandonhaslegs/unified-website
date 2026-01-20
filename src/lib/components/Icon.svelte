@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let name: string;
-	export let size: number = 16;
+export let size: number = 20;
 	export let className: string = '';
 </script>
 

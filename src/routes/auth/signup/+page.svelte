@@ -136,7 +136,7 @@
 					</div>
 
 					<div class="auth-field">
-						<label for="confirmPassword" class="auth-label">Confirm Password</label>
+						<label for="confirmPassword" class="auth-label">Confirm password</label>
 						<input
 							id="confirmPassword"
 							name="confirmPassword"

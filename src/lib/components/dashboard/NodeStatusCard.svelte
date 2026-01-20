@@ -67,7 +67,7 @@
   <div class="app-panel node-status-panel">
     <div class="node-status-header">
     <div class="node-status-heading">
-      <h3 class="node-status-title">Node Status</h3>
+      <h3 class="node-status-title">Node status</h3>
       <span
         class={`node-status-pill ${nodeStatus.running ? "is-live" : "is-down"}`}
       >
@@ -84,8 +84,8 @@
         rel="noopener noreferrer"
         class="cta-button cta-button-ghost"
       >
-        <span>View Node Details</span>
-        <Icon name="OpenExternal" size={14} className="icon-current" />
+        <span>View node details</span>
+        <Icon name="OpenExternal" size={20} className="icon-current" />
       </a>
     </div>
   </div>
@@ -97,7 +97,7 @@
 
     <div class="node-status-meter">
       <div class="node-status-meter-header">
-        <span class="node-status-meter-label">Disk Space</span>
+        <span class="node-status-meter-label">Disk space</span>
         <span class="node-status-total">
           {nodeStatus.diskUsed.toFixed(1)} GB / {nodeStatus.diskTotal} GB
         </span>

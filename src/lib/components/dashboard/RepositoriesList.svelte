@@ -188,7 +188,7 @@
                 >
                   <Icon
                     name={copiedRid === repo.rid ? "Checkmark" : "Copy"}
-                    size={14}
+                    size={20}
                     className="icon-current"
                   />
                 </button>
@@ -205,7 +205,7 @@
                   View
                   <Icon
                     name="OpenExternal"
-                    size={14}
+                    size={20}
                     className="icon-current"
                   />
                 </a>
@@ -291,7 +291,7 @@
                 <span class="inline-flex items-center gap-2">
                   <Icon
                     name={repo.visibility === "public" ? "Eye" : "EyeSlash"}
-                    size={14}
+                    size={20}
                     className="icon-current"
                   />
                   {repo.visibility.charAt(0).toUpperCase() +

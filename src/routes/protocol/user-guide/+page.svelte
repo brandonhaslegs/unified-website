@@ -44,7 +44,7 @@
             href="/guides"
             class="cta-button cta-button-outline cta-button-small w-fit"
           >
-            <Icon name="ArrowLeft" size={14} className="icon-text" />
+            <Icon name="ArrowLeft" size={20} className="icon-text" />
             <span>Back</span>
           </a>
           <h1 class="hero-title">User Guide</h1>

@@ -32,12 +32,12 @@
       <span class="relative block h-4 w-4 flex items-center justify-center overflow-hidden">
         <Icon
           name="Copy"
-          size={14}
+          size={20}
           className={`icon-terminal absolute left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-200 ease-out ${copied ? "top-[120%] opacity-0" : "top-1/2 opacity-100"}`}
         />
         <Icon
           name="Checkmark"
-          size={14}
+          size={20}
           className={`icon-terminal absolute left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-200 ease-out ${copied ? "top-1/2 opacity-100" : "top-[-60%] opacity-0"}`}
         />
       </span>

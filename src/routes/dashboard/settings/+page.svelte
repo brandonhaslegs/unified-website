@@ -71,7 +71,7 @@
 </script>
 
 <svelte:head>
-  <title>Account Settings - Radicle Garden</title>
+  <title>Account settings - Radicle Garden</title>
 </svelte:head>
 
 <div class="app-content">
@@ -84,7 +84,7 @@
 
     <!-- Email Section -->
     <div class="app-panel">
-      <h2 class="section-heading">Email Address</h2>
+      <h2 class="section-heading">Email address</h2>
       <div class="email-row">
         <p class="app-meta">{$user?.email}</p>
         <button
@@ -92,14 +92,14 @@
           class="cta-button cta-button-outline opacity-70 text-black dark:text-white cursor-not-allowed"
           title="Email changes are not available yet."
         >
-          Change Email
+          Change email
         </button>
       </div>
     </div>
 
     <!-- Password Change Section -->
     <div class="app-panel">
-      <h2 class="section-heading mb-4">Change Password</h2>
+      <h2 class="section-heading mb-4">Change password</h2>
       <form
         on:submit|preventDefault={handlePasswordChange}
         class="change-password-form"
@@ -107,7 +107,7 @@
         <div class="change-password-grid">
           <div class="space-y-2">
             <label for="currentPassword" class="auth-label"
-              >Current Password</label
+              >Current password</label
             >
             <input
               id="currentPassword"
@@ -121,7 +121,7 @@
           </div>
 
           <div class="space-y-2">
-            <label for="newPassword" class="auth-label">New Password</label>
+            <label for="newPassword" class="auth-label">New password</label>
             <input
               id="newPassword"
               type="password"
@@ -135,7 +135,7 @@
 
           <div class="space-y-2">
             <label for="confirmPassword" class="auth-label"
-              >Confirm New Password</label
+              >Confirm new password</label
             >
             <input
               id="confirmPassword"
@@ -157,7 +157,7 @@
                 ? undefined
                 : "Enter current, new, and confirm passwords to continue."}
             >
-              {changePasswordLoading ? "Changing..." : "Change Password"}
+              {changePasswordLoading ? "Changing..." : "Change password"}
             </button>
           </div>
         </div>
@@ -166,29 +166,29 @@
 
     <!-- Danger Zone -->
     <div class="app-panel">
-      <h2 class="section-heading text-red-600 danger-title">Danger Zone</h2>
+      <h2 class="section-heading text-red-600 danger-title">Danger zone</h2>
       <div class="danger-row">
         <div>
-          <p class="app-meta danger-label">Delete Account</p>
+          <p class="app-meta danger-label">Delete account</p>
           <p class="app-meta">Permanently delete your account and all data</p>
         </div>
         <a
           href="/dashboard/delete-account"
           class="cta-button cta-button-danger"
         >
-          Delete Account
+          Delete account
         </a>
       </div>
       <div class="danger-row mt-6">
         <div>
-          <p class="app-meta danger-label">Cancel Subscription</p>
+          <p class="app-meta danger-label">Cancel subscription</p>
           <p class="app-meta">Stop billing and shut down your Always On Node</p>
         </div>
         <a
           href="/dashboard/cancel-subscription"
           class="cta-button cta-button-danger"
         >
-          Cancel Subscription
+          Cancel subscription
         </a>
       </div>
     </div>

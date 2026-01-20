@@ -78,7 +78,7 @@
         <span class="terminal-command-row">
           <code>rad get repo ID</code>
           <button type="button" on:click={copyCommand} class="ml-2 app-meta" title="Copy">
-            <Icon name={copied ? "Checkmark" : "Copy"} size={14} className="icon-current" />
+            <Icon name={copied ? "Checkmark" : "Copy"} size={20} className="icon-current" />
           </button>
         </span>
       </span>

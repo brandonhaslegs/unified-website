@@ -91,9 +91,9 @@
 									<span>Download PDF</span>
 									<span class="download-icon" aria-hidden="true">
 										{#if downloadedReceiptId === receipt.id}
-											<Icon name="Checkmark" size={14} className="icon-current" />
+											<Icon name="Checkmark" size={20} className="icon-current" />
 										{:else}
-											<Icon name="ArrowDown" size={14} className="icon-current" />
+											<Icon name="ArrowDown" size={20} className="icon-current" />
 										{/if}
 									</span>
 								</a>

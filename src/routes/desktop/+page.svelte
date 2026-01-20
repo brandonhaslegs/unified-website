@@ -188,13 +188,13 @@
                                 {#if copiedCommand === command.text}
                                   <Icon
                                     name="Checkmark"
-                                    size={14}
+                                    size={20}
                                     className="icon-current"
                                   />
                                 {:else}
                                   <Icon
                                     name="Copy"
-                                    size={14}
+                                    size={20}
                                     className="icon-current"
                                   />
                                 {/if}

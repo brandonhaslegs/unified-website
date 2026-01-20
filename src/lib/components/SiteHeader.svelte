@@ -37,14 +37,14 @@
 				{#if ctaCopyText}
 					<button type="button" on:click={handleCtaCopy} class="cta-button" aria-label={ctaLabel}>
 						{#if ctaIcon}
-							<Icon name={ctaCopied ? 'Checkmark' : ctaIcon} size={14} className="icon-terminal" />
+							<Icon name={ctaCopied ? 'Checkmark' : ctaIcon} size={20} className="icon-terminal" />
 						{/if}
 						<span>{ctaLabel}</span>
 					</button>
 				{:else}
 					<a href={ctaHref} class="cta-button" target="_blank" rel="noreferrer">
 						{#if ctaIcon}
-							<Icon name={ctaIcon} size={14} className="icon-terminal" />
+							<Icon name={ctaIcon} size={20} className="icon-terminal" />
 						{/if}
 						<span>{ctaLabel}</span>
 					</a>

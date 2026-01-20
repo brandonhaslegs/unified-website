@@ -56,42 +56,42 @@
 						<div class="feature-item">
 							<span class="feature-dot" aria-hidden="true"></span>
 							<div>
-								<h3 class="feature-title">24/7 Repository Availability</h3>
+								<h3 class="feature-title">24/7 repository availability</h3>
 								<p class="feature-text">Your repositories are always accessible, even when your local machine is offline.</p>
 							</div>
 						</div>
 						<div class="feature-item">
 							<span class="feature-dot" aria-hidden="true"></span>
 							<div>
-								<h3 class="feature-title">No Local Resource Usage</h3>
+								<h3 class="feature-title">No local resource usage</h3>
 								<p class="feature-text">Keep your repositories seeded without using your own bandwidth or storage.</p>
 							</div>
 						</div>
 						<div class="feature-item">
 							<span class="feature-dot" aria-hidden="true"></span>
 							<div>
-								<h3 class="feature-title">Automatic Syncing</h3>
+								<h3 class="feature-title">Automatic syncing</h3>
 								<p class="feature-text">Your repositories stay up-to-date automatically with all the latest changes.</p>
 							</div>
 						</div>
 						<div class="feature-item">
 							<span class="feature-dot" aria-hidden="true"></span>
 							<div>
-								<h3 class="feature-title">Easy Team Sharing</h3>
+								<h3 class="feature-title">Easy team sharing</h3>
 								<p class="feature-text">Share your repositories with team members without requiring them to run their own nodes.</p>
 							</div>
 						</div>
 						<div class="feature-item">
 							<span class="feature-dot" aria-hidden="true"></span>
 							<div>
-								<h3 class="feature-title">Reliable Infrastructure</h3>
+								<h3 class="feature-title">Reliable infrastructure</h3>
 								<p class="feature-text">Built on Radicle's decentralized network for maximum reliability and uptime.</p>
 							</div>
 						</div>
 						<div class="feature-item">
 							<span class="feature-dot" aria-hidden="true"></span>
 							<div>
-								<h3 class="feature-title">Simple Setup</h3>
+								<h3 class="feature-title">Simple setup</h3>
 								<p class="feature-text">Get started in minutes with no complex configuration or hardware requirements.</p>
 							</div>
 						</div>

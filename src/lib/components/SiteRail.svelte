@@ -23,8 +23,8 @@
 
 	const appNav = [
 		{ label: 'Dashboard', href: '/dashboard', icon: 'Dashboard' },
-		{ label: 'Account Settings', href: '/dashboard/settings', icon: 'Settings' },
-		{ label: 'Billing History', href: '/dashboard/receipts', icon: 'Document' }
+		{ label: 'Account settings', href: '/dashboard/settings', icon: 'Settings' },
+		{ label: 'Billing history', href: '/dashboard/receipts', icon: 'Document' }
 	];
 
 	const appFooterNav = [
@@ -144,7 +144,7 @@
 						in:fly={{ y: 10, duration: 140, opacity: 0 }}
 						out:fly={{ y: 10, duration: 120, opacity: 0 }}
 					>
-						<Icon name={item.icon} size={14} className="icon-current" />
+						<Icon name={item.icon} size={20} className="icon-current" />
 						{item.label}
 					</a>
 				{/each}
@@ -162,12 +162,12 @@
 							aria-current={isActive ? 'page' : undefined}
 							on:click={closeMobileNav}
 						>
-							<Icon name={item.icon} size={14} className="icon-current" />
+							<Icon name={item.icon} size={20} className="icon-current" />
 							{item.label}
 						</a>
 					{/each}
 					<button type="button" class="site-rail-logout" on:click={handleSignOut}>
-						<Icon name="Disconnect" size={14} className="icon-current" />
+						<Icon name="Disconnect" size={20} className="icon-current" />
 						Log out
 					</button>
 				{/if}
@@ -238,7 +238,7 @@
 					class:site-rail-link-active={isActive}
 					aria-current={isActive ? 'page' : undefined}
 				>
-					<Icon name={item.icon} size={14} className="icon-current" />
+					<Icon name={item.icon} size={20} className="icon-current" />
 					{item.label}
 				</a>
 			{/each}
@@ -276,12 +276,12 @@
 							class={`site-rail-link ${isActive ? 'site-rail-link-active' : ''}`}
 							aria-current={isActive ? 'page' : undefined}
 						>
-							<Icon name={item.icon} size={14} className="icon-current" />
+							<Icon name={item.icon} size={20} className="icon-current" />
 							{item.label}
 						</a>
 			{/each}
 			<button type="button" class="site-rail-logout" on:click={handleSignOut}>
-				<Icon name="Disconnect" size={14} className="icon-current" />
+				<Icon name="Disconnect" size={20} className="icon-current" />
 				Log out
 			</button>
 		{:else if !isAppContext}

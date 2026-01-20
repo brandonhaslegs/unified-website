@@ -79,7 +79,7 @@
 			<!-- Repositories Section -->
 			<div class="app-panel">
 				<div class="repo-panel-header repo-panel-header-compact">
-					<h2 class="section-heading">Seeded Repositories</h2>
+					<h2 class="section-heading">Seeded repositories</h2>
 					<button
 						on:click={() => (seedModalOpen = true)}
 						class="cta-button"

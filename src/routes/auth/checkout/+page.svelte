@@ -76,7 +76,7 @@
         <hr class="auth-divider" />
 
         <div class="checkout-section">
-          <h2 class="section-heading">Order Summary</h2>
+          <h2 class="section-heading">Order summary</h2>
           <div class="checkout-row">
             <span>Always On Node</span>
             <span>$10.00</span>
@@ -90,7 +90,7 @@
         <hr class="auth-divider" />
 
         <div class="checkout-section">
-          <h2 class="section-heading">Payment Details</h2>
+          <h2 class="section-heading">Payment details</h2>
           <form on:submit|preventDefault={handleSubmit} class="auth-form">
             <div class="auth-field">
               <label for="name" class="auth-label">Name on card</label>

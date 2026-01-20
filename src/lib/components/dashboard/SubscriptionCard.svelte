@@ -17,7 +17,7 @@
       </div>
 
       <div class="subscription-col">
-        <p class="app-meta">Next Payment</p>
+        <p class="app-meta">Next payment</p>
         <p class="app-value">
           {formatCurrency(
             subscription.nextPaymentAmount,
