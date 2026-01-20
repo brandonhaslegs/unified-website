@@ -34,12 +34,10 @@
     switch (state) {
       case "fetching":
         return 0;
-      case "failed":
-        return 1;
       case "fetched":
-        return 2;
+        return 1;
       default:
-        return 3;
+        return 2;
     }
   }
 
@@ -151,8 +149,6 @@
         return "text-green-600";
       case "fetching":
         return "text-yellow-600";
-      case "failed":
-        return "text-red-600";
       default:
         return "app-meta";
     }
@@ -264,21 +260,6 @@
                       <path d="M4.6 4.4H7" />
                       <path d="M3.8 9.8A4.5 4.5 0 0 0 11.4 11.6" />
                       <path d="M11.4 11.6H9" />
-                    </svg>
-                  {:else if repo.fetchState === "failed"}
-                    <svg
-                      class="status-icon"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      aria-hidden="true"
-                    >
-                      <circle cx="8" cy="8" r="6" />
-                      <path d="M8 4.6V8.8" />
-                      <path d="M8 11.4H8.02" />
                     </svg>
                   {/if}
                   {repo.fetchState.charAt(0).toUpperCase() +

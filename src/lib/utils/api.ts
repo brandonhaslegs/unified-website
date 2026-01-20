@@ -24,7 +24,7 @@ export interface Repository {
 	id: string;
 	rid: string;
 	name?: string;
-	fetchState: 'fetched' | 'fetching' | 'failed';
+	fetchState: 'fetched' | 'fetching';
 	visibility: 'public' | 'private';
 	lastUpdated: string;
 	storageSize: string;
@@ -106,7 +106,7 @@ export async function getRepositories(): Promise<Repository[]> {
 					id: '5',
 					rid: 'rad:git:a1c3e5g7i9k1m3o5q7s9u1w3y5a7c9e',
 					name: 'design-system',
-					fetchState: 'failed',
+					fetchState: 'fetching',
 					visibility: 'private',
 					lastUpdated: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
 					storageSize: '95 MB'
@@ -157,8 +157,7 @@ export async function getRepositories(): Promise<Repository[]> {
 			];
 			for (let i = 1; i <= 94; i += 1) {
 				const isPublic = i % 2 === 0;
-				const fetchState =
-					i <= 3 ? 'fetching' : i <= 5 ? 'failed' : 'fetched';
+				const fetchState = i <= 3 ? 'fetching' : 'fetched';
 				const hoursAgo = (i + 3) * 6;
 				const sizeGb = (i % 7) + 0.4;
 				extraRepos.push({
