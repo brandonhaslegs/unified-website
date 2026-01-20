@@ -48,7 +48,7 @@
 				></div>
 			</section>
 
-			<section class="space-y-10">
+			<section class="space-y-10 garden-why">
 				<h2 class="section-heading">Why run an always‑on node?</h2>
 				<p class="hero-subtitle">Stay online, stay replicated, stay in control.</p>
 				<div class="features-split">

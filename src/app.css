@@ -694,6 +694,10 @@
     gap: 3rem;
   }
 
+  .garden-why {
+    margin-top: 8rem;
+  }
+
   .garden-access-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
