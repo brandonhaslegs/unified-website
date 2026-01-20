@@ -4,6 +4,10 @@ A unified design for Radicle's products, replacing `radicle.xyz`, `desktop.radic
 
 💡 This should be viewed as a prototype.
 
+## TO DO
+
+- Add human readable hostname to the node page (rudolfs.nodes.radicle.garden) and the id (random string)
+
 ## Getting Started
 
 1. Install dependencies:
