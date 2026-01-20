@@ -6,9 +6,9 @@ A unified design for Radicle's products, replacing `radicle.xyz`, `desktop.radic
 
 ## TO DO
 
-- Add human readable hostname to the node page (rudolfs.nodes.radicle.garden) and the id (random string)
-- maybe make buttons smaller (match design system)
-- maybe make fonts smaller (match design system)
+-[] Add human readable hostname to the node page (rudolfs.nodes.radicle.garden) and the id (random string)
+-[] maybe make buttons smaller (match design system)
+-[] maybe make fonts smaller (match design system)
 
 ## Getting Started
 
