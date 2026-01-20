@@ -1,223 +1,135 @@
 <script lang="ts">
-  import SiteFooter from "$lib/components/SiteFooter.svelte";
-  import SiteRail from "$lib/components/SiteRail.svelte";
-  import SiteContentHeader from "$lib/components/SiteContentHeader.svelte";
-  import heroIllustration from "$lib/../illustrations/Illustration 4.png";
-  import contributeIllustration from "$lib/../illustrations/Illustration 10.png";
-  import featuresIllustration from "$lib/../illustrations/home-page-features.png";
-  import cliIllustration from "$lib/../illustrations/Illustration 1.png";
-  import desktopIllustration from "$lib/../illustrations/Illustration 3.png";
-  import UpdatesSection from "$lib/components/UpdatesSection.svelte";
+	import SiteFooter from '$lib/components/SiteFooter.svelte';
+	import AppLogo from '$lib/components/AppLogo.svelte';
+	import { page } from '$app/stores';
+	import featureIllustration from '$lib/../illustrations/Illustration 2.png';
+
+	let heroEl: HTMLElement;
+
+	const illustrationModules = import.meta.glob('/src/illustrations/*.png', {
+		eager: true,
+		import: 'default'
+	});
+	const illustrationUrls = Object.values(illustrationModules) as string[];
+
+	$: if (heroEl && illustrationUrls.length > 0) {
+		const path = $page.url.pathname;
+		let hash = 0;
+		for (let i = 0; i < path.length; i += 1) {
+			hash = (hash * 31 + path.charCodeAt(i)) >>> 0;
+		}
+		const index = hash % illustrationUrls.length;
+		heroEl.style.setProperty('--hero-image', `url("${illustrationUrls[index]}")`);
+	}
 </script>
 
 <svelte:head>
-  <title>Radicle</title>
+	<title>Radicle Garden - Always On Node</title>
 </svelte:head>
 
 <div class="site-shell">
-  <div class="site-body">
-    <SiteRail />
-    <div class="home-sections">
-      <div class="home-hero-block">
-        <SiteContentHeader ctaLabel="Install Radicle 1.5.0" ctaHref="/install" />
-        <section class="site-hero">
-          <h1 class="hero-title">
-            A privacy-preserving, censorship-resistant network for code
-            collaboration.
-          </h1>
-          <div
-            class="hero-art"
-            style={`background-image: url(${heroIllustration});`}
-            aria-hidden="true"
-          ></div>
-          <p class="hero-subtitle">
-            <span class="text-primary-light dark:text-white"
-              >Radicle is a peer-to-peer code collaboration stack built on Git.</span
-            > No central servers. No middlemen. Just cryptographic sovereignty and
-            full control over your data, identity, and workflow.
-          </p>
-        </section>
-      </div>
+	<div class="garden-landing">
+		<div class="garden-landing-inner">
+			<section class="site-hero" bind:this={heroEl}>
+				<div>
+					<AppLogo class="app-logo garden-hero-logo" />
+					<div class="hero-title-stack">
+						<h1 class="hero-title">An always-on node for your Radicle repos.</h1>
+						<p class="hero-title hero-title-muted">
+							The security of Radicle with the convenience of availability.
+						</p>
+					</div>
+					<div class="hero-actions">
+						<a href="/auth/signup" class="cta-button cta-button-brand" target="_blank" rel="noreferrer">Get one for $10/month</a>
+						<a href="/auth/login" class="cta-button cta-button-outline" target="_blank" rel="noreferrer">Log in</a>
+					</div>
+				</div>
+				<div
+					class="hero-art"
+					style="background-image: var(--hero-image);"
+				></div>
+			</section>
 
-      <section class="features-split">
-        <div class="feature-list">
-          <div class="feature-item">
-            <span class="feature-dot feature-dot-active" aria-hidden="true"
-            ></span>
-            <div>
-              <h3 class="feature-title">Your data, forever and secure.</h3>
-              <p class="feature-text">
-                All social artifacts are stored in Git, and signed using
-                public-key cryptography. Radicle verifies the authenticity and
-                authorship of all data for you.
-              </p>
-            </div>
-          </div>
-          <div class="feature-item">
-            <span class="feature-dot" aria-hidden="true"></span>
-            <div>
-              <h3 class="feature-title">Evolvable &amp; extensible.</h3>
-              <p class="feature-text">
-                Radicle’s Collaborative Objects (COBs) provide Radicle’s social
-                primitive. This enables features such as issues, discussions and
-                code review to be implemented as Git objects. Developers can
-                extend Radicle’s capabilities to build any kind of collaboration
-                flow they see fit.
-              </p>
-            </div>
-          </div>
-          <div class="feature-item">
-            <span class="feature-dot" aria-hidden="true"></span>
-            <div>
-              <h3 class="feature-title">Unparalleled autonomy.</h3>
-              <p class="feature-text">
-                Radicle enables users to run their own nodes, ensuring
-                censorship-resistant code collaboration and fostering a
-                resilient network without reliance on third parties.
-              </p>
-            </div>
-          </div>
-          <div class="feature-item">
-            <span class="feature-dot" aria-hidden="true"></span>
-            <div>
-              <h3 class="feature-title">Local-first.</h3>
-              <p class="feature-text">
-                Radicle is local-first, providing always-available functionality
-                even without internet access. Users own their data, making
-                migration, backup, and access easy both online and offline.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div
-          class="feature-illustration"
-          style={`background-image: url(${featuresIllustration});`}
-          aria-hidden="true"
-        ></div>
-      </section>
+			<section class="space-y-10 garden-why">
+				<h2 class="section-heading">Why run an always‑on node?</h2>
+				<p class="hero-subtitle">Stay online, stay replicated, stay in control.</p>
+				<div class="features-split">
+					<div class="feature-list">
+						<div class="feature-item">
+							<span class="feature-dot" aria-hidden="true"></span>
+							<div>
+								<h3 class="feature-title">24/7 repository availability</h3>
+								<p class="feature-text">Your repositories are always accessible, even when your local machine is offline.</p>
+							</div>
+						</div>
+						<div class="feature-item">
+							<span class="feature-dot" aria-hidden="true"></span>
+							<div>
+								<h3 class="feature-title">No local resource usage</h3>
+								<p class="feature-text">Keep your repositories seeded without using your own bandwidth or storage.</p>
+							</div>
+						</div>
+						<div class="feature-item">
+							<span class="feature-dot" aria-hidden="true"></span>
+							<div>
+								<h3 class="feature-title">Automatic syncing</h3>
+								<p class="feature-text">Your repositories stay up-to-date automatically with all the latest changes.</p>
+							</div>
+						</div>
+						<div class="feature-item">
+							<span class="feature-dot" aria-hidden="true"></span>
+							<div>
+								<h3 class="feature-title">Easy team sharing</h3>
+								<p class="feature-text">Share your repositories with team members without requiring them to run their own nodes.</p>
+							</div>
+						</div>
+						<div class="feature-item">
+							<span class="feature-dot" aria-hidden="true"></span>
+							<div>
+								<h3 class="feature-title">Reliable infrastructure</h3>
+								<p class="feature-text">Built on Radicle's decentralized network for maximum reliability and uptime.</p>
+							</div>
+						</div>
+						<div class="feature-item">
+							<span class="feature-dot" aria-hidden="true"></span>
+							<div>
+								<h3 class="feature-title">Simple setup</h3>
+								<p class="feature-text">Get started in minutes with no complex configuration or hardware requirements.</p>
+							</div>
+						</div>
+					</div>
+					<div class="feature-illustration" style={`background-image: url(${featureIllustration});`} aria-hidden="true"></div>
+				</div>
+			</section>
 
-      <section class="stack-section home-stack">
-        <p class="hero-subtitle">
-          <strong>Your sovereign developer stack.</strong> Radicle comes with a CLI,
-          web interface and TUI, that are backed by the Radicle Node and HTTP Daemon.
-          It’s modular, so any part can be swapped out and other clients can be developed.
-        </p>
-        <div class="stack-grid">
-          <div class="stack-card">
-            <div
-              class="stack-media"
-              style={`background-image: url(${cliIllustration});`}
-              aria-hidden="true"
-            ></div>
-            <h3 class="stack-title">Radicle CLI</h3>
-            <p class="stack-copy">
-              Work directly from your terminal with Git-native commands.
-              Lightweight, scriptable, and built for developers who love the
-              command line.
-            </p>
-            <a class="stack-link" href="/install">Install Radicle 1.5.0 →</a>
-          </div>
-          <div class="stack-card">
-            <div
-              class="stack-media"
-              style={`background-image: url(${desktopIllustration});`}
-              aria-hidden="true"
-            ></div>
-            <h3 class="stack-title">Desktop</h3>
-            <p class="stack-copy">
-              Browse, publish, and collaborate through a simple app. A visual
-              way to discover projects and contribute without touching the
-              terminal.
-            </p>
-            <a class="stack-link" href="/install">Download app →</a>
-          </div>
-        </div>
-      </section>
-
-      <section class="stack-under-hood home-under-hood">
-        <p class="hero-subtitle section-heading">
-          <strong>Under the hood.</strong> Radicle Protocol uses cryptographic identities,
-          Git for data transfer, and a custom gossip protocol to share repository
-          metadata between peers.
-        </p>
-        <a class="stack-link" href="/guides">Get started with guides →</a>
-      </section>
-
-      <UpdatesSection
-        title="Recent updates"
-        linkLabel="All updates →"
-        items={[
-          { time: "4d ago", title: "Radicle 1.4.0 released" },
-          { time: "2w ago", title: "Radicle 1.3.0 released" },
-          { time: "13.06.25", title: "Radicle Desktop released" },
-          { time: "10.09.24", title: "Radicle makes it to the top of hacker news" }
-        ]}
-      />
-
-      <section class="contribute-section">
-        <div class="contribute-grid">
-          <div class="contribute-copy">
-            <h2 class="section-heading">Help shape radicle’s future.</h2>
-            <p class="hero-subtitle">
-              Collaborate, contribute, and help grow the ecosystem — from code
-              to culture.
-            </p>
-            <div class="contribute-links">
-              <div class="contribute-link">
-                <a href="/guides">Contribute →</a>
-                <p>Get involved by contributing code.</p>
-              </div>
-              <div class="contribute-link">
-                <a
-                  href="https://radicle.zulipchat.com/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Community →
-                </a>
-                <p>Join our community on Zulip.</p>
-              </div>
-            </div>
-          </div>
-          <div
-            class="contribute-visual"
-            style={`background-image: url(${contributeIllustration});`}
-            aria-hidden="true"
-          ></div>
-        </div>
-      </section>
-
-      <section class="faq-teaser">
-        <h2 class="section-heading">
-          <span class="faq-label">FAQ.</span> Answers to common questions.
-        </h2>
-        <div class="faq-list">
-          <div class="faq-item">
-            <span>What is Radicle? How is it different from Git/GitHub?</span>
-            <span class="faq-chevron" aria-hidden="true">›</span>
-          </div>
-          <div class="faq-item">
-            <span
-              >Who is using Radicle currently? How many users does it have?</span
-            >
-            <span class="faq-chevron" aria-hidden="true">›</span>
-          </div>
-          <div class="faq-item">
-            <span>What do you mean by “peer-to-peer”?</span>
-            <span class="faq-chevron" aria-hidden="true">›</span>
-          </div>
-          <div class="faq-item">
-            <span>Isn’t Git already peer-to-peer? Why do I need Radicle?</span>
-            <span class="faq-chevron" aria-hidden="true">›</span>
-          </div>
-          <div class="faq-item">
-            <span>Do I need to run a node to use Radicle?</span>
-            <span class="faq-chevron" aria-hidden="true">›</span>
-          </div>
-        </div>
-        <a class="stack-link faq-link" href="/faq">All FAQ →</a>
-      </section>
-    </div>
-    <SiteFooter />
-  </div>
+			<section class="garden-access">
+				<h2 class="section-heading">More ways to access Radicle</h2>
+				<div class="garden-access-grid">
+					<article class="garden-access-card">
+						<div class="garden-access-media garden-access-media-cli" aria-hidden="true"></div>
+						<div class="garden-access-body">
+							<h3>Radicle CLI</h3>
+							<p>
+								Work directly from your terminal with Git-native commands. Lightweight,
+								scriptable, and built for developers who love the command line.
+							</p>
+							<a class="garden-access-link" href="/cli">Install 1.4.0 <span aria-hidden="true">→</span></a>
+						</div>
+					</article>
+					<article class="garden-access-card">
+						<div class="garden-access-media garden-access-media-desktop" aria-hidden="true"></div>
+						<div class="garden-access-body">
+							<h3>Desktop</h3>
+							<p>
+								Browse, publish, and collaborate through a simple app. A visual way to
+								discover projects and contribute without touching the terminal.
+							</p>
+							<a class="garden-access-link" href="/desktop">Download app <span aria-hidden="true">→</span></a>
+						</div>
+					</article>
+				</div>
+			</section>
+			<SiteFooter currentProduct="garden" />
+		</div>
+	</div>
 </div>

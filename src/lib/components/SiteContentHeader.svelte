@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Icon from '$lib/components/Icon.svelte';
 
-	export let tagline = 'Stop building the future on borrowed ground';
+export let tagline = '';
 	export let ctaLabel = 'Install Radicle 1.5.0';
 	export let ctaHref = '/install';
 	export let showCta = true;

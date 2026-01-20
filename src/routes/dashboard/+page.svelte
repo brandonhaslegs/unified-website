@@ -73,13 +73,13 @@
 	{:else}
 			<div class="space-y-16">
 				{#if nodeStatus}
-					<NodeStatusCard {nodeStatus} repoCount={repositories.length} />
+					<NodeStatusCard {nodeStatus} {repositories} />
 				{/if}
 
 			<!-- Repositories Section -->
 			<div class="app-panel">
 				<div class="repo-panel-header repo-panel-header-compact">
-					<h2 class="section-heading">Seeded repositories</h2>
+					<h2 class="section-heading">Seeded repos</h2>
 					<button
 						on:click={() => (seedModalOpen = true)}
 						class="cta-button"
@@ -97,7 +97,7 @@
 							<div class="repo-search-wrap">
 								<input
 									type="text"
-									placeholder="Search repositories..."
+									placeholder="Search repos..."
 									bind:value={searchQuery}
 									class="app-input repo-search repo-input-compact"
 								/>
@@ -132,6 +132,6 @@
 	{/if}
 </div>
 
-<Modal open={seedModalOpen} title="Seed New Repository" on:close={() => (seedModalOpen = false)}>
+<Modal open={seedModalOpen} title="Seed new repo" on:close={() => (seedModalOpen = false)}>
 	<SeedRepositoryForm on:success={handleSeedSuccess} />
 </Modal>

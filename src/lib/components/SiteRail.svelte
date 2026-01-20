@@ -5,63 +5,30 @@
 	import { signOut } from '$lib/utils/auth';
 	import Icon from '$lib/components/Icon.svelte';
 	import AppLogo from '$lib/components/AppLogo.svelte';
-	import mobileArtAbout from '$lib/../illustrations/Illustration 9.png';
-	import mobileArtGuides from '$lib/../illustrations/Illustration 4.png';
-	import mobileArtInstall from '$lib/../illustrations/Illustration 1.png';
-	import mobileArtGarden from '$lib/../illustrations/Illustration 7.png';
 	import { fade, fly } from 'svelte/transition';
 
 	export let activeHref: string | null = null;
 	let mobileNavOpen = false;
 
-	const primaryNav = [
-		{ label: 'About', href: '/' },
-		{ label: 'Guides & Support', href: '/guides' },
-		{ label: 'Install', href: '/install' },
-		{ label: 'Garden', href: '/garden' }
-	];
+	const primaryNav: { label: string; href: string }[] = [];
 
 	const appNav = [
 		{ label: 'Dashboard', href: '/dashboard', icon: 'Dashboard' },
-		{ label: 'Account settings', href: '/dashboard/settings', icon: 'Settings' },
-		{ label: 'Billing history', href: '/dashboard/receipts', icon: 'Document' }
-	];
-
-	const appFooterNav = [
 		{ label: 'Help', href: '/dashboard/help', icon: 'Help' }
 	];
 
-	const mobileCards = [
-		{
-			label: 'About',
-			description: 'An introduction to the Radicle network.',
-			href: '/',
-			art: mobileArtAbout,
-			className: 'mobile-card-about'
-		},
-		{
-			label: 'Guides & Support',
-			description: 'Everything you need to get started.',
-			href: '/guides',
-			art: mobileArtGuides,
-			className: 'mobile-card-guides'
-		},
-		{
-			label: 'Install',
-			description: 'Install Radicle CLI or download the desktop app.',
-			href: '/install',
-			art: mobileArtInstall,
-			className: 'mobile-card-install'
-		},
-		{
-			label: 'Garden',
-			description: 'Run a node with our always-on Garden service.',
-			href: '/garden',
-			art: mobileArtGarden,
-			className: 'mobile-card-garden',
-			isNew: true
-		}
+	const appFooterNav = [
+		{ label: 'Account settings', href: '/dashboard/settings', icon: 'Settings' }
 	];
+
+	const mobileCards: {
+		label: string;
+		description: string;
+		href: string;
+		art: string;
+		className: string;
+		isNew?: boolean;
+	}[] = [];
 
 	function handleSignOut() {
 		signOut();
@@ -83,11 +50,7 @@
 
 <div class="site-rail-mobile">
 	<a class="site-rail-mobile-brand" href="/" on:click={closeMobileNav}>
-		{#if isAppContext}
-			<AppLogo />
-		{:else}
-			<img src="/icons/Logo.svg" alt="radicle" class="site-logo-full" />
-		{/if}
+		<AppLogo />
 	</a>
 	<button
 		type="button"
@@ -111,11 +74,7 @@
 	>
 		<div class="site-rail-mobile">
 			<a class="site-rail-mobile-brand" href="/" on:click={closeMobileNav}>
-				{#if isAppContext}
-					<AppLogo />
-				{:else}
-					<img src="/icons/Logo.svg" alt="radicle" class="site-logo-full" />
-				{/if}
+				<AppLogo />
 			</a>
 			<button
 				type="button"
@@ -203,7 +162,6 @@
 				<div>
 					<h2 class="site-footer-heading">Resources</h2>
 					<a class="site-footer-link" href="/faq" on:click={closeMobileNav}>FAQ</a>
-					<a class="site-footer-link" href="/updates" on:click={closeMobileNav}>Updates</a>
 					<a class="site-footer-link" href="https://radicle.xyz/blog" target="_blank" rel="noreferrer">Blog</a>
 				</div>
 				<div>
@@ -219,11 +177,7 @@
 
 <nav class="site-rail" aria-label="Primary site navigation">
 	<a class="site-rail-logo" href="/">
-		{#if isAppContext}
-			<AppLogo />
-		{:else}
-			<img src="/icons/Logo.svg" alt="radicle" class="site-logo-full" />
-		{/if}
+		<AppLogo />
 	</a>
 	<div role="group" aria-label="Primary links">
 		{#if showAppNav}
@@ -257,9 +211,6 @@
 					aria-current={isActive ? 'page' : undefined}
 				>
 					{item.label}
-					{#if item.href === '/garden'}
-						<span class="site-rail-badge">New</span>
-					{/if}
 				</a>
 			{/each}
 		{/if}
@@ -285,13 +236,6 @@
 				Log out
 			</button>
 		{:else if !isAppContext}
-			<a href="/updates">Updates</a>
-			<a
-				href="/faq"
-				aria-current={$page.url.pathname === '/faq' ? 'page' : undefined}
-			>
-				FAQ
-			</a>
 		{/if}
 	</div>
 </nav>

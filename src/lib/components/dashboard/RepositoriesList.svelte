@@ -8,6 +8,12 @@
   import type { Repository } from "$lib/utils/api";
   import { getNodeStatus } from "$lib/utils/api";
 
+  const illustrationModules = import.meta.glob("/src/illustrations/*.png", {
+    eager: true,
+    import: "default",
+  });
+  const illustrationUrls = Object.values(illustrationModules) as string[];
+
   export let repositories: Repository[];
   export let searchQuery = "";
   export let sortBy:
@@ -78,6 +84,8 @@
     });
 
   let unseedingRid: string | null = null;
+  let unseedingRepoName: string | null = null;
+  let unseedingRepo: Repository | null = null;
   let unseedModalOpen = false;
 
   function escapeHtml(value: string): string {
@@ -96,6 +104,18 @@
     const escapedQuery = escapeHtml(query.trim());
     const pattern = new RegExp(`(${escapedQuery})`, "gi");
     return escaped.replace(pattern, '<mark class="repo-highlight">$1</mark>');
+  }
+
+  function getAvatarUrl(repo: Repository, index: number) {
+    if (!illustrationUrls.length) return "";
+    const key = repo.rid || repo.id || `${index}`;
+    let hash = 0;
+    for (let i = 0; i < key.length; i += 1) {
+      hash = (hash << 5) - hash + key.charCodeAt(i);
+      hash |= 0;
+    }
+    const safeIndex = Math.abs(hash) % illustrationUrls.length;
+    return illustrationUrls[safeIndex];
   }
 
   onMount(async () => {
@@ -122,8 +142,18 @@
     }, 2000);
   }
 
+  function formatRidShort(rid: string): string {
+    const trimmed = rid.trim();
+    const suffix = trimmed.startsWith("rad:git:") ? trimmed.slice("rad:git:".length) : trimmed;
+    const head = suffix.slice(0, 4);
+    const tail = suffix.slice(-4);
+    return `rad:${head}…${tail}`;
+  }
+
   function handleUnseed(rid: string) {
     unseedingRid = rid;
+    unseedingRepo = repositories.find((repo) => repo.rid === rid) || null;
+    unseedingRepoName = unseedingRepo?.name || null;
     unseedModalOpen = true;
   }
 
@@ -138,6 +168,8 @@
       showToast(`Unseeded ${unseededRepo}`, "success");
       unseedModalOpen = false;
       unseedingRid = null;
+      unseedingRepoName = null;
+      unseedingRepo = null;
     } catch (error: any) {
       showToast(error.message || "Failed to unseed repository", "error");
     }
@@ -166,128 +198,135 @@
     </div>
   {:else}
     <div class="repo-cards">
-      {#each filteredRepos as repo (repo.id)}
+      {#each filteredRepos as repo, index (repo.id)}
         <div class="repo-card">
-          <div class="repo-card-header">
-            <div>
-              <p class="repo-card-title">
-                {@html highlightText(repo.name || "N/A", searchQuery)}
-              </p>
-              <div class="repo-card-rid">
-                <code class="font-mono app-meta">
-                  {@html highlightText(repo.rid, searchQuery)}
-                </code>
-                <button
-                  on:click={() => copyToClipboard(repo.rid)}
-                  class="app-meta"
-                  title="Copy RID"
-                >
-                  <Icon
-                    name={copiedRid === repo.rid ? "Checkmark" : "Copy"}
-                    size={20}
-                    className="icon-current"
-                  />
-                </button>
-              </div>
-            </div>
-            <div class="repo-card-actions">
-              {#if repo.visibility === "public" && repo.fetchState === "fetched" && nodeId}
-                <a
-                  href="https://app.radicle.xyz/{nodeId}/{repo.rid}"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="cta-button cta-button-ghost"
-                >
-                  View
-                  <Icon
-                    name="OpenExternal"
-                    size={20}
-                    className="icon-current"
-                  />
-                </a>
-              {:else}
-                <button
-                  type="button"
-                  class="cta-button cta-button-ghost"
-                  disabled
-                  title={repo.fetchState !== "fetched" ? "Looking for this repo" : "Can't view private repo"}
-                >
-                  View
-                </button>
-              {/if}
-              <button
-                on:click={() => handleUnseed(repo.rid)}
-                class="cta-button cta-button-outline cta-button-danger-hover"
-              >
-                Unseed
-              </button>
-            </div>
-          </div>
-
-          <div class="repo-card-meta">
-            <div>
-              <p class="repo-card-value repo-card-size">{repo.storageSize}</p>
-            </div>
-            <div>
-              <p class="repo-card-value {getStatusBadgeColor(repo.fetchState)}">
-                <span class="inline-flex items-center gap-2">
-                  {#if repo.fetchState === "fetched"}
-                    <svg
-                      class="status-icon"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      aria-hidden="true"
-                    >
-                      <circle cx="8" cy="8" r="6" />
-                      <path d="M5.2 8.2L7.2 10.2L11 6.4" />
-                    </svg>
-                  {:else if repo.fetchState === "fetching"}
-                    <svg
-                      class="status-icon status-icon-spin"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      aria-hidden="true"
-                    >
-                      <path d="M12.2 6.2A4.5 4.5 0 0 0 4.6 4.4" />
-                      <path d="M4.6 4.4H7" />
-                      <path d="M3.8 9.8A4.5 4.5 0 0 0 11.4 11.6" />
-                      <path d="M11.4 11.6H9" />
-                    </svg>
-                  {/if}
-                  {repo.fetchState.charAt(0).toUpperCase() +
-                    repo.fetchState.slice(1)}
-                </span>
-              </p>
-            </div>
-            <div>
-              <p class="repo-card-value">
-                <span class="inline-flex items-center gap-2">
+          <div class="repo-card-body">
+            <div class="repo-card-header">
+              <div class="repo-card-main">
+                <div class="repo-card-title-row">
+                  <div
+                    class="repo-card-avatar"
+                    style={`background-image: url(${getAvatarUrl(repo, index)});`}
+                    aria-hidden="true"
+                  ></div>
+                  <p class="repo-card-title">
+                    {@html highlightText(repo.name || "N/A", searchQuery)}
+                  </p>
                   <Icon
                     name={repo.visibility === "public" ? "Eye" : "EyeSlash"}
                     size={20}
-                    className="icon-current"
+                    className="icon-current icon-muted"
                   />
-                  {repo.visibility.charAt(0).toUpperCase() +
-                    repo.visibility.slice(1)}
-                </span>
-              </p>
+                </div>
+                <p class="repo-card-description">
+                  {repo.description || "No description provided."}
+                </p>
+                <div class="repo-card-rid">
+                    <code class="app-meta" title={repo.rid}>
+                      {formatRidShort(repo.rid)}
+                    </code>
+                  <button
+                    on:click={() => copyToClipboard(repo.rid)}
+                    class="app-meta"
+                    title="Copy RID"
+                  >
+                    <Icon
+                      name={copiedRid === repo.rid ? "Checkmark" : "Copy"}
+                      size={20}
+                      className="icon-current"
+                    />
+                  </button>
+                </div>
+                <div class="repo-card-stats-row">
+                  <div class="repo-card-stats-left">
+                    <p class="repo-card-value">
+                      <span class="inline-flex items-center gap-2">
+                        <Icon name="Issue" size={20} className="icon-current" />
+                        {repo.issuesCount}
+                        <span class="repo-card-stat-label">issues</span>
+                      </span>
+                    </p>
+                    <p class="repo-card-value">
+                      <span class="inline-flex items-center gap-2">
+                        <Icon name="Patch" size={20} className="icon-current" />
+                        {repo.patchesCount}
+                        <span class="repo-card-stat-label">
+                          {repo.patchesCount === 1 ? "patch" : "patches"}
+                        </span>
+                      </span>
+                    </p>
+                    <p class="repo-card-value">
+                      <span class="inline-flex items-center gap-2">
+                        <Icon name="Seed" size={20} className="icon-current" />
+                        {repo.seedersCount}
+                        <span class="repo-card-stat-label">seeders</span>
+                      </span>
+                    </p>
+                  </div>
+                  <div class="repo-card-stats-right">
+                    <p
+                      class="repo-card-value repo-card-updated"
+                      title={`Last updated ${new Date(repo.lastUpdated).toLocaleString()}`}
+                    >
+                      <span class="repo-card-updated-label">Updated</span>
+                      {formatRelativeTime(repo.lastUpdated)}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="repo-card-actions">
+                <button
+                  type="button"
+                  on:click={() => handleUnseed(repo.rid)}
+                  class={`cta-button cta-button-muted ${repo.fetchState === "fetching" ? "cta-button-fetching" : "cta-button-seeded"}`}
+                >
+                  <Icon
+                    name={repo.fetchState === "fetching" ? "Hourglass" : "Checkmark"}
+                    size={20}
+                    className={`icon-current cta-icon-default ${repo.fetchState === "fetching" ? "icon-fetching" : ""}`}
+                  />
+                  <Icon
+                    name="Trash"
+                    size={20}
+                    className="icon-current cta-icon-hover"
+                  />
+                  <span class="cta-label-default">
+                    {repo.fetchState === "fetching" ? "Fetching" : "Seeded"}
+                  </span>
+                  <span class="cta-label-hover">Unseed</span>
+                </button>
+                {#if repo.visibility === "public" && repo.fetchState === "fetched" && nodeId}
+                  <a
+                    href="https://app.radicle.xyz/{nodeId}/{repo.rid}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="cta-button cta-button-outline"
+                  >
+                    View
+                    <Icon
+                      name="OpenExternal"
+                      size={20}
+                      className="icon-current"
+                    />
+                  </a>
+                {:else}
+                  <button
+                    type="button"
+                    class="cta-button cta-button-outline"
+                    disabled
+                    title={repo.fetchState !== "fetched" ? "Still looking for this repo" : "Can't view private repo"}
+                  >
+                    View
+                    <Icon
+                      name="OpenExternal"
+                      size={20}
+                      className="icon-current"
+                    />
+                  </button>
+                {/if}
+              </div>
             </div>
-            <div class="repo-card-updated-row">
-              <p
-                class="repo-card-value repo-card-updated"
-                title={`Last updated ${new Date(repo.lastUpdated).toLocaleString()}`}
-              >
-                Last updated {formatRelativeTime(repo.lastUpdated)}
-              </p>
-            </div>
+
           </div>
         </div>
       {/each}
@@ -297,13 +336,37 @@
 
 <Modal
   open={unseedModalOpen}
-  title="Unseed Repository"
+  title="Unseed repo"
   on:close={() => (unseedModalOpen = false)}
 >
-  <p class="app-meta mb-4">
-    Are you sure you want to unseed this repository? This will remove it from
-    your Always On Node.
-  </p>
+  <div class="app-meta mb-4">
+    <p>
+      Are you sure you want to unseed this repository? This will remove it from
+      your Always On Node.
+    </p>
+    {#if unseedingRepo}
+      <div class="repo-unseed-card">
+        <p class="repo-unseed-title">{unseedingRepo.name || "Repository"}</p>
+        <p class="repo-unseed-rid">
+          <code class="font-mono app-meta">{unseedingRepo.rid}</code>
+        </p>
+        <div class="repo-unseed-stats">
+          <p class="repo-card-value">
+            <span class="inline-flex items-center gap-2">
+              <Icon name="Issue" size={20} className="icon-current" />
+              {unseedingRepo.issuesCount} issues
+            </span>
+          </p>
+          <p class="repo-card-value">
+            <span class="inline-flex items-center gap-2">
+              <Icon name="Patch" size={20} className="icon-current" />
+              {unseedingRepo.patchesCount} {unseedingRepo.patchesCount === 1 ? "patch" : "patches"}
+            </span>
+          </p>
+        </div>
+      </div>
+    {/if}
+  </div>
   <div class="flex space-x-3">
     <button
       on:click={() => (unseedModalOpen = false)}

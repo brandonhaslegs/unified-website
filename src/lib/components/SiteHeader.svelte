@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Icon from '$lib/components/Icon.svelte';
+	import AppLogo from '$lib/components/AppLogo.svelte';
 
 	export let ctaLabel = 'Get one for $10/month';
 	export let ctaHref = '/auth/signup';
@@ -29,9 +30,8 @@
 <header class="site-header">
 	<div class="site-header-row">
 		<a class="site-header-brand" href="/">
-			<img src="/icons/Logo.svg" alt="radicle" class="site-logo-full" />
+			<AppLogo />
 		</a>
-		<p class="site-header-tagline">Stop building the future on borrowed ground</p>
 		<div class="site-header-actions">
 			{#if showCta}
 				{#if ctaCopyText}

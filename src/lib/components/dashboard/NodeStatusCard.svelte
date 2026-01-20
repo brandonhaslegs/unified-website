@@ -1,17 +1,24 @@
 <script lang="ts">
   import Icon from "$lib/components/Icon.svelte";
-  import type { NodeStatus } from "$lib/utils/api";
+  import type { NodeStatus, Repository } from "$lib/utils/api";
+  import repoImage1 from "$lib/../illustrations/Illustration 5.png";
+  import repoImage2 from "$lib/../illustrations/Illustration 6.png";
+  import repoImage3 from "$lib/../illustrations/Illustration 2.png";
+  import repoImage4 from "$lib/../illustrations/Illustration 3.png";
 
   export let nodeStatus: NodeStatus;
-  export let repoCount = 0;
+  export let repositories: Repository[] = [];
 
   $: storageBreakdown = [
-    { label: "Repos", value: `${repoCount}` },
-    { label: "Lines of code", value: "1,794" },
-    { label: "Issues", value: "42" },
-    { label: "Patches", value: "17" },
-    { label: "Peers", value: "6" },
-    { label: "Uptime", value: "99.9%" },
+    { label: "Repos", value: `${repositories.length}` },
+    {
+      label: "Issues",
+      value: `${repositories.reduce((sum, repo) => sum + (repo.issuesCount ?? 0), 0)}`
+    },
+    {
+      label: "Patches",
+      value: `${repositories.reduce((sum, repo) => sum + (repo.patchesCount ?? 0), 0)}`
+    },
   ];
 
   function sizeToGB(value: string) {
@@ -25,43 +32,61 @@
     return parseFloat(normalized);
   }
 
-  $: diskData = [
-    { label: "Repo data", value: "6.4 GB", className: "disk-segment-repos" },
-    { label: "Images", value: "2.1 GB", className: "disk-segment-images" },
-    { label: "Indexes", value: "820 MB", className: "disk-segment-indexes" },
+  function formatStorage(valueGB: number) {
+    if (valueGB < 1) {
+      return `${Math.round(valueGB * 1024)} MB`;
+    }
+    return `${valueGB.toFixed(1)} GB`;
+  }
+
+  $: repoSizes = repositories
+    .map((repo) => ({
+      ...repo,
+      sizeGB: sizeToGB(repo.storageSize)
+    }))
+    .sort((a, b) => b.sizeGB - a.sizeGB);
+
+  $: topRepos = repoSizes.slice(0, 4);
+  $: otherReposSize = repoSizes.slice(4).reduce((sum, repo) => sum + repo.sizeGB, 0);
+  $: totalRepoSize = repoSizes.reduce((sum, repo) => sum + repo.sizeGB, 0);
+  $: scaleFactor = totalRepoSize > 0 ? nodeStatus.diskUsed / totalRepoSize : 0;
+
+  const repoImages = [repoImage1, repoImage2, repoImage3, repoImage4];
+
+  $: repoSegments = [
+    ...topRepos.map((repo, index) => ({
+      label: repo.name || repo.rid.slice(0, 8),
+      value: formatStorage(repo.sizeGB * scaleFactor),
+      className: `disk-segment-repo-${index + 1}`,
+      image: repoImages[index],
+      sizeGB: repo.sizeGB * scaleFactor,
+      percentage: ((repo.sizeGB * scaleFactor) / nodeStatus.diskTotal) * 100,
+    })),
+    ...(otherReposSize > 0
+      ? [
+          {
+            label: "Other repos",
+            value: formatStorage(otherReposSize * scaleFactor),
+            className: "disk-segment-other-repos",
+            image: "",
+            sizeGB: otherReposSize * scaleFactor,
+            percentage: ((otherReposSize * scaleFactor) / nodeStatus.diskTotal) * 100,
+          },
+        ]
+      : []),
   ];
 
-  $: usedBySegments = diskData.reduce(
-    (sum, segment) => sum + sizeToGB(segment.value),
-    0
-  );
-  $: otherSize = Math.max(nodeStatus.diskUsed - usedBySegments, 0);
-  $: emptySize = Math.max(nodeStatus.diskTotal - nodeStatus.diskUsed, 0);
-
-  $: nonFreeSegments = [
-    ...diskData.map((segment) => ({
-      ...segment,
-      sizeGB: sizeToGB(segment.value),
-      percentage: (sizeToGB(segment.value) / nodeStatus.diskTotal) * 100,
-    })),
-    {
-      label: "Other",
-      value: `${otherSize.toFixed(1)} GB`,
-      className: "disk-segment-other",
-      sizeGB: otherSize,
-      percentage: (otherSize / nodeStatus.diskTotal) * 100,
-    },
-  ].sort((a, b) => b.sizeGB - a.sizeGB);
-
+  $: freeSize = Math.max(nodeStatus.diskTotal - nodeStatus.diskUsed, 0);
   $: freeSegment = {
     label: "Free",
-    value: `${emptySize.toFixed(1)} GB`,
+    value: formatStorage(freeSize),
     className: "disk-segment-empty",
-    sizeGB: emptySize,
-    percentage: (emptySize / nodeStatus.diskTotal) * 100,
+    image: "",
+    sizeGB: freeSize,
+    percentage: (freeSize / nodeStatus.diskTotal) * 100,
   };
 
-  $: diskSegments = [...nonFreeSegments, freeSegment];
+  $: diskSegments = [...repoSegments, freeSegment];
 </script>
 
   <div class="app-panel node-status-panel">
@@ -82,7 +107,7 @@
         href="https://app.radicle.xyz/nodes/{nodeStatus.nodeId}"
         target="_blank"
         rel="noopener noreferrer"
-        class="cta-button cta-button-ghost"
+        class="cta-button cta-button-outline"
       >
         <span>View node details</span>
         <Icon name="OpenExternal" size={20} className="icon-current" />
@@ -106,7 +131,7 @@
         {#each diskSegments as segment}
           <div
             class={`node-status-bar-segment ${segment.className}`}
-            style={`width: ${segment.percentage}%`}
+            style={`width: ${segment.percentage}%; ${segment.image ? `background-image: url('${segment.image}')` : ''}`}
             title={`${segment.label} · ${segment.value}`}
           ></div>
         {/each}
@@ -114,7 +139,10 @@
       <div class="disk-breakdown">
         {#each diskSegments as segment}
           <div class="disk-breakdown-item">
-            <span class={`disk-breakdown-swatch ${segment.className}`}></span>
+            <span
+              class={`disk-breakdown-swatch ${segment.className}`}
+              style={segment.image ? `background-image: url('${segment.image}')` : ''}
+            ></span>
             <span class="disk-breakdown-label">{segment.label}</span>
             <span class="disk-breakdown-value">{segment.value}</span>
           </div>

@@ -5,6 +5,7 @@
   import SubscriptionCard from "$lib/components/dashboard/SubscriptionCard.svelte";
   import { getSubscription } from "$lib/utils/api";
   import type { Subscription } from "$lib/utils/api";
+  import DarkModeToggle from "$lib/components/DarkModeToggle.svelte";
 
   let currentPassword = "";
   let newPassword = "";
@@ -81,6 +82,16 @@
     {:else if subscription}
       <SubscriptionCard {subscription} showCancel={false} />
     {/if}
+
+    <div class="app-panel">
+      <div class="settings-toggle-row">
+        <div>
+          <h2 class="section-heading">Theme</h2>
+          <p class="app-meta">Choose theme</p>
+        </div>
+        <DarkModeToggle />
+      </div>
+    </div>
 
     <!-- Email Section -->
     <div class="app-panel">

@@ -61,7 +61,7 @@
 
 <form on:submit|preventDefault={handleSubmit} class="space-y-6">
   <div class="space-y-2">
-    <label for="rid" class="auth-label">Repository ID (RID)</label>
+    <label for="rid" class="auth-label">Repo ID (RID)</label>
     <input
       id="rid"
       type="text"
@@ -88,8 +88,8 @@
     type="submit"
     disabled={!canSubmit}
     class="cta-button"
-    title={canSubmit ? undefined : "Enter a valid rad:git: RID to seed"}
+    title={canSubmit ? undefined : "Enter a valid Repo ID to seed"}
   >
-    {loading ? "Seeding..." : "Seed Repository"}
+    {loading ? "Seeding..." : "Seed repo"}
   </button>
 </form>
